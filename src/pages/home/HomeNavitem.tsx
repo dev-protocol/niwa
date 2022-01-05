@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 
 interface HomeNavItemProps {
     title: string;
@@ -10,7 +11,7 @@ interface HomeNavItemProps {
  
 const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({title, message, path}) => {
     return (
-        <a className={`flex flex-col mb-12 px-12 py-8`} href={path}>
+        <Link className={`flex flex-col mb-12 px-12 py-8`} to={path}>
             <div className="flex items-center">
                 <span className="text-2xl font-bold mr-3">{title}</span>
                 <div className="pt-1">
@@ -18,7 +19,7 @@ const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({title, message, path}
                 </div>
             </div>
             <span>{message}</span>
-        </a>
+        </Link>
     );
 }
  

@@ -7,6 +7,8 @@ import {
   Link,
 } from 'react-router-dom';
 import Home from './pages/home';
+import TokensPage from './pages/tokens';
+import GrowthPage from './pages/growth';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +23,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/tokens" element={<TokensPage />} />
+          <Route path="/growth" element={<GrowthPage />} />
         </Routes>
       </BrowserRouter>
       </main>
