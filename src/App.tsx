@@ -9,6 +9,7 @@ import {
   useWeb3ProviderContext,
   WebProviderContext,
 } from "./context/web3ProviderContext";
+import TokenizeMarketSelect from "./pages/tokenize-market-select";
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext();
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/tokens" element={<TokensPage />} />
               <Route path="/growth" element={<GrowthPage />} />
+              <Route path="/tokenize" element={<TokenizeMarketSelect />} />
             </Routes>
           </BrowserRouter>
         </main>

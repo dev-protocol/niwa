@@ -12,5 +12,5 @@ body {
 }
 
 .section-header {
-  @apply text-lg font-bold mb-2;
+  @apply text-lg font-bold;
 }
