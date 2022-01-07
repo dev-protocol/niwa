@@ -22,11 +22,11 @@ function App() {
   return (
     <WebProviderContext.Provider value={web3ProviderContext}>
       <div className="container mx-auto">
-        <header className="flex justify-between">
+        <header className="flex justify-between py-4">
           <h1>Launchpad</h1>
           <ConnectButton onChainChanged={updateChain} />
         </header>
-        <main>
+        <main className="py-12">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
