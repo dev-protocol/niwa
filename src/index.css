@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap");
 
 body {
   font-family: "Sen", sans-serif;
+}
+
+.page-header {
+  @apply text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-600 w-full mb-6;
 }
