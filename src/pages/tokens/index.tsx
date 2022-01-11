@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import { UserToken } from "../../types/userToken";
 import { Link } from "react-router-dom";
 import UserTokenListItem from "./UserTokenListItem";
+import PageHeader from "../../components/PageHeader";
 
 interface TokensPageProps {}
 
@@ -14,7 +15,7 @@ const TokensPage: FunctionComponent<TokensPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <h1 className="page-header">Tokens</h1>
+      <PageHeader title="Tokens" />
       <div>
         <div className="flex justify-between items-center mb-2">
           <h2 className="section-header">Your Tokens</h2>
