@@ -28,7 +28,7 @@ function App() {
           <h1>Launchpad</h1>
           <ConnectButton onChainChanged={updateChain} />
         </header>
-        <main className="py-12">
+        <main className="flex py-12 w-full flex-col">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
