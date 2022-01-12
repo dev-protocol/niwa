@@ -1,15 +1,13 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent } from 'react'
 
-interface GrowthPageProps {
-    
-}
- 
+interface GrowthPageProps {}
+
 const GrowthPage: FunctionComponent<GrowthPageProps> = () => {
-    return (
-        <div>
-            <span>Growth Page</span>
-        </div>
-    );
+  return (
+    <div>
+      <span>Growth Page</span>
+    </div>
+  )
 }
- 
-export default GrowthPage;
+
+export default GrowthPage

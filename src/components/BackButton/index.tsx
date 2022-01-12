@@ -1,11 +1,11 @@
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FunctionComponent } from 'react'
+import { Link } from 'react-router-dom'
 
 interface BackButtonProps {
-  title: string;
-  path: string;
+  title: string
+  path: string
 }
 
 const BackButton: FunctionComponent<BackButtonProps> = ({ title, path }) => {
@@ -16,7 +16,7 @@ const BackButton: FunctionComponent<BackButtonProps> = ({ title, path }) => {
         <span>{title}</span>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default BackButton;
+export default BackButton

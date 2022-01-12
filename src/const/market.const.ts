@@ -1,5 +1,5 @@
 export enum Market {
-  GITHUB = "GITHUB",
-  YOUTUBE = "YOUTUBE",
-  INVALID = "INVALID",
+  GITHUB = 'GITHUB',
+  YOUTUBE = 'YOUTUBE',
+  INVALID = 'INVALID'
 }
