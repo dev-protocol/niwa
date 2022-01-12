@@ -7,6 +7,7 @@ interface FormFieldProps {
   id: string;
   required?: boolean;
   placeholder?: string;
+  disabled?: boolean;
   value: string;
   onChange: (val: string) => void;
 }
@@ -15,6 +16,7 @@ const FormField: FunctionComponent<FormFieldProps> = ({
   label,
   id,
   required = false,
+  disabled = false,
   placeholder,
   value,
   onChange,
@@ -26,7 +28,8 @@ const FormField: FunctionComponent<FormFieldProps> = ({
         placeholder={placeholder}
         id={id}
         value={value}
-        onChange={onChange}
+        onChange={(val) => onChange(val)}
+        disabled={disabled}
       />
     </div>
   );

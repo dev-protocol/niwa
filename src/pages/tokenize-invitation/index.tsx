@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import FormField from "../../components/Form";
 import PageHeader from "../../components/PageHeader";
 import { Market } from "../../const/market.const";
+import { useWeb3Provider } from "../../context/web3ProviderContext";
 import { getMarketFromString } from "../../utils/utils";
 
 interface InvitationRequestPageProps {}
@@ -21,24 +22,41 @@ const InvitationRequestPage: FunctionComponent<
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [termsAgreement, setTermsAgreement] = useState(false);
   const [subscribe, setSubscribe] = useState(false);
+  const [userAddress, setUserAddress] = useState<UndefinedOr<string>>();
+  const web3Context = useWeb3Provider();
 
   useEffect(() => {
     const { market } = params;
     setMarket(getMarketFromString(market));
   }, []);
 
+  useEffect(
+    () => validateForm(),
+    [repoUrl, userName, emailAddress, termsAgreement, userAddress]
+  );
+
+  useEffect(() => {
+    if (web3Context?.web3Provider) {
+      const provider = web3Context.web3Provider;
+      (async () => {
+        const userAddress = await provider.getSigner().getAddress();
+        setUserAddress(userAddress);
+      })();
+    }
+  }, [web3Context]);
+
   const validateForm = () => {
+    if (!termsAgreement) {
+      setFormValid(false);
+      return;
+    }
+
     if (repoUrl.length <= 0) {
       setFormValid(false);
       return;
     }
 
     if (userName.length <= 0) {
-      setFormValid(false);
-      return;
-    }
-
-    if (!termsAgreement) {
       setFormValid(false);
       return;
     }
@@ -51,6 +69,12 @@ const InvitationRequestPage: FunctionComponent<
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
+      setFormValid(false);
+      return;
+    }
+
+    // wallet connected?
+    if (!userAddress || userAddress.length < 42) {
       setFormValid(false);
       return;
     }
@@ -69,15 +93,22 @@ const InvitationRequestPage: FunctionComponent<
       <PageHeader title="Invitation Request" />
       <form onSubmit={submit}>
         <FormField
+          label="Ethereum Address"
+          id="ethereumAddress"
+          required={true}
+          value={userAddress ?? ""}
+          placeholder="0x00"
+          disabled={true}
+          onChange={() => {}} // this is handled by connecting wallet
+        />
+
+        <FormField
           label="URL of GitHub Repository"
           id="repoUrl"
           required={true}
           value={repoUrl}
           placeholder="https://github.com/..."
-          onChange={(val) => {
-            setRepoUrl(val);
-            validateForm();
-          }}
+          onChange={(val) => setRepoUrl(val)}
         />
 
         <FormField
@@ -85,10 +116,7 @@ const InvitationRequestPage: FunctionComponent<
           id="userName"
           required={true}
           value={userName}
-          onChange={(val) => {
-            setUserName(val);
-            validateForm();
-          }}
+          onChange={(val) => setUserName(val)}
         />
 
         <FormField
@@ -96,19 +124,14 @@ const InvitationRequestPage: FunctionComponent<
           id="emailAddress"
           required={true}
           value={emailAddress}
-          onChange={(val) => {
-            setEmailAddress(val);
-            validateForm();
-          }}
+          onChange={(val) => setEmailAddress(val)}
         />
 
         <FormField
           label="Your Discord username on Dev Protocol's server"
           id="discordUserName"
           value={discordUserName}
-          onChange={(val) => {
-            setDiscordUserName(val);
-          }}
+          onChange={(val) => setDiscordUserName(val)}
         />
 
         <FormField
@@ -116,9 +139,7 @@ const InvitationRequestPage: FunctionComponent<
           placeholder="I'd like to say..."
           id="additionalInfo"
           value={additionalInfo}
-          onChange={(val) => {
-            setAdditionalInfo(val);
-          }}
+          onChange={(val) => setAdditionalInfo(val)}
         />
       </form>
 
@@ -128,7 +149,7 @@ const InvitationRequestPage: FunctionComponent<
             name="termsOfUse"
             type="checkbox"
             checked={termsAgreement}
-            onChange={() => setTermsAgreement(!termsAgreement)}
+            onChange={() => setTermsAgreement((prevCheck) => !prevCheck)}
           />
           <span className="ml-2 text-sm font-bold">
             {" "}

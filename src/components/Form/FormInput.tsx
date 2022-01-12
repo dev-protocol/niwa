@@ -5,6 +5,7 @@ interface FormInputProps {
   placeholder?: string;
   value: string;
   onChange: (val: string) => void;
+  disabled: boolean;
 }
 
 const FormInput: FunctionComponent<FormInputProps> = ({
@@ -12,6 +13,7 @@ const FormInput: FunctionComponent<FormInputProps> = ({
   placeholder,
   value,
   onChange,
+  disabled,
 }) => {
   return (
     <input
@@ -20,6 +22,7 @@ const FormInput: FunctionComponent<FormInputProps> = ({
       placeholder={placeholder ?? ""}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      disabled={disabled}
     />
   );
 };
