@@ -1,16 +1,16 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import BackButton from "../../components/BackButton";
-import { UserToken } from "../../types/userToken";
-import { Link } from "react-router-dom";
-import UserTokenListItem from "./UserTokenListItem";
-import PageHeader from "../../components/PageHeader";
+import { FunctionComponent, useEffect, useState } from 'react'
+import BackButton from '../../components/BackButton'
+import { UserToken } from '../../types/userToken'
+import { Link } from 'react-router-dom'
+import UserTokenListItem from './UserTokenListItem'
+import PageHeader from '../../components/PageHeader'
 
 interface TokensPageProps {}
 
 const TokensPage: FunctionComponent<TokensPageProps> = () => {
-  const [userTokens, setUserTokens] = useState<UserToken[]>([]);
+  const [userTokens, _setUserTokens] = useState<UserToken[]>([])
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [])
 
   return (
     <div>
@@ -24,25 +24,20 @@ const TokensPage: FunctionComponent<TokensPageProps> = () => {
           </Link>
         </div>
         {userTokens.length <= 0 && (
-          <Link
-            to="/tokenize"
-            className="border-2 border-grey-500 rounded-lg flex justify-center py-12"
-          >
-            <span className="text-blue-500 font-bold">
-              Create your first token!
-            </span>
+          <Link to="/tokenize" className="border-2 border-grey-500 rounded-lg flex justify-center py-12">
+            <span className="text-blue-500 font-bold">Create your first token!</span>
           </Link>
         )}
         {userTokens.length > 0 && (
           <div className="flex flex-col">
-            {userTokens.map((token) => (
+            {userTokens.map(token => (
               <UserTokenListItem key={token.hash} userToken={token} />
             ))}
           </div>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TokensPage;
+export default TokensPage

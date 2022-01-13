@@ -1,13 +1,11 @@
-import { faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { FunctionComponent } from "react";
-import BackButton from "../../components/BackButton";
-import TokenizeLink from "./TokenizeLink";
+import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { FunctionComponent } from 'react'
+import BackButton from '../../components/BackButton'
+import TokenizeLink from './TokenizeLink'
 
 interface TokenizeMarketSelectProps {}
 
-const TokenizeMarketSelect: FunctionComponent<
-  TokenizeMarketSelectProps
-> = () => {
+const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () => {
   return (
     <div>
       <BackButton title="Your Tokens" path="/tokens" />
@@ -34,7 +32,7 @@ const TokenizeMarketSelect: FunctionComponent<
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TokenizeMarketSelect;
+export default TokenizeMarketSelect

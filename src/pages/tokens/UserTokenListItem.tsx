@@ -1,16 +1,14 @@
-import { faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FunctionComponent } from "react";
-import { Market } from "../../const/market.const";
-import { UserToken } from "../../types/userToken";
+import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FunctionComponent } from 'react'
+import { Market } from '../../const/market.const'
+import { UserToken } from '../../types/userToken'
 
 interface UserTokenListItemProps {
-  userToken: UserToken;
+  userToken: UserToken
 }
 
-const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({
-  userToken,
-}) => {
+const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ userToken }) => {
   return (
     <div className="border-2 border-grey-500 rounded-lg flex flex-col py-2 px-4 mb-4">
       <div className="w-full text-gray-300">{userToken.hash}</div>
@@ -22,28 +20,18 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({
           <span className="font-bold">
             {userToken.holdAmount.toNumber()} {userToken.tokenSymbol}
           </span>
-          <span className="text-sm ml-1">
-            {" "}
-            out of {userToken.totalAmount.toNumber()}
-          </span>
+          <span className="text-sm ml-1"> out of {userToken.totalAmount.toNumber()}</span>
         </div>
       </div>
       <div className="w-full flex items-center">
-        {userToken.market === Market.GITHUB && (
-          <FontAwesomeIcon icon={faGithub} size="xs" className="mr-1" />
-        )}
+        {userToken.market === Market.GITHUB && <FontAwesomeIcon icon={faGithub} size="xs" className="mr-1" />}
         {userToken.market === Market.YOUTUBE && (
-          <FontAwesomeIcon
-            icon={faYoutube}
-            size="xs"
-            className="mr-1"
-            style={{ color: "#e93323" }}
-          />
+          <FontAwesomeIcon icon={faYoutube} size="xs" className="mr-1" style={{ color: '#e93323' }} />
         )}
         <span>{userToken.creatorName}</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserTokenListItem;
+export default UserTokenListItem

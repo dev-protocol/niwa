@@ -1,15 +1,15 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FunctionComponent } from 'react'
+import { Link } from 'react-router-dom'
 
 interface TokenizeLinkProps {
-  title: string;
-  icon: IconDefinition;
-  details: string;
-  iconColor?: string;
-  disabled?: boolean;
-  path: string;
+  title: string
+  icon: IconDefinition
+  details: string
+  iconColor?: string
+  disabled?: boolean
+  path: string
 }
 
 const TokenizeLink: FunctionComponent<TokenizeLinkProps> = ({
@@ -18,7 +18,7 @@ const TokenizeLink: FunctionComponent<TokenizeLinkProps> = ({
   details,
   iconColor,
   path,
-  disabled = false,
+  disabled = false
 }) => {
   return (
     <div className="flex flex-col border-2 border-grey-500 rounded-lg">
@@ -47,16 +47,15 @@ const TokenizeLink: FunctionComponent<TokenizeLinkProps> = ({
         </Link>
       )}
     </div>
-  );
-};
+  )
+}
 
 const TokenizeLinkContent: FunctionComponent<TokenizeLinkProps> = ({
   title,
   icon,
   details,
   iconColor,
-  path,
-  disabled = false,
+  disabled = false
 }) => {
   return (
     <div className="flex flex-col p-8">
@@ -65,22 +64,16 @@ const TokenizeLinkContent: FunctionComponent<TokenizeLinkProps> = ({
           <FontAwesomeIcon
             className="mr-2"
             icon={icon}
-            style={{ color: iconColor ?? "black", opacity: disabled ? 0.5 : 1 }}
+            style={{ color: iconColor ?? 'black', opacity: disabled ? 0.5 : 1 }}
             size="2x"
           />
-          <span
-            className={`font-bold text-lg ${
-              disabled ? "text-gray-400" : "text-black"
-            }`}
-          >
-            {title}
-          </span>
+          <span className={`font-bold text-lg ${disabled ? 'text-gray-400' : 'text-black'}`}>{title}</span>
         </div>
         {disabled && <span className="text-gray-400 text-sm">Coming Soon</span>}
       </div>
       <span className="text-gray-400 text-sm">{details}</span>
     </div>
-  );
-};
+  )
+}
 
-export default TokenizeLink;
+export default TokenizeLink
