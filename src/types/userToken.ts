@@ -1,5 +1,5 @@
 import { BigNumber } from 'ethers'
-import { Market } from '../const/market.const'
+import { Market } from '../const'
 
 export type UserToken = {
   hash: string

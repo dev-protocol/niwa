@@ -1,5 +1,6 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { Market } from '../const/market.const'
+import { providers } from 'ethers'
+import { Market } from '../const'
 
 export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   switch (market?.toUpperCase()) {
@@ -14,7 +15,7 @@ export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   }
 }
 
-export const marketToReadable = (market: Market): string => {
+export const marketToReadable = (market: UndefinedOr<Market>): string => {
   switch (market) {
     case Market.GITHUB:
       return 'GitHub'
@@ -25,4 +26,22 @@ export const marketToReadable = (market: Market): string => {
     default:
       return 'Invalid'
   }
+}
+
+export const sign = async (
+  provider: UndefinedOr<providers.Web3Provider> | null,
+  inputMessage: string
+): Promise<UndefinedOr<string>> => {
+  if (provider) {
+    const signer = provider.getSigner()
+
+    const address = await signer.getAddress()
+    if (!address) {
+      return undefined
+    }
+
+    const signature = await signer.signMessage(inputMessage)
+    return signature
+  }
+  return undefined
 }
