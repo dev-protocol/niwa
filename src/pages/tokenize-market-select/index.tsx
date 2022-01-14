@@ -17,7 +17,7 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
             title="GitHub"
             icon={faGithub}
             details="Tokenize your GitHub repository to make OSS more active"
-            path="/tokenize/github/invitation-request"
+            path="/tokenize/github"
           />
 
           <TokenizeLink
