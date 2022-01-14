@@ -28,6 +28,7 @@ export const marketToReadable = (market: UndefinedOr<Market>): string => {
   }
 }
 
+// TODO: can this be removed now that Invitation has been removed?
 export const sign = async (
   provider: UndefinedOr<providers.Web3Provider> | null,
   inputMessage: string
@@ -44,4 +45,17 @@ export const sign = async (
     return signature
   }
   return undefined
+}
+
+export const isValidNetwork = (chainId: UndefinedOr<number>) => {
+  switch (chainId) {
+    case 421611: // arbitrum testnet
+    case 42161: // arbitrum mainnet
+    case 137: // polygon mainnet
+    case 80001: // polygon testnet
+      return true
+
+    default:
+      return false
+  }
 }
