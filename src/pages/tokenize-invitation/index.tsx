@@ -3,25 +3,27 @@ import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import FormField from '../../components/Form'
 import PageHeader from '../../components/PageHeader'
-import { Market } from '../../const/market.const'
+import { Market } from '../../const'
 import { useWeb3Provider } from '../../context/web3ProviderContext'
-import { getMarketFromString } from '../../utils/utils'
+import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import { usePostInvitation } from './hooks'
 
 interface InvitationRequestPageProps {}
 
 const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () => {
   const params = useParams()
-  const [_market, setMarket] = useState<UndefinedOr<Market>>()
-  const [repoUrl, setRepoUrl] = useState('')
+  const [market, setMarket] = useState<UndefinedOr<Market>>()
+  const [asset, setAsset] = useState('')
   const [formValid, setFormValid] = useState(false)
   const [userName, setUserName] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [discordUserName, setDiscordUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [discord, setDiscord] = useState('')
   const [additionalInfo, setAdditionalInfo] = useState('')
   const [termsAgreement, setTermsAgreement] = useState(false)
-  const [subscribe, setSubscribe] = useState(false)
+  const [newsletter, setNewsletter] = useState(false)
   const [userAddress, setUserAddress] = useState<UndefinedOr<string>>()
   const web3Context = useWeb3Provider()
+  const { isLoading, postInvitationHandler } = usePostInvitation()
 
   useEffect(() => {
     const { market } = params
@@ -29,13 +31,12 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
   }, [params])
 
   const validateForm = useCallback(() => {
-    console.log('validate form hit...')
     if (!termsAgreement) {
       setFormValid(false)
       return
     }
 
-    if (repoUrl.length <= 0) {
+    if (asset.length <= 0) {
       setFormValid(false)
       return
     }
@@ -47,7 +48,7 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
 
     // validate email address
     if (
-      !emailAddress
+      !email
         .toLowerCase()
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -64,9 +65,9 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
     }
 
     setFormValid(true)
-  }, [emailAddress, repoUrl.length, termsAgreement, userAddress, userName.length])
+  }, [email, asset.length, termsAgreement, userAddress, userName.length])
 
-  useEffect(() => validateForm(), [repoUrl, userName, emailAddress, termsAgreement, userAddress, validateForm])
+  useEffect(() => validateForm(), [asset, userName, email, termsAgreement, userAddress, validateForm])
 
   useEffect(() => {
     if (web3Context?.web3Provider) {
@@ -78,10 +79,23 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
     }
   }, [web3Context])
 
-  const submit = () => {
+  const submit = async () => {
     if (!formValid) {
       return
     }
+
+    const _success = await postInvitationHandler({
+      asset,
+      email,
+      discord,
+      market: marketToReadable(market),
+      name: userName,
+      newsletter,
+      ask: additionalInfo,
+      role: '',
+      useCase: '',
+      url: asset
+    })
   }
 
   return (
@@ -102,9 +116,9 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
           label="URL of GitHub Repository"
           id="repoUrl"
           required={true}
-          value={repoUrl}
+          value={asset}
           placeholder="https://github.com/..."
-          onChange={val => setRepoUrl(val)}
+          onChange={val => setAsset(val)}
         />
 
         <FormField
@@ -119,15 +133,15 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
           label="Your email address"
           id="emailAddress"
           required={true}
-          value={emailAddress}
-          onChange={val => setEmailAddress(val)}
+          value={email}
+          onChange={val => setEmail(val)}
         />
 
         <FormField
           label="Your Discord username on Dev Protocol's server"
           id="discordUserName"
-          value={discordUserName}
-          onChange={val => setDiscordUserName(val)}
+          value={discord}
+          onChange={val => setDiscord(val)}
         />
 
         <FormField
@@ -164,7 +178,7 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
 
       <div>
         <label className="flex items-center mb-4">
-          <input name="subscribe" type="checkbox" checked={subscribe} onChange={() => setSubscribe(!subscribe)} />
+          <input name="subscribe" type="checkbox" checked={newsletter} onChange={() => setNewsletter(!newsletter)} />
           <span className="ml-2 text-sm font-bold">Subscribe to our newsletter</span>
         </label>
       </div>
@@ -175,7 +189,7 @@ const InvitationRequestPage: FunctionComponent<InvitationRequestPageProps> = () 
           className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
             formValid ? 'opacity-100' : 'opacity-60'
           }`}
-          disabled={!formValid}
+          disabled={!formValid || isLoading}
         >
           Sign and submit
         </button>

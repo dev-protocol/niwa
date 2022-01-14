@@ -1,5 +1,5 @@
 import { it, describe, expect, assert } from 'vitest'
-import { Market } from '../const/market.const'
+import { Market } from '../const'
 import { getMarketFromString, marketToReadable } from './utils'
 
 describe(`utils`, () => {

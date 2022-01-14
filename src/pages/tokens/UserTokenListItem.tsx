@@ -1,7 +1,7 @@
 import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FunctionComponent } from 'react'
-import { Market } from '../../const/market.const'
+import { Market } from '../../const'
 import { UserToken } from '../../types/userToken'
 
 interface UserTokenListItemProps {
