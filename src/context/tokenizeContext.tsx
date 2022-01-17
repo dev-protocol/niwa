@@ -1,7 +1,6 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers } from 'ethers'
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
-import { Market } from '../const'
 import { isValidNetwork } from '../utils/utils'
 import { useWeb3Provider } from './web3ProviderContext'
 
@@ -22,8 +21,6 @@ export type ITokenize = {
   setNetwork: Dispatch<SetStateAction<UndefinedOr<ethers.providers.Network>>>
   address: string
   setAddress: Dispatch<SetStateAction<string>>
-  market: Market
-  setMarket: Dispatch<SetStateAction<Market>>
 }
 
 const tokenize: ITokenize = {
@@ -40,9 +37,7 @@ const tokenize: ITokenize = {
   network: undefined,
   setNetwork: () => {},
   address: '',
-  setAddress: () => {},
-  market: Market.INVALID,
-  setMarket: () => {}
+  setAddress: () => {}
 }
 
 export const TokenizeContext = React.createContext(tokenize)
@@ -55,7 +50,6 @@ export const TokenizeProvider: React.FC = ({ children }) => {
   const [isValid, setIsValid] = useState(false)
   const [network, setNetwork] = useState<UndefinedOr<ethers.providers.Network>>()
   const [address, setAddress] = useState('')
-  const [market, setMarket] = useState(Market.INVALID)
   const web3Context = useWeb3Provider()
 
   const detectNetwork = useCallback(async () => {
@@ -121,9 +115,7 @@ export const TokenizeProvider: React.FC = ({ children }) => {
         network,
         setNetwork,
         address,
-        setAddress,
-        market,
-        setMarket
+        setAddress
       }}
     >
       {children}

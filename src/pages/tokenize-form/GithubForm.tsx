@@ -38,7 +38,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={network?.name ?? ''}
         placeholder="Please Connect Wallet"
         disabled={true}
-        onChange={() => {}} // this is handled by connecting wallet
       />
       <div className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</div>
 
@@ -49,7 +48,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={address}
         placeholder="Please Connect Wallet"
         disabled={true}
-        onChange={() => {}} // this is handled by connecting wallet
       />
 
       <FormField
@@ -63,7 +61,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
 
       <FormField
         label="Token Name"
-        placeholder=""
         id="tokenName"
         required={true}
         value={tokenName}
@@ -72,7 +69,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
 
       <FormField
         label="Token Symbol"
-        placeholder=""
         id="tokenSymbol"
         required={true}
         value={tokenSymbol}
@@ -81,7 +77,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
 
       <FormField
         label="Personal Access Token"
-        placeholder=""
         id="pac"
         required={true}
         value={personalAccessToken}
@@ -107,7 +102,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
           }`}
           disabled={!isValid}
         >
-          Sign and submit
+          Preview
         </button>
       </div>
     </form>

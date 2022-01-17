@@ -1,19 +1,19 @@
-import { FunctionComponent, useContext, useEffect } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Market } from '../../const'
 import { getMarketFromString } from '../../utils/utils'
 import PageHeader from '../../components/PageHeader'
 import GithubForm from './GithubForm'
 import YouTubeForm from './YouTubeForm'
-import { TokenizeContext } from '../../context/tokenizeContext'
 import BackButton from '../../components/BackButton'
+import { UndefinedOr } from '@devprotocol/util-ts'
 
 interface TokenizeFormPageProps {}
 
 const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const { market, setMarket } = useContext(TokenizeContext)
+  const [market, setMarket] = useState<UndefinedOr<Market>>()
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
