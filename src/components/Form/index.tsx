@@ -9,7 +9,7 @@ interface FormFieldProps {
   placeholder?: string
   disabled?: boolean
   value: string
-  onChange: (val: string) => void
+  onChange?: (val: string) => void
 }
 
 const FormField: FunctionComponent<FormFieldProps> = ({
@@ -24,7 +24,13 @@ const FormField: FunctionComponent<FormFieldProps> = ({
   return (
     <div className="mb-4">
       <FormInputLabel label={label} id={id} required={required} />
-      <FormInput placeholder={placeholder} id={id} value={value} onChange={val => onChange(val)} disabled={disabled} />
+      <FormInput
+        placeholder={placeholder}
+        id={id}
+        value={value}
+        onChange={val => (onChange ? onChange(val) : () => {})}
+        disabled={disabled}
+      />
     </div>
   )
 }
