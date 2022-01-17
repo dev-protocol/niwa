@@ -1,54 +1,32 @@
-import { UndefinedOr } from '@devprotocol/util-ts'
-import { ethers } from 'ethers'
-import { FunctionComponent, useCallback, useEffect, useState } from 'react'
+import { FunctionComponent, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import FormField from '../../components/Form'
-import { isValidNetwork } from '../../utils/utils'
+import { TokenizeContext } from '../../context/tokenizeContext'
 
-interface GithubFormProps {
-  network: UndefinedOr<ethers.providers.Network>
-  address: string
-}
+interface GithubFormProps {}
 
-const GithubForm: FunctionComponent<GithubFormProps> = ({ network, address }) => {
-  const [formValid, setFormValid] = useState(false)
-  const [repoName, setRepoName] = useState('')
-  const [tokenName, setTokenName] = useState('')
-  const [tokenSymbol, setTokenSymbol] = useState('')
-  const [personalAccessToken, setPersonalAccessToken] = useState('')
-
-  const validateForm = useCallback(() => {
-    if (repoName.length <= 0) {
-      setFormValid(false)
-      return
-    }
-
-    if (tokenName.length < 3) {
-      setFormValid(false)
-      return
-    }
-
-    if (!isValidNetwork(network?.chainId)) {
-      setFormValid(false)
-      return
-    }
-    if (tokenSymbol.length < 3 || tokenSymbol.length > 4) {
-      setFormValid(false)
-      return
-    }
-    if (personalAccessToken.length <= 0) {
-      setFormValid(false)
-      return
-    }
-
-    setFormValid(true)
-  }, [repoName.length, tokenName.length, tokenSymbol.length, personalAccessToken.length, network?.chainId])
-
-  useEffect(() => validateForm(), [repoName, tokenName, tokenSymbol, personalAccessToken, validateForm])
+const GithubForm: FunctionComponent<GithubFormProps> = () => {
+  const navigate = useNavigate()
+  const {
+    network,
+    address,
+    isValid,
+    assetName,
+    setAssetName,
+    tokenName,
+    setTokenName,
+    tokenSymbol,
+    setTokenSymbol,
+    personalAccessToken,
+    setPersonalAccessToken
+  } = useContext(TokenizeContext)
 
   const submit = () => {
-    if (!formValid) {
+    if (!isValid) {
       return
     }
+
+    navigate('/tokenize/github/preview')
   }
 
   return (
@@ -79,8 +57,8 @@ const GithubForm: FunctionComponent<GithubFormProps> = ({ network, address }) =>
         placeholder="owner_name/repository_name"
         id="repoName"
         required={true}
-        value={repoName}
-        onChange={val => setRepoName(val)}
+        value={assetName}
+        onChange={val => setAssetName(val)}
       />
 
       <FormField
@@ -125,9 +103,9 @@ const GithubForm: FunctionComponent<GithubFormProps> = ({ network, address }) =>
         <button
           type="submit"
           className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-            formValid ? 'opacity-100' : 'opacity-60'
+            isValid ? 'opacity-100' : 'opacity-60'
           }`}
-          disabled={!formValid}
+          disabled={!isValid}
         >
           Sign and submit
         </button>

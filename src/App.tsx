@@ -8,6 +8,8 @@ import ConnectButton from './components/ConnectButton'
 import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
+import { TokenizeProvider } from './context/tokenizeContext'
+import TokenizeSubmitPreview from './pages/tokenize-submit-preview'
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext()
@@ -28,13 +30,16 @@ function App() {
             <ConnectButton onChainChanged={updateChain} />
           </header>
           <main className="flex py-12 w-full flex-col">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/tokens" element={<TokensPage />} />
-              <Route path="/growth" element={<GrowthPage />} />
-              <Route path="/tokenize" element={<TokenizeMarketSelect />} />
-              <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
-            </Routes>
+            <TokenizeProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/tokens" element={<TokensPage />} />
+                <Route path="/growth" element={<GrowthPage />} />
+                <Route path="/tokenize" element={<TokenizeMarketSelect />} />
+                <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
+                <Route path="/tokenize/:market/preview" element={<TokenizeSubmitPreview />} />
+              </Routes>
+            </TokenizeProvider>
           </main>
         </BrowserRouter>
       </div>
