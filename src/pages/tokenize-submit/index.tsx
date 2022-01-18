@@ -8,9 +8,9 @@ import { Market } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
 
-interface TokenizeSubmitPreviewProps {}
+interface TokenizeSubmitProps {}
 
-const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () => {
+const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
@@ -110,4 +110,4 @@ const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () 
   )
 }
 
-export default TokenizeSubmitPreview
+export default TokenizeSubmit

@@ -9,7 +9,7 @@ import { useWeb3ProviderContext, WebProviderContext } from './context/web3Provid
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import { TokenizeProvider } from './context/tokenizeContext'
-import TokenizeSubmitPreview from './pages/tokenize-submit-preview'
+import TokenizeSubmit from './pages/tokenize-submit'
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext()
@@ -37,7 +37,7 @@ function App() {
                 <Route path="/growth" element={<GrowthPage />} />
                 <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                 <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
-                <Route path="/tokenize/:market/preview" element={<TokenizeSubmitPreview />} />
+                <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
               </Routes>
             </TokenizeProvider>
           </main>
