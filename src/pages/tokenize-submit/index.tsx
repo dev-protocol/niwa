@@ -7,6 +7,7 @@ import PageHeader from '../../components/PageHeader'
 import { Market } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 
 interface TokenizeSubmitProps {}
 
@@ -16,6 +17,8 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const [market, setMarket] = useState<UndefinedOr<Market>>()
   const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken } =
     useContext(TokenizeContext)
+  const { createKhaosPubSign, isLoading: khaosIsLoading } = useCreateKhaosPubSign()
+  const { createAndAuthenticate, isLoading: createLoading } = useCreateAndAuthenticate()
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -33,7 +36,12 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       return
     }
 
-    // TODO: pull submit functionality from stake.social
+    const pubSig = await createKhaosPubSign({ assetName, personalAccessToken, signId: 'github-market' })
+    if (!pubSig) {
+      return
+    }
+    const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig)
+    navigate(`/tokens/${propertyAddress}`)
   }
 
   return (
@@ -100,7 +108,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
             className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
               isValid ? 'opacity-100' : 'opacity-60'
             }`}
-            disabled={!isValid}
+            disabled={!isValid || khaosIsLoading || createLoading}
           >
             Sign and submit
           </button>

@@ -2,6 +2,7 @@ import { addresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers, providers } from 'ethers'
 import { Market } from '../const'
+import { NetworkName } from '@devprotocol/khaos-core'
 
 export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   switch (market?.toUpperCase()) {
@@ -75,5 +76,24 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.Web3P
     default:
       Promise.reject('Invalid network')
       break
+  }
+}
+
+export const getValidNetworkName = async (
+  provider: ethers.providers.Web3Provider
+): Promise<UndefinedOr<NetworkName>> => {
+  const network = await provider.getNetwork()
+  switch (network.chainId) {
+    case 421611: // // arbitrum testnet
+      return 'arbitrum-rinkeby'
+    case 42161: // arbitrum mainnet
+      return 'arbitrum-one'
+    case 137: // polygon mainnet
+      return 'polygon-mainnet'
+    case 80001: // polygon testnet
+      return 'polygon-mumbai'
+    default:
+      Promise.reject('Invalid network')
+      return
   }
 }
