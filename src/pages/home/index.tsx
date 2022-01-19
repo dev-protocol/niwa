@@ -1,7 +1,8 @@
 import { FunctionComponent } from 'react'
 import HomeNavItem from './HomeNavitem'
+import STokenPositionDetail from '../supporters'
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: FunctionComponent<HomeProps> = () => {
   return (
@@ -14,6 +15,7 @@ const Home: FunctionComponent<HomeProps> = () => {
           <HomeNavItem title="Growth" path="/growth" message="Grow your project and make friends" />
         </div>
       </nav>
+      <STokenPositionDetail />
     </div>
   )
 }
