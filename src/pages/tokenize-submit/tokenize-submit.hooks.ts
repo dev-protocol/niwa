@@ -1,8 +1,10 @@
+import { createPropertyFactoryContract } from '@devprotocol/dev-kit'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { sign } from '@devprotocol/khaos-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { useCallback, useState } from 'react'
 import { useWeb3Provider } from '../../context/web3ProviderContext'
+import { mapProviderToDevContracts } from '../../utils/utils'
 
 type ICreateKhaosPubSignParams = {
   signId: string // ie 'github-market'
@@ -45,38 +47,52 @@ export const useCreateKhaosPubSign = async () => {
   return { createKhaosPubSign: callback, isLoading, error }
 }
 
-// export const useCreateAndAuthenticate = () => {
-//   const web3Context = useWeb3Provider()
-//   const [isLoading, setIsLoading] = useState<boolean>(false)
-//   const [error, setError] = useState<Error>()
+export const useCreateAndAuthenticate = () => {
+  const web3Context = useWeb3Provider()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<Error>()
 
-//   const callback = useCallback(
-//     async (name: string, symbol: string, marketAddress: string, args: string[]) => {
-//       setIsLoading(true)
-//       setError(undefined)
+  const callback = useCallback(
+    async (tokenName: string, tokenSymbol: string, marketAddress: string, assetName: string, khaosPubSig: string) => {
+      setIsLoading(true)
+      setError(undefined)
 
-//       const userProvider = web3Context?.web3Provider
-//       if (!userProvider) {
-//         setError(Error('no provider found'))
-//         return
-//       }
+      const userProvider = web3Context?.web3Provider
+      if (!userProvider) {
+        setError(Error('no provider found'))
+        return
+      }
 
-//       try {
-//         createAnd(x, name, symbol, marketAddress, args)
-//       } catch (error) {
-//         setError(error instanceof Error ? error : Error(`failed to create and authenticate asset`))
-//       }
+      try {
+        const networkDevContracts = await mapProviderToDevContracts(userProvider)
+        if (!networkDevContracts) {
+          Promise.reject('Invalid network')
+          return
+        }
+        const propertyFactoryContract = await createPropertyFactoryContract(userProvider)(
+          networkDevContracts.propertyFactory
+        )
+        const created = await propertyFactoryContract.createAndAuthenticate(
+          tokenName,
+          tokenSymbol,
+          marketAddress,
+          [assetName, khaosPubSig],
+          {
+            metricsFactoryAddress: networkDevContracts.metricsFactory
+          }
+        )
 
-//       // return whenDefined(ethersProvider, x =>
-//       //   createAndAuthenticate(x, name, symbol, marketAddress, args)
-//       //     .catch(setError)
-//       //     .finally(() => {
-//       //       setIsLoading(false)
-//       //     })
-//       // )
-//     },
-//     [web3Context?.web3Provider]
-//   )
+        await created.waitForAuthentication()
 
-//   return { createAndAuthenticate: callback, isLoading, error }
-// }
+        setIsLoading(false)
+
+        return created.property
+      } catch (error) {
+        setError(error instanceof Error ? error : Error(`failed to create and authenticate asset`))
+      }
+    },
+    [web3Context?.web3Provider]
+  )
+
+  return { createAndAuthenticate: callback, isLoading, error }
+}
