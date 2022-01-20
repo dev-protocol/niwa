@@ -61,7 +61,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
       <PageHeader title="Tokenize" />
-      <form>
+      <div>
         <FormField
           label="Network"
           id="network"
@@ -123,7 +123,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
             Sign and submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
