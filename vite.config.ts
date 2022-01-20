@@ -12,4 +12,7 @@ export default defineConfig({
       util: "util",
     },
   },
+  optimizeDeps: {
+    exclude: ['electron', 'electron-fetch']
+  }
 });
