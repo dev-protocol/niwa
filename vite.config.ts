@@ -11,5 +11,13 @@ export default defineConfig({
       zlib: 'browserify-zlib',
       util: 'util'
     }
+  },
+  build: {
+    // rollupOptions: {
+    //   plugins: [inject({ Buffer: ['buffer', 'Buffer'] })]
+    // },
+    commonjsOptions: {
+      transformMixedEsModules: true
+    }
   }
 })
