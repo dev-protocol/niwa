@@ -48,6 +48,7 @@ export const useCreateKhaosPubSign = () => {
       } catch (error) {
         setError(error instanceof Error ? error : Error(`fail to sign ${signId} market asset`))
         setIsLoading(false)
+        console.log(error)
       }
     },
     [web3Context?.web3Provider]
@@ -80,9 +81,16 @@ export const useCreateAndAuthenticate = () => {
           setIsLoading(false)
           return
         }
+        console.log('property factory address is: ', networkDevContracts.propertyFactory)
+        console.log('metricsFactoryAddress is: ', networkDevContracts.metricsFactory)
+        console.log('asset name is: ', assetName)
         const propertyFactoryContract = await createPropertyFactoryContract(userProvider)(
           networkDevContracts.propertyFactory
         )
+
+        const signer = userProvider.getSigner()
+        const userAddress = await signer.getAddress()
+
         const created = await propertyFactoryContract.createAndAuthenticate(
           tokenName,
           tokenSymbol,
@@ -90,14 +98,22 @@ export const useCreateAndAuthenticate = () => {
           [assetName, khaosPubSig],
           {
             metricsFactoryAddress: networkDevContracts.metricsFactory
+          },
+          {
+            fallback: {
+              from: userAddress,
+              gasLimit: 800000
+            }
           }
         )
+        console.log('created: ', created)
 
         await created.waitForAuthentication()
 
         setIsLoading(false)
         return created.property
       } catch (error) {
+        console.log(error)
         setError(error instanceof Error ? error : Error(`failed to create and authenticate asset`))
         setIsLoading(false)
       }

@@ -15,6 +15,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
+  const [error, setError] = useState<UndefinedOr<string>>()
   const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken } =
     useContext(TokenizeContext)
   const { createKhaosPubSign, isLoading: khaosIsLoading } = useCreateKhaosPubSign()
@@ -32,15 +33,24 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   }, [params, navigate, setMarket, market])
 
   const submit = async () => {
+    console.log('submitting...')
     if (!isValid) {
+      setError('Form invalid')
       return
     }
 
     const pubSig = await createKhaosPubSign({ assetName, personalAccessToken, signId: 'github-market' })
+    console.log('pubsig is: ', pubSig)
     if (!pubSig) {
+      setError('No pubsig found')
       return
     }
     const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig)
+    console.log('propertyAddress is: ', propertyAddress)
+    if (!propertyAddress) {
+      setError('No property address created')
+      return
+    }
     navigate(`/tokens/${propertyAddress}`)
   }
 
@@ -51,7 +61,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
       <PageHeader title="Tokenize" />
-      <form onSubmit={submit}>
+      <form>
         <FormField
           label="Network"
           id="network"
@@ -104,7 +114,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
 
         <div className="float-right flex flex-col items-end">
           <button
-            type="submit"
+            onClick={submit}
             className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
               isValid ? 'opacity-100' : 'opacity-60'
             }`}
