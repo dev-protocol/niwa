@@ -2,8 +2,14 @@ import { createPropertyFactoryContract } from '@devprotocol/dev-kit'
 import { sign } from '@devprotocol/khaos-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { useCallback, useState } from 'react'
+import { Market } from '../../const'
 import { useWeb3Provider } from '../../context/web3ProviderContext'
-import { getValidNetworkName, mapProviderToDevContracts } from '../../utils/utils'
+import {
+  getNetworkMarketAddresses,
+  getValidNetworkName,
+  mapProviderToDevContracts,
+  selectMarketAddressOption
+} from '../../utils/utils'
 
 type ICreateKhaosPubSignParams = {
   signId: string // ie 'github-market'
@@ -63,7 +69,7 @@ export const useCreateAndAuthenticate = () => {
   const [error, setError] = useState<Error>()
 
   const callback = useCallback(
-    async (tokenName: string, tokenSymbol: string, assetName: string, khaosPubSig: string) => {
+    async (tokenName: string, tokenSymbol: string, assetName: string, khaosPubSig: string, market: Market) => {
       setIsLoading(true)
       setError(undefined)
 
@@ -90,11 +96,24 @@ export const useCreateAndAuthenticate = () => {
 
         const signer = userProvider.getSigner()
         const userAddress = await signer.getAddress()
+        const marketOptions = await getNetworkMarketAddresses(userProvider)
+        if (!marketOptions) {
+          setError(Error('No matching market addresses found'))
+          setIsLoading(false)
+          return
+        }
+        const marketAddress = selectMarketAddressOption(market, marketOptions)
+        console.log('market address is: ', marketAddress)
+        if (!marketAddress) {
+          setError(Error('No matching market address found'))
+          setIsLoading(false)
+          return
+        }
 
         const created = await propertyFactoryContract.createAndAuthenticate(
           tokenName,
           tokenSymbol,
-          networkDevContracts.marketFactory,
+          marketAddress,
           [assetName, khaosPubSig],
           {
             metricsFactoryAddress: networkDevContracts.metricsFactory

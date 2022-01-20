@@ -45,7 +45,13 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       setError('No pubsig found')
       return
     }
-    const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig)
+
+    if (!market) {
+      setError('No market set')
+      return
+    }
+
+    const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, market)
     console.log('propertyAddress is: ', propertyAddress)
     if (!propertyAddress) {
       setError('No property address created')
