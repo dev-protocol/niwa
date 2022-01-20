@@ -1,7 +1,6 @@
 {
   "name": "launchpad",
   "version": "0.0.0",
-  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -4,8 +4,4 @@ dist
 dist-ssr
 *.local
 
-<<<<<<< HEAD
 .vercel
-=======
-.vercel
->>>>>>> aaaffe790863b90fbac511bc2ac1f12c69c2e1a0
