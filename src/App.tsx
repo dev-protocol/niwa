@@ -4,12 +4,13 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
+import TokenPage from './pages/token'
 import ConnectButton from './components/ConnectButton'
 import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import { TokenizeProvider } from './context/tokenizeContext'
-import TokenizeSubmitPreview from './pages/tokenize-submit-preview'
+import TokenizeSubmit from './pages/tokenize-submit'
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext()
@@ -34,10 +35,11 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/tokens" element={<TokensPage />} />
+                <Route path="/tokens/:hash" element={<TokenPage />} />
                 <Route path="/growth" element={<GrowthPage />} />
                 <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                 <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
-                <Route path="/tokenize/:market/preview" element={<TokenizeSubmitPreview />} />
+                <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
               </Routes>
             </TokenizeProvider>
           </main>

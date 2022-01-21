@@ -10,6 +10,8 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@devprotocol/dev-kit": "^5.10.2",
+    "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -37,6 +39,8 @@
     "web3modal": "^1.9.4"
   },
   "devDependencies": {
+    "@devprotocol/khaos-core": "^1.6.0",
+    "@rollup/plugin-inject": "^4.0.4",
     "@types/jest": "^27.4.0",
     "@types/ramda": "^0.27.64",
     "@types/react": "^17.0.33",
@@ -58,5 +62,11 @@
     "typescript": "^4.4.4",
     "vite": "^2.7.2",
     "vitest": "^0.0.142"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.esm.js",
+      "require": "./index.cjs.js"
+    }
   }
 }

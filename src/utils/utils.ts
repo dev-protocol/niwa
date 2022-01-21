@@ -1,6 +1,8 @@
+import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { providers } from 'ethers'
+import { ethers, providers } from 'ethers'
 import { Market } from '../const'
+import { NetworkName } from '@devprotocol/khaos-core'
 
 export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   switch (market?.toUpperCase()) {
@@ -57,5 +59,74 @@ export const isValidNetwork = (chainId: UndefinedOr<number>) => {
 
     default:
       return false
+  }
+}
+
+export const mapProviderToDevContracts = async (provider: ethers.providers.Web3Provider) => {
+  const network = await provider.getNetwork()
+  switch (network.chainId) {
+    case 421611: // // arbitrum testnet
+      return addresses.arbitrum.rinkeby
+    case 42161: // arbitrum mainnet
+      return addresses.arbitrum.one
+    case 137: // polygon mainnet
+      return addresses.polygon.mainnet
+    case 80001: // polygon testnet
+      return addresses.polygon.mumbai
+    default:
+      Promise.reject('Invalid network')
+      break
+  }
+}
+
+type MarketAddressOptions = {
+  github: string
+}
+
+export const getNetworkMarketAddresses = async (
+  provider: ethers.providers.Web3Provider
+): Promise<UndefinedOr<MarketAddressOptions>> => {
+  const network = await provider.getNetwork()
+  switch (network.chainId) {
+    case 421611: // // arbitrum testnet
+      return marketAddresses.arbitrum.rinkeby
+    case 42161: // arbitrum mainnet
+      return marketAddresses.arbitrum.one
+    case 137: // polygon mainnet
+      return marketAddresses.polygon.mainnet
+    case 80001: // polygon testnet
+      return marketAddresses.polygon.mumbai
+    default:
+      Promise.reject('Invalid network')
+      return
+  }
+}
+
+export const selectMarketAddressOption = (market: Market, options: MarketAddressOptions): UndefinedOr<string> => {
+  switch (market) {
+    case Market.GITHUB:
+      return options.github
+
+    default:
+      return
+  }
+}
+
+export const getValidNetworkName = async (
+  provider: ethers.providers.Web3Provider
+): Promise<UndefinedOr<NetworkName>> => {
+  const network = await provider.getNetwork()
+  switch (network.chainId) {
+    case 421611: // // arbitrum testnet
+      return 'arbitrum-rinkeby'
+    case 42161: // arbitrum mainnet
+      return 'arbitrum-one'
+    case 137: // polygon mainnet
+      return 'polygon-mainnet'
+    case 80001: // polygon testnet
+      return 'polygon-mumbai'
+    default:
+      Promise.reject('Invalid network')
+      return
   }
 }
