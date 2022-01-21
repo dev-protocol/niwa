@@ -7,15 +7,20 @@ import PageHeader from '../../components/PageHeader'
 import { Market } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 
-interface TokenizeSubmitPreviewProps {}
+interface TokenizeSubmitProps {}
 
-const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () => {
+const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
-  const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken } =
+  const [error, setError] = useState<UndefinedOr<string>>('')
+  const [isLoading, setIsLoading] = useState(false)
+  const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken, validateForm } =
     useContext(TokenizeContext)
+  const { createKhaosPubSign } = useCreateKhaosPubSign()
+  const { createAndAuthenticate } = useCreateAndAuthenticate()
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -28,12 +33,43 @@ const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () 
     setMarket(_market)
   }, [params, navigate, setMarket, market])
 
+  useEffect(() => {
+    validateForm()
+  }, [validateForm])
+
   const submit = async () => {
+    setIsLoading(true)
     if (!isValid) {
+      setError('Form invalid')
+      setIsLoading(false)
       return
     }
 
-    // TODO: pull submit functionality from stake.social
+    const pubSig = await createKhaosPubSign({ assetName, personalAccessToken, signId: 'github-market' })
+    if (!pubSig) {
+      setError('No pubsig found')
+      setIsLoading(false)
+      return
+    }
+
+    if (!market) {
+      setError('No market set')
+      setIsLoading(false)
+      return
+    }
+
+    const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, market)
+    if (!propertyAddress) {
+      setError('No property address created')
+      setIsLoading(false)
+      return
+    }
+    setIsLoading(false)
+    navigate(`/tokens/${propertyAddress}`)
+  }
+
+  const submitDisabled = () => {
+    return !isValid || isLoading
   }
 
   return (
@@ -43,7 +79,7 @@ const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () 
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
       <PageHeader title="Tokenize" />
-      <form onSubmit={submit}>
+      <div>
         <FormField
           label="Network"
           id="network"
@@ -82,7 +118,7 @@ const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () 
 
         <FormField label="Dev Protocol Treasury Fee" id="fee" required={true} value="500,000" disabled={true} />
 
-        <div className="flex text-sm mb-4">
+        <div className="flex text-sm">
           <span>What is the </span>
           <a
             href="https://initto.devprotocol.xyz/en/what-is-treasury/"
@@ -95,19 +131,23 @@ const TokenizeSubmitPreview: FunctionComponent<TokenizeSubmitPreviewProps> = () 
         </div>
 
         <div className="float-right flex flex-col items-end">
+          <div className="h-4 mb-2">
+            {error && <span className="text-sm font-bold text-red-500 italic">Error tokenizing asset: *{error}</span>}
+          </div>
+
           <button
-            type="submit"
+            onClick={submit}
             className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-              isValid ? 'opacity-100' : 'opacity-60'
+              submitDisabled() ? 'opacity-60' : 'opacity-100'
             }`}
-            disabled={!isValid}
+            disabled={submitDisabled()}
           >
             Sign and submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
 
-export default TokenizeSubmitPreview
+export default TokenizeSubmit

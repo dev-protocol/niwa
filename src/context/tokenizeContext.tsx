@@ -21,6 +21,7 @@ export type ITokenize = {
   setNetwork: Dispatch<SetStateAction<UndefinedOr<ethers.providers.Network>>>
   address: string
   setAddress: Dispatch<SetStateAction<string>>
+  validateForm: () => void
 }
 
 const tokenize: ITokenize = {
@@ -37,7 +38,8 @@ const tokenize: ITokenize = {
   network: undefined,
   setNetwork: () => {},
   address: '',
-  setAddress: () => {}
+  setAddress: () => {},
+  validateForm: () => {}
 }
 
 export const TokenizeContext = React.createContext(tokenize)
@@ -115,7 +117,8 @@ export const TokenizeProvider: React.FC = ({ children }) => {
         network,
         setNetwork,
         address,
-        setAddress
+        setAddress,
+        validateForm
       }}
     >
       {children}
