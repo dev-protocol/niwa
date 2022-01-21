@@ -34,7 +34,7 @@ function App() {
             <TokenizeProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/tokens" element={<TokensPage />} />
+                <Route path="/:userAddress" element={<TokensPage />} />
                 <Route path="/tokens/:hash" element={<TokenPage />} />
                 <Route path="/growth" element={<GrowthPage />} />
                 <Route path="/tokenize" element={<TokenizeMarketSelect />} />
