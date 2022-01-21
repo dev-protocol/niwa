@@ -15,11 +15,12 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
-  const [error, setError] = useState<UndefinedOr<string>>()
-  const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken } =
+  const [error, setError] = useState<UndefinedOr<string>>('')
+  const [isLoading, setIsLoading] = useState(false)
+  const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken, validateForm } =
     useContext(TokenizeContext)
-  const { createKhaosPubSign, isLoading: khaosIsLoading } = useCreateKhaosPubSign()
-  const { createAndAuthenticate, isLoading: createLoading } = useCreateAndAuthenticate()
+  const { createKhaosPubSign } = useCreateKhaosPubSign()
+  const { createAndAuthenticate } = useCreateAndAuthenticate()
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -32,32 +33,43 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
     setMarket(_market)
   }, [params, navigate, setMarket, market])
 
+  useEffect(() => {
+    validateForm()
+  }, [validateForm])
+
   const submit = async () => {
-    console.log('submitting...')
+    setIsLoading(true)
     if (!isValid) {
       setError('Form invalid')
+      setIsLoading(false)
       return
     }
 
     const pubSig = await createKhaosPubSign({ assetName, personalAccessToken, signId: 'github-market' })
-    console.log('pubsig is: ', pubSig)
     if (!pubSig) {
       setError('No pubsig found')
+      setIsLoading(false)
       return
     }
 
     if (!market) {
       setError('No market set')
+      setIsLoading(false)
       return
     }
 
     const propertyAddress = await createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, market)
-    console.log('propertyAddress is: ', propertyAddress)
     if (!propertyAddress) {
       setError('No property address created')
+      setIsLoading(false)
       return
     }
+    setIsLoading(false)
     navigate(`/tokens/${propertyAddress}`)
+  }
+
+  const submitDisabled = () => {
+    return !isValid || isLoading
   }
 
   return (
@@ -106,7 +118,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
 
         <FormField label="Dev Protocol Treasury Fee" id="fee" required={true} value="500,000" disabled={true} />
 
-        <div className="flex text-sm mb-4">
+        <div className="flex text-sm">
           <span>What is the </span>
           <a
             href="https://initto.devprotocol.xyz/en/what-is-treasury/"
@@ -119,12 +131,16 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         </div>
 
         <div className="float-right flex flex-col items-end">
+          <div className="h-4 mb-2">
+            {error && <span className="text-sm font-bold text-red-500 italic">Error tokenizing asset: *{error}</span>}
+          </div>
+
           <button
             onClick={submit}
             className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-              isValid ? 'opacity-100' : 'opacity-60'
+              submitDisabled() ? 'opacity-60' : 'opacity-100'
             }`}
-            disabled={!isValid || khaosIsLoading || createLoading}
+            disabled={submitDisabled()}
           >
             Sign and submit
           </button>

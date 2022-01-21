@@ -1,4 +1,4 @@
-import { createPropertyFactoryContract } from '@devprotocol/dev-kit'
+import { createPropertyFactoryContract } from '@devprotocol/dev-kit/l2'
 import { sign } from '@devprotocol/khaos-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { useCallback, useState } from 'react'
@@ -87,9 +87,6 @@ export const useCreateAndAuthenticate = () => {
           setIsLoading(false)
           return
         }
-        console.log('property factory address is: ', networkDevContracts.propertyFactory)
-        console.log('metricsFactoryAddress is: ', networkDevContracts.metricsFactory)
-        console.log('asset name is: ', assetName)
         const propertyFactoryContract = await createPropertyFactoryContract(userProvider)(
           networkDevContracts.propertyFactory
         )
@@ -103,7 +100,6 @@ export const useCreateAndAuthenticate = () => {
           return
         }
         const marketAddress = selectMarketAddressOption(market, marketOptions)
-        console.log('market address is: ', marketAddress)
         if (!marketAddress) {
           setError(Error('No matching market address found'))
           setIsLoading(false)
@@ -121,11 +117,12 @@ export const useCreateAndAuthenticate = () => {
           {
             fallback: {
               from: userAddress,
-              gasLimit: 800000
+              // value from stake.social createAndAuthenticate
+              // should this be more dynamic based on network?
+              gasLimit: 2000000
             }
           }
         )
-        console.log('created: ', created)
 
         await created.waitForAuthentication()
 

@@ -30,7 +30,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
   }
 
   return (
-    <form onSubmit={submit}>
+    <div>
       <FormField
         label="Network"
         id="network"
@@ -101,11 +101,12 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
             isValid ? 'opacity-100' : 'opacity-60'
           }`}
           disabled={!isValid}
+          onClick={submit}
         >
           Preview
         </button>
       </div>
-    </form>
+    </div>
   )
 }
 
