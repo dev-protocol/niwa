@@ -1,16 +1,39 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton'
 import { UserToken } from '../../types/userToken'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import UserTokenListItem from './UserTokenListItem'
 import PageHeader from '../../components/PageHeader'
+import { useWeb3Provider } from '../../context/web3ProviderContext'
+import { EMPTY_USER_TOKEN_PATH } from '../../const'
 
 interface TokensPageProps {}
 
 const TokensPage: FunctionComponent<TokensPageProps> = () => {
+  const web3Context = useWeb3Provider()
+  const navigate = useNavigate()
+  const { userAddress } = useParams()
   const [userTokens, _setUserTokens] = useState<UserToken[]>([])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const userProvider = web3Context?.web3Provider
+    if (!userProvider) {
+      navigate(`/${EMPTY_USER_TOKEN_PATH}`)
+      return
+    }
+    ;(async () => {
+      const address = await userProvider.getSigner().getAddress()
+      navigate(`/${address}` ?? `/${EMPTY_USER_TOKEN_PATH}`)
+    })()
+  }, [web3Context, navigate])
+
+  useEffect(() => {
+    if (userAddress === EMPTY_USER_TOKEN_PATH) {
+      return
+    }
+
+    // TODO: fetch user tokens here
+  }, [userAddress])
 
   return (
     <div>
