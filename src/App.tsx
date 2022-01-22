@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
@@ -10,7 +10,9 @@ import { useWeb3ProviderContext, WebProviderContext } from './context/web3Provid
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import { TokenizeProvider } from './context/tokenizeContext'
+import DPLHeader from './components/DPLHeader'
 import TokenizeSubmit from './pages/tokenize-submit'
+import './scss/main.scss'
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext()
@@ -22,29 +24,24 @@ function App() {
 
   return (
     <WebProviderContext.Provider value={web3ProviderContext}>
-      <div className="container mx-auto px-4">
-        <BrowserRouter>
-          <header className="flex justify-between py-4">
-            <h1>
-              <Link to="/">Launchpad</Link>
-            </h1>
-            <ConnectButton onChainChanged={updateChain} />
-          </header>
-          <main className="flex py-12 w-full flex-col">
-            <TokenizeProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/:userAddress" element={<TokensPage />} />
-                <Route path="/tokens/:hash" element={<TokenPage />} />
-                <Route path="/growth" element={<GrowthPage />} />
-                <Route path="/tokenize" element={<TokenizeMarketSelect />} />
-                <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
-                <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
-              </Routes>
-            </TokenizeProvider>
-          </main>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <DPLHeader>
+          <ConnectButton onChainChanged={updateChain} />
+        </DPLHeader>
+        <main className="content-wrap">
+          <TokenizeProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/:userAddress" element={<TokensPage />} />
+              <Route path="/tokens/:hash" element={<TokenPage />} />
+              <Route path="/growth" element={<GrowthPage />} />
+              <Route path="/tokenize" element={<TokenizeMarketSelect />} />
+              <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
+              <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
+            </Routes>
+          </TokenizeProvider>
+        </main>
+      </BrowserRouter>
     </WebProviderContext.Provider>
   )
 }

@@ -1,7 +1,6 @@
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FunctionComponent } from 'react'
-import { Link } from 'react-router-dom'
+import { FaChevronLeft } from 'react-icons/fa'
+import HSButton from '../HSButton'
 
 interface BackButtonProps {
   title: string
@@ -10,13 +9,10 @@ interface BackButtonProps {
 
 const BackButton: FunctionComponent<BackButtonProps> = ({ title, path }) => {
   return (
-    <div className="flex w-full">
-      <Link to={path}>
-        <div className="flex items-center mb-2 text-blue-500">
-          <FontAwesomeIcon icon={faChevronLeft} size="xs" className="mr-1" />
-          <span>{title}</span>
-        </div>
-      </Link>
+    <div className="mb-md">
+      <HSButton link={path} type="outlined neutral" icon={<FaChevronLeft />}>
+        {title}
+      </HSButton>
     </div>
   )
 }

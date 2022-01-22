@@ -1,7 +1,7 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { FunctionComponent, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import PageHeader from '../../components/PageHeader'
+import DPLTitleBar from '../../components/DPLTitleBar'
 
 interface TokenProps {}
 
@@ -11,7 +11,7 @@ const Token: FunctionComponent<TokenProps> = () => {
 
   return (
     <div>
-      <PageHeader title={hash ?? ''} />
+      <DPLTitleBar title={hash ?? ''} />
       {error && <div className="text-red-500">{error}</div>}
     </div>
   )
