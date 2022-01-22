@@ -1,5 +1,7 @@
 import React from 'react'
 
+type ButtonStyle = 'outlined' | 'filled' | 'danger' | 'native-blue' | 'neutral'
+
 interface HSButtonProps {
   label?: string
   icon?: React.ReactElement | string
@@ -20,14 +22,7 @@ const HSButton: React.FC<HSButtonProps> = ({
   children,
   context = 'button'
 }) => {
-  const VALID_BUTTON_TYPES = ['outlined', 'filled', 'danger', 'native-blue', 'neutral']
   const assertType = (type: string): string => {
-    type.split(' ').forEach(type => {
-      if (!VALID_BUTTON_TYPES.includes(type))
-        throw new Error(
-          `Invalid type ${type}. Please use one of the following valid types: ${VALID_BUTTON_TYPES.join(', ')}.`
-        )
-    })
     const finalTypes: string[] = []
     type.split(' ').forEach(type => {
       finalTypes.push('hs-button--' + type)

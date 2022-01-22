@@ -1,18 +1,22 @@
 import { useState } from 'react'
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import DPLHeader from './components/DPLHeader'
+import ConnectButton from './components/ConnectButton'
+
+import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
+import { TokenizeProvider } from './context/tokenizeContext'
+
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
 import TokenPage from './pages/token'
-import ConnectButton from './components/ConnectButton'
-import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
-import { TokenizeProvider } from './context/tokenizeContext'
-import DPLHeader from './components/DPLHeader'
 import TokenizeSubmit from './pages/tokenize-submit'
-import './scss/main.scss'
+import { DPLFooter, DPLFooterSection } from './components/DPLFooter'
+
+import FooterImg from './img/FOOTER_IMG_ Powered by Dev Protocol.png'
 
 function App() {
   const web3ProviderContext = useWeb3ProviderContext()
@@ -41,6 +45,31 @@ function App() {
             </Routes>
           </TokenizeProvider>
         </main>
+        <DPLFooter>
+          <DPLFooterSection>
+            <ul className="mb-sm">
+              <p className="fs-h4 fw-h3">Network</p>
+              <li>
+                <a href="#">Arbitrium</a>
+              </li>
+              <li>
+                <a href="#">Polygon</a>
+              </li>
+            </ul>
+            <ul>
+              <p className="fs-h4 fw-h3">Testnet</p>
+              <li>
+                <a href="#">Arbitrum Rinkeby</a>
+              </li>
+              <li>
+                <a href="#">Polygon Mumbai</a>
+              </li>
+            </ul>
+          </DPLFooterSection>
+          <DPLFooterSection>
+            <img width="100px" height="auto" src={FooterImg} alt="Footer Image" />
+          </DPLFooterSection>
+        </DPLFooter>
       </BrowserRouter>
     </WebProviderContext.Provider>
   )
