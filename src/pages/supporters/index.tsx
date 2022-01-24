@@ -27,9 +27,6 @@ import { always } from 'ramda'
 import { useSTokenPosition, useCreateKhaosPubSign } from './s-token.hooks'
 import { Market } from '../../const'
 
-const { sTokenPosition } = useSTokenPosition()
-const propertyAddress = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.YOUTUBE)
-console.log(propertyAddress)
 
 const { Dragger } = Upload
 
@@ -160,7 +157,7 @@ const STokenPosition = ({ sTokenId }: { sTokenId: number }) => {
   // )
 }
 
-const STokenPositionDetail = (_: Props) => {
+const STokenPositionDetail = async (_: Props) => {
   const [fileObj, setFileObj] = useState<File | undefined>(undefined)
   const [previewDataUri, setPreviewDataUri] = useState<string | undefined>(undefined)
   // const { stokenId: sTokenIdString } = useRouter().query as { stokenId: string }
@@ -168,7 +165,7 @@ const STokenPositionDetail = (_: Props) => {
   // const { positions } = useGetSTokenPositions(sTokenId)
   // const { tokenURI, mutate: mutateSTokenTokenURI } = useGetSTokenTokenURI(sTokenId)
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!fileObj) return
     const reader = new FileReader()
     reader.addEventListener('load', () => {
@@ -176,6 +173,10 @@ const STokenPositionDetail = (_: Props) => {
     })
     reader.readAsDataURL(fileObj)
   }, [fileObj])
+
+  const { sTokenPosition } = useSTokenPosition()
+  const position = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.YOUTUBE)
+  console.log(position)
 
   // const propertyAddress = useMemo(() => {
   //   return positions?.property
