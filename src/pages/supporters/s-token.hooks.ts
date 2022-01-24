@@ -104,5 +104,5 @@ export const useSTokenPosition = () => {
         [web3Context?.web3Provider]
     )
 
-    return { createAndAuthenticate: callback, isLoading, error }
+    return { sTokenPosition: callback, isLoading, error }
 }
