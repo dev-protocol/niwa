@@ -24,6 +24,12 @@ import { useImageDataUri, useIPFSImageUploader } from '../../fixtures/ipfs/hooks
 import { always } from 'ramda'
 // import { LinkWithNetwork } from 'src/components/atoms/LinkWithNetwork'
 // import { ControlChain } from 'src/components/organisms/ControlChain'
+import { useSTokenPosition, useCreateKhaosPubSign } from './s-token.hooks'
+import { Market } from '../../const'
+
+const { sTokenPosition } = useSTokenPosition()
+const propertyAddress = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.YOUTUBE)
+console.log(propertyAddress)
 
 const { Dragger } = Upload
 
