@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
 // import { useRouter } from 'next/router'
 import { format } from 'date-fns'
 import styled from 'styled-components'
@@ -26,7 +26,6 @@ import { always } from 'ramda'
 // import { ControlChain } from 'src/components/organisms/ControlChain'
 import { useSTokenPosition, useCreateKhaosPubSign } from './s-token.hooks'
 import { Market } from '../../const'
-
 
 const { Dragger } = Upload
 
@@ -157,15 +156,27 @@ const STokenPosition = ({ sTokenId }: { sTokenId: number }) => {
   // )
 }
 
-const STokenPositionDetail = async (_: Props) => {
+const STokenPositionDetail = (_: Props) => {
   const [fileObj, setFileObj] = useState<File | undefined>(undefined)
   const [previewDataUri, setPreviewDataUri] = useState<string | undefined>(undefined)
   // const { stokenId: sTokenIdString } = useRouter().query as { stokenId: string }
   // const sTokenId = parseInt(sTokenIdString)
   // const { positions } = useGetSTokenPositions(sTokenId)
   // const { tokenURI, mutate: mutateSTokenTokenURI } = useGetSTokenTokenURI(sTokenId)
+  const { sTokenPosition } = useSTokenPosition()
 
-  useEffect(async () => {
+  const makeAsyncCall = useCallback(async () => {
+    const position = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.GITHUB)
+    console.log(position)
+    console.log('hi')
+    // do something with position here
+  }, [sTokenPosition])
+
+  useEffect(() => {
+    makeAsyncCall()
+  }, [])
+
+  useEffect(() => {
     if (!fileObj) return
     const reader = new FileReader()
     reader.addEventListener('load', () => {
@@ -173,10 +184,6 @@ const STokenPositionDetail = async (_: Props) => {
     })
     reader.readAsDataURL(fileObj)
   }, [fileObj])
-
-  const { sTokenPosition } = useSTokenPosition()
-  const position = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.YOUTUBE)
-  console.log(position)
 
   // const propertyAddress = useMemo(() => {
   //   return positions?.property
