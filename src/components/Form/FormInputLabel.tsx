@@ -8,7 +8,7 @@ interface FormInputLabelProps {
 
 const FormInputLabel: FunctionComponent<FormInputLabelProps> = ({ label, id, required }) => {
   return (
-    <label htmlFor={id} className="font-bold text-sm">
+    <label htmlFor={id}>
       {label}
       {required && <span>*</span>}
     </label>

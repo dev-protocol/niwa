@@ -1,0 +1,23 @@
+@use 'node_modules/@devprotocol/hashi';
+
+@mixin use() {
+    .grid-center {
+        width: 100%;
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+    }
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: hashi.theme-token-get('margin-sm');
+        
+        > * {
+            height: 100%;
+        }
+        
+        @include hashi.theme-breakpoint-create('medium') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}

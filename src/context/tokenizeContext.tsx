@@ -1,8 +1,8 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers } from 'ethers'
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
+import { useProvider } from '../context/walletContext'
 import { isValidNetwork } from '../utils/utils'
-import { useWeb3Provider } from './web3ProviderContext'
 
 export type GithubFormParams = {}
 
@@ -52,25 +52,24 @@ export const TokenizeProvider: React.FC = ({ children }) => {
   const [isValid, setIsValid] = useState(false)
   const [network, setNetwork] = useState<UndefinedOr<ethers.providers.Network>>()
   const [address, setAddress] = useState('')
-  const web3Context = useWeb3Provider()
+  const { ethersProvider } = useProvider()
 
   const detectNetwork = useCallback(async () => {
-    if (web3Context?.web3Provider) {
-      const net = await web3Context?.web3Provider.detectNetwork()
+    if (ethersProvider) {
+      const net = await ethersProvider.detectNetwork()
       setNetwork(net)
     }
-  }, [web3Context, setNetwork])
+  }, [ethersProvider, setNetwork])
 
   useEffect(() => {
-    if (web3Context?.web3Provider) {
-      const provider = web3Context.web3Provider
+    if (ethersProvider) {
       detectNetwork()
       ;(async () => {
-        const userAddress = await provider.getSigner().getAddress()
+        const userAddress = await ethersProvider.getSigner().getAddress()
         setAddress(userAddress)
       })()
     }
-  }, [web3Context, detectNetwork])
+  }, [ethersProvider, detectNetwork])
 
   const validateForm = useCallback(() => {
     if (assetName.length <= 0) {

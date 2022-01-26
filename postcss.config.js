@@ -1,6 +1,11 @@
+const purgecss = require('@fullhuman/postcss-purgecss')
+
 module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: [
+    require('autoprefixer'),
+    require('tailwindcss'),
+    purgecss({
+      content: ['./**/*.tsx', './**/*.ts']
+    })
+  ],
 }

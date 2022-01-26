@@ -4,7 +4,8 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { whenDefined } from '@devprotocol/util-ts'
 import React, { useEffect, useState } from 'react'
-import { useWeb3Provider } from '../../context/web3ProviderContext'
+import { useProvider } from '../../context/walletContext'
+import HSButton from '../HSButton'
 
 const providerOptions = {
   injected: {
@@ -24,21 +25,18 @@ type ConnectButtonParams = {
 }
 
 const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
-  const web3Context = useWeb3Provider()
+  const { ethersProvider, setEthersProvider } = useProvider()
   const [address, setAddress] = useState<string | null>(null)
 
   useEffect(() => {
-    console.log('web 3 context changed')
     const getProvider = async (): Promise<void> => {
-      const currentProvider = web3Context?.web3Provider
-      console.log('current provider is: ', currentProvider)
-      if (currentProvider) {
-        const currentAddress = await currentProvider.getSigner().getAddress()
+      if (ethersProvider) {
+        const currentAddress = await ethersProvider.getSigner().getAddress()
         setAddress(currentAddress)
       }
     }
     getProvider()
-  }, [web3Context])
+  }, [ethersProvider])
 
   const connect = async () => {
     const modalProvider = new Web3Modal({
@@ -47,7 +45,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
     })
     const connectedProvider = await modalProvider.connect()
     const newProvider = whenDefined(connectedProvider, p => new providers.Web3Provider(p))
-    web3Context?.setWeb3Provider(newProvider)
+    setEthersProvider(newProvider)
 
     onChainChanged(connectedProvider.chainId)
 
@@ -58,7 +56,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
   }
 
   return (
-    <div>
+    <>
       {address && (
         <div className="text-right">
           <div className="flex">
@@ -71,11 +69,11 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
         </div>
       )}
       {!address && (
-        <button type="button" onClick={connect} className="">
+        <HSButton onClick={connect} type="filled">
           Connect Wallet
-        </button>
+        </HSButton>
       )}
-    </div>
+    </>
   )
 }
 

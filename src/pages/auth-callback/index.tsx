@@ -2,8 +2,6 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Market } from '../../const'
 import { getMarketFromString } from '../../utils/utils'
-import PageHeader from '../../components/PageHeader'
-import BackButton from '../../components/BackButton'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 interface AuthCallbackPageProps {}
@@ -28,8 +26,6 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
 
   return (
     <div>
-      <BackButton title="Tokenize" path="/tokenize" />
-      <PageHeader title="Invitation Request" />
       <p>waiting...</p>
     </div>
   )

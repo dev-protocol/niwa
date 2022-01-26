@@ -2,6 +2,7 @@ import { FunctionComponent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
+import HSButton from '../../components/HSButton'
 
 interface GithubFormProps {}
 
@@ -34,13 +35,12 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
       <FormField
         label="Network"
         id="network"
+        helper="Minting only available on Arbitrum and Polyon."
         required={true}
         value={network?.name ?? ''}
         placeholder="Please Connect Wallet"
         disabled={true}
       />
-      <div className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</div>
-
       <FormField
         label="Your Wallet Address"
         id="address"
@@ -49,7 +49,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         placeholder="Please Connect Wallet"
         disabled={true}
       />
-
       <FormField
         label="GitHub Repository Name"
         placeholder="owner_name/repository_name"
@@ -58,7 +57,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={assetName}
         onChange={val => setAssetName(val)}
       />
-
       <FormField
         label="Token Name"
         id="tokenName"
@@ -66,7 +64,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={tokenName}
         onChange={val => setTokenName(val)}
       />
-
       <FormField
         label="Token Symbol"
         id="tokenSymbol"
@@ -74,7 +71,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={tokenSymbol}
         onChange={val => setTokenSymbol(val)}
       />
-
       <FormField
         label="Personal Access Token"
         id="pac"
@@ -82,29 +78,20 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={personalAccessToken}
         onChange={val => setPersonalAccessToken(val)}
       />
+      <a
+        href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
+        target="_blank"
+        rel="noreferrer"
+        className="hs-link fs-body"
+      >
+        Create a Personal Access Token without any scopes.
+      </a>
+      <p className="fs-small">The PAT is confidentially authenticated using the Khaos oracle.</p>
 
-      <div className="flex flex-col text-sm">
-        <a
-          href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Create a Personal Access Token without any scopes.
-        </a>
-        <span>The PAT is confidentially authenticated using the Khaos oracle.</span>
-      </div>
-
-      <div className="float-right flex flex-col items-end">
-        <button
-          type="submit"
-          className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-            isValid ? 'opacity-100' : 'opacity-60'
-          }`}
-          disabled={!isValid}
-          onClick={submit}
-        >
+      <div className="row-end">
+        <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>
           Preview
-        </button>
+        </HSButton>
       </div>
     </div>
   )

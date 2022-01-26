@@ -1,8 +1,8 @@
 import { FunctionComponent, useContext, useState } from 'react'
-import { faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaYoutube } from 'react-icons/fa'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
+import HSButton from '../../components/HSButton'
 
 interface YouTubeFormProps {}
 
@@ -29,7 +29,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
 
   return (
     <div>
-      <FontAwesomeIcon icon={faYoutube} className="mr-1" style={{ color: '#e93323' }} />
+      <FaYoutube />
       YouTube Market
       <FormField
         label="Network"
@@ -51,16 +51,14 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
       />
 
       <div className="float-right flex flex-col items-end">
-        <button
-          type="submit"
-          className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-            isValid ? 'opacity-100' : 'opacity-60'
-          }`}
-          disabled={!isValid}
+        <HSButton
+          context="submit"
+          type="filled"
+          isDisabled={!isValid}
           onClick={submit}
         >
           Authorize YouTube Account
-        </button>
+        </HSButton>
       </div>
     </div>
   )

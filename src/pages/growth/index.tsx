@@ -4,8 +4,8 @@ interface GrowthPageProps {}
 
 const GrowthPage: FunctionComponent<GrowthPageProps> = () => {
   return (
-    <div>
-      <span>Growth Page</span>
+    <div className="grid-center">
+      <span className="fs-h1 fw-h1">Coming Soon :)</span>
     </div>
   )
 }

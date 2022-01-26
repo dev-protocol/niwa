@@ -1,35 +1,42 @@
-import { FunctionComponent } from 'react'
-import FormInput from './FormInput'
-import FormInputLabel from './FormInputLabel'
+import React from 'react'
+import HSTextField from '../HSTextField'
 
 interface FormFieldProps {
   label: string
   id: string
+  helper?: string
   required?: boolean
   placeholder?: string
   disabled?: boolean
   value: string
+  isError?: boolean
   onChange?: (val: string) => void
 }
 
-const FormField: FunctionComponent<FormFieldProps> = ({
+const FormField: React.FC<FormFieldProps> = ({
   label,
   id,
+  helper,
   required = false,
   disabled = false,
   placeholder,
   value,
-  onChange
+  onChange,
+  isError
 }) => {
   return (
-    <div className="mb-4">
-      <FormInputLabel label={label} id={id} required={required} />
-      <FormInput
+    <div className="mb-lg">
+      <HSTextField
+        name={id}
+        label={label}
+        helper={helper}
+        type="text"
         placeholder={placeholder}
-        id={id}
         value={value}
         onChange={val => (onChange ? onChange(val) : () => {})}
-        disabled={disabled}
+        isError={isError}
+        isRequired={required}
+        isDisabled={disabled}
       />
     </div>
   )
