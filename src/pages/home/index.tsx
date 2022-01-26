@@ -1,5 +1,4 @@
-import React from 'react'
-import { FunctionComponent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useWeb3Provider } from '../../context/web3ProviderContext'
 import HomeNavItem from './HomeNavitem'
@@ -22,12 +21,10 @@ const Home: React.FC<HomeProps> = () => {
   }, [web3Context])
 
   return (
-    <div className="">
-      <section className="grid-2">
-        <HomeNavItem title="Tokens" path={userTokensPath} message="Launch your project tokens and manage them" />
-        <HomeNavItem title="Growth" path="/growth" message="Grow your project and make friends" />
-      </section>
-    </div>
+    <section className="grid-2">
+      <HomeNavItem title="Tokens" path={userTokensPath} message="Launch your project tokens and manage them" />
+      <HomeNavItem title="Growth" path="/growth" message="Grow your project and make friends" />
+    </section>
   )
 }
 
