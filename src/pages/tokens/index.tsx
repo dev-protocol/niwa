@@ -3,33 +3,33 @@ import BackButton from '../../components/BackButton'
 import { UserToken } from '../../types/userToken'
 import { useNavigate, useParams } from 'react-router-dom'
 import UserTokenListItem from './UserTokenListItem'
-import { useWeb3Provider } from '../../context/web3ProviderContext'
-import { EMPTY_USER_TOKEN_PATH } from '../../const'
+
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HSButton from '../../components/HSButton'
 import { HSCard, HSCardContents } from '../../components/HSCard'
+import { EMPTY_USER_TOKEN_PATH } from '../../const'
+import { useProvider } from '../../context/walletContext'
 
 interface TokensPageProps {
   // Props
 }
 
 const TokensPage: React.FC<TokensPageProps> = () => {
-  const web3Context = useWeb3Provider()
+  const { ethersProvider } = useProvider()
   const navigate = useNavigate()
   const { userAddress } = useParams()
   const [userTokens, _setUserTokens] = useState<UserToken[]>([])
 
   useEffect(() => {
-    const userProvider = web3Context?.web3Provider
-    if (!userProvider) {
+    if (!ethersProvider) {
       navigate(`/${EMPTY_USER_TOKEN_PATH}`)
       return
     }
     ;(async () => {
-      const address = await userProvider.getSigner().getAddress()
+      const address = await ethersProvider.getSigner().getAddress()
       navigate(`/${address}` ?? `/${EMPTY_USER_TOKEN_PATH}`)
     })()
-  }, [web3Context, navigate])
+  }, [ethersProvider, navigate])
 
   useEffect(() => {
     if (userAddress === EMPTY_USER_TOKEN_PATH) {

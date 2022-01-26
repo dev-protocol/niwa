@@ -1,12 +1,5 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import DPLHeader from './components/DPLHeader'
-import ConnectButton from './components/ConnectButton'
-
-import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
-import { TokenizeProvider } from './context/tokenizeContext'
-
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
@@ -14,20 +7,26 @@ import TokenPage from './pages/token'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
+  
+import ConnectButton from './components/ConnectButton'
+import DPLHeader from './components/DPLHeader'
 import { DPLFooter, DPLFooterSection } from './components/DPLFooter'
 
+import { useWalletProviderContext, WalletContext } from './context/walletContext'
+import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
+import { TokenizeProvider } from './context/tokenizeContext'
+  
 import FooterImg from './img/FOOTER_IMG_ Powered by Dev Protocol.png'
 
 function App() {
-  const web3ProviderContext = useWeb3ProviderContext()
-  const [_currentChangeId, setCurrentChainId] = useState<number | null>(null)
+  const walletProviderContext = useWalletProviderContext()
 
-  const updateChain = (chainId: number) => {
-    setCurrentChainId(+chainId)
+  const updateChain = (_chainId: number) => {
+    // TODO - check if chain matches deployment network (ie arbitrum.launcher.com)
   }
 
   return (
-    <WebProviderContext.Provider value={web3ProviderContext}>
+    <WalletContext.Provider value={walletProviderContext}>
       <BrowserRouter>
         <DPLHeader>
           <ConnectButton onChainChanged={updateChain} />
@@ -71,7 +70,7 @@ function App() {
           </DPLFooterSection>
         </DPLFooter>
       </BrowserRouter>
-    </WebProviderContext.Provider>
+    </WalletContext.Provider>
   )
 }
 

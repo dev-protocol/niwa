@@ -10,7 +10,7 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@devprotocol/dev-kit": "^5.10.2",
+    "@devprotocol/dev-kit": "^5.11.1",
     "@devprotocol/hashi": "^0.1.0",
     "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
@@ -27,6 +27,7 @@
     "sass": "^1.49.0",
     "stream-browserify": "^3.0.0",
     "tailwindcss": "^3.0.16",
+    "swr": "^1.1.2",
     "util": "^0.12.4",
     "web3": "^1.6.1",
     "web3modal": "^1.9.4"
