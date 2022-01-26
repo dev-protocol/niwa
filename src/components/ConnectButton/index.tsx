@@ -5,6 +5,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import { whenDefined } from '@devprotocol/util-ts'
 import React, { useEffect, useState } from 'react'
 import { useProvider } from '../../context/walletContext'
+import HSButton from '../HSButton'
 
 const providerOptions = {
   injected: {
@@ -55,7 +56,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
   }
 
   return (
-    <div>
+    <>
       {address && (
         <div className="text-right">
           <div className="flex">
@@ -68,11 +69,11 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
         </div>
       )}
       {!address && (
-        <button type="button" onClick={connect} className="">
+        <HSButton onClick={connect} type="filled">
           Connect Wallet
-        </button>
+        </HSButton>
       )}
-    </div>
+    </>
   )
 }
 

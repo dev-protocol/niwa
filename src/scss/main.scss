@@ -1,0 +1,96 @@
+@use 'node_modules/@devprotocol/hashi';
+@use 'node_modules/@devprotocol/hashi/hs-button' with (
+    $fill: 'native-blue',
+    $ink: 'native-blue-ink',
+    $weight: 'weight-body',
+    $padding: (0.4rem 0.6rem)
+);
+@use 'node_modules/@devprotocol/hashi/hs-card' with (
+    $has-elevation: false
+);
+@use 'node_modules/@devprotocol/hashi/hs-link';
+@use 'node_modules/@devprotocol/hashi/hs-text-field';
+@use 'node_modules/@devprotocol/hashi/hs-utils';
+
+@use 'modules/dpl-footer';
+@use 'modules/dpl-header';
+@use 'modules/dpl-layout';
+@use 'modules/dpl-title-bar';
+
+@use 'modules/home-nav-item';
+
+@include hashi.init() {
+    /* purgecss start ignore */
+    #root {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+    
+    .content-wrap {
+        width: calc(100% - 30px);
+        max-width: 1077px;
+        min-height: calc(100vh - 63px - 184px);
+        margin: 0 auto;
+        padding: hashi.theme-token-get('padding-xl') 0;
+    }
+    
+    .opacity-50 {
+        opacity: 50%;
+    }
+    
+    @include dpl-layout.flex-use();
+    @include dpl-layout.grid-use();
+    
+    @include hs-button.render();
+    .hs-button__icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    @include hs-button.extend('hs-button--outlined.hs-button--danger') {
+        @include hs-button.color((
+            fill: 'danger',
+            ink: 'danger-ink',
+            border: 'danger'
+        ), 'outlined');
+    }
+    @include hs-button.extend('hs-button--outlined.hs-button--neutral') {
+        @include hs-button.color((
+            fill: 'neutral',
+            ink: 'neutral-ink',
+            border: 'neutral'
+        ), 'outlined');
+    }
+    @include hs-button.extend('hs-button--filled.hs-button--neutral') {
+        @include hs-button.color((
+            fill: 'neutral',
+            ink: 'neutral-ink',
+            border: 'neutral'
+        ), 'filled');
+    }
+    @include hs-card.render();
+    .hs-card {
+        --hs-card-fill: rgba(0 0 0 / 0);
+        @include hashi.tools-prefix(transition, all 0.1s ease);
+        
+        &:hover {
+            --hs-card-border: #{hashi.theme-token-get('surface-600')};
+        }
+    }
+    @include hs-link.render();
+    @include hs-text-field.render();
+    
+    @include dpl-footer.render();
+    @include dpl-header.render();
+    @include dpl-title-bar.render();
+    
+    @include home-nav-item.render();
+    /* purgecss end ignore */
+    
+    @include hs-utils.color-utils();
+    @include hs-utils.shape-utils();
+    @include hs-utils.typography-utils();
+}
+

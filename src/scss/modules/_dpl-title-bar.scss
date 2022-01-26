@@ -1,0 +1,9 @@
+@use 'node_modules/@devprotocol/hashi';
+
+@mixin render() {
+    .dpl-title-bar {
+        background: linear-gradient(180deg, #{hashi.theme-token-get('native-blue-400')} 40%, #{hashi.theme-token-get('plox-400')} 60%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}

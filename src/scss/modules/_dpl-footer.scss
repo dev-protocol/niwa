@@ -1,0 +1,28 @@
+@use 'node_modules/@devprotocol/hashi';
+
+@mixin render() {
+    .dpl-footer {
+        @include hashi.color-apply('footer', (
+            fill: 'surface',
+            ink: 'surface-ink',
+            border: 'surface'
+        ), filled, $tone: 300);
+        padding: 1rem 1.5rem;
+        
+        .dpl-footer__wrapper {
+            width: 100%;
+            max-width: 1077px;
+            margin: 0 auto;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+    
+            .dpl-footer__section {
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+}
