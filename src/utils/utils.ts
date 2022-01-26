@@ -113,8 +113,12 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
 }
 
 export const getValidNetworkName = async (
-  provider: ethers.providers.Web3Provider
+  provider: UndefinedOr<ethers.providers.Web3Provider>
 ): Promise<UndefinedOr<NetworkName>> => {
+  if (!provider) {
+    Promise.reject('No provider found')
+    return
+  }
   const network = await provider.getNetwork()
   switch (network.chainId) {
     case 421611: // // arbitrum testnet
@@ -130,3 +134,12 @@ export const getValidNetworkName = async (
       return
   }
 }
+
+export const isError = (err: unknown): err is Error => err instanceof Error
+
+export type UnwrapFunc<T> = T extends (...arg: any) => Promise<infer U> ? U : T
+
+export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
+export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
+
+export const infuraEndpoint = () => `${infuraBaseEndpoint}/${infuraProjectId}`
