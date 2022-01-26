@@ -31,8 +31,10 @@ const Token: FunctionComponent<TokenProps> = () => {
       {propertyData && (
         <>
           <div className="flex justify-between items-center">
-            <PageHeader title={assetSymbol} />
-            <FontAwesomeIcon icon={faShareAlt} style={{ color: '#333' }} />
+            <PageHeader title={assetSymbol} styleOverride={{ 'margin-bottom': '0.5rem' }} />
+            <div className="mb-2">
+              <FontAwesomeIcon icon={faShareAlt} style={{ color: '#333' }} />
+            </div>
           </div>
           <div className="font-bold">{hash}</div>
           <div className="flex justify-between">
