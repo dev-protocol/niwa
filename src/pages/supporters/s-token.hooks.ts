@@ -69,7 +69,7 @@ export const useSTokenPosition = () => {
     const [error, setError] = useState<Error>()
 
     const callback = useCallback(
-        async (property: string, market: Market) => {
+        async (property: string) => {
             setIsLoading(true)
             setError(undefined)
 

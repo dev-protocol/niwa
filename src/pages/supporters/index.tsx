@@ -166,9 +166,9 @@ const STokenPositionDetail = (_: Props) => {
   const { sTokenPosition } = useSTokenPosition()
 
   const makeAsyncCall = useCallback(async () => {
-    const position = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6', Market.GITHUB)
+    const position = await sTokenPosition('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6')
+    console.log('test')
     console.log(position)
-    console.log('hi')
     // do something with position here
   }, [sTokenPosition])
 
