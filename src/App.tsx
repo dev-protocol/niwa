@@ -9,6 +9,7 @@ import ConnectButton from './components/ConnectButton'
 import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
+import AuthCallbackPage from './pages/auth-callback'
 import { TokenizeProvider } from './context/tokenizeContext'
 import TokenizeSubmit from './pages/tokenize-submit'
 
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                 <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
                 <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
+                <Route path="/auth/:market/callback" element={<AuthCallbackPage />} />
               </Routes>
             </TokenizeProvider>
           </main>
