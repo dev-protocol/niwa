@@ -23,7 +23,6 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
     const scope = encodeURI('https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.email')
     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`
 
-    console.log(url)
     window.location.assign(url)
   }
 
