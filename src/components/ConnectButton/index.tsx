@@ -5,7 +5,6 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import { whenDefined } from '@devprotocol/util-ts'
 import React, { useEffect, useState } from 'react'
 import { useProvider } from '../../context/walletContext'
-import { useWeb3Provider } from '../../context/web3ProviderContext'
 import HSButton from '../HSButton'
 
 const providerOptions = {

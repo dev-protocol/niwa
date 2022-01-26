@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
@@ -7,15 +6,14 @@ import TokenPage from './pages/token'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
-  
+
 import ConnectButton from './components/ConnectButton'
 import DPLHeader from './components/DPLHeader'
 import { DPLFooter, DPLFooterSection } from './components/DPLFooter'
 
 import { useWalletProviderContext, WalletContext } from './context/walletContext'
-import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import { TokenizeProvider } from './context/tokenizeContext'
-  
+
 import FooterImg from './img/FOOTER_IMG_ Powered by Dev Protocol.png'
 
 function App() {
