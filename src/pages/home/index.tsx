@@ -1,24 +1,23 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
-import { useWeb3Provider } from '../../context/web3ProviderContext'
+import { useProvider } from '../../context/walletContext'
 import HomeNavItem from './HomeNavitem'
 
 interface HomeProps {}
 
 const Home: FunctionComponent<HomeProps> = () => {
-  const web3Context = useWeb3Provider()
+  const { ethersProvider } = useProvider()
   const [userTokensPath, setUserTokensPath] = useState(EMPTY_USER_TOKEN_PATH)
   useEffect(() => {
-    const userProvider = web3Context?.web3Provider
-    if (!userProvider) {
+    if (!ethersProvider) {
       setUserTokensPath(EMPTY_USER_TOKEN_PATH)
       return
     }
     ;(async () => {
-      const address = await userProvider.getSigner().getAddress()
+      const address = await ethersProvider.getSigner().getAddress()
       setUserTokensPath(address ?? EMPTY_USER_TOKEN_PATH)
     })()
-  }, [web3Context])
+  }, [ethersProvider])
 
   return (
     <div className="flex justify-center">

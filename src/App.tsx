@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/home'
@@ -6,22 +5,21 @@ import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
 import TokenPage from './pages/token'
 import ConnectButton from './components/ConnectButton'
-import { useWeb3ProviderContext, WebProviderContext } from './context/web3ProviderContext'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import { TokenizeProvider } from './context/tokenizeContext'
 import TokenizeSubmit from './pages/tokenize-submit'
+import { useWalletProviderContext, WalletContext } from './context/walletContext'
 
 function App() {
-  const web3ProviderContext = useWeb3ProviderContext()
-  const [_currentChangeId, setCurrentChainId] = useState<number | null>(null)
+  const walletProviderContext = useWalletProviderContext()
 
-  const updateChain = (chainId: number) => {
-    setCurrentChainId(+chainId)
+  const updateChain = (_chainId: number) => {
+    // TODO - check if chain matches deployment network (ie arbitrum.launcher.com)
   }
 
   return (
-    <WebProviderContext.Provider value={web3ProviderContext}>
+    <WalletContext.Provider value={walletProviderContext}>
       <div className="container mx-auto px-4">
         <BrowserRouter>
           <header className="flex justify-between py-4">
@@ -45,7 +43,7 @@ function App() {
           </main>
         </BrowserRouter>
       </div>
-    </WebProviderContext.Provider>
+    </WalletContext.Provider>
   )
 }
 

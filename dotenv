@@ -1,0 +1,5 @@
+# this can be arbitrum-one, arbitrum-rinkeby, polygon-mainnet, or polygon-mumbai
+VITE_L2_NETWORK=arbitrum-rinkeby
+VITE_INFURA_PROJECT_ID=
+VITE_INFURA_PROJECT_SECRET=
+VITE_INFURA_BASE_ENDPOINT=

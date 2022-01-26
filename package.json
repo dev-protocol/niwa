@@ -10,7 +10,7 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@devprotocol/dev-kit": "^5.10.2",
+    "@devprotocol/dev-kit": "^5.11.1",
     "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -28,6 +28,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "stream-browserify": "^3.0.0",
+    "swr": "^1.1.2",
     "util": "^0.12.4",
     "web3": "^1.6.1",
     "web3modal": "^1.9.4"
