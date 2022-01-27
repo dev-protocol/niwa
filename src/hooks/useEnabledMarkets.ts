@@ -1,25 +1,29 @@
 import { useProvider } from '../context/walletContext'
 import useSWR from 'swr'
 import { SWRCachePath } from '../const/cache-path'
-import { whenDefined } from '@devprotocol/util-ts'
+import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 import { providers } from 'ethers'
-import { createMarketFactoryContract } from '@devprotocol/dev-kit/l2'
+import { createMarketContract, createMarketFactoryContract, MarketContract } from '@devprotocol/dev-kit/l2'
 import { mapProviderToDevContracts } from '../utils/utils'
+import { AddressContractContainer } from '../types/AddressContractContainer'
 
-const getEnabledMarkets = async (provider: providers.BaseProvider) => {
+const getEnabledMarkets = async (
+  provider: providers.BaseProvider
+): Promise<UndefinedOr<AddressContractContainer<MarketContract>[]>> => {
   const networkDevContracts = await mapProviderToDevContracts(provider)
   if (!networkDevContracts) {
     return
   }
   const marketFactory = createMarketFactoryContract(provider)(networkDevContracts.marketFactory)
   const enabledMarkets = await marketFactory.getEnabledMarkets()
-  return enabledMarkets
+  const markets = enabledMarkets.map(address => ({ address, contract: createMarketContract(provider)(address) }))
+  return markets
 }
 
-export const useUserPropertiesList = () => {
+export const useEnabledMarkets = () => {
   const { nonConnectedEthersProvider } = useProvider()
   const { data, error } = useSWR(
-    SWRCachePath.getUserPropertyList(),
+    SWRCachePath.getEnabledMarkets(),
     () => whenDefined(nonConnectedEthersProvider, client => getEnabledMarkets(client)),
     {
       onError: err => {
@@ -29,5 +33,5 @@ export const useUserPropertiesList = () => {
       focusThrottleInterval: 0
     }
   )
-  return { userProperties: data, error }
+  return { enabledMarkets: data, error }
 }

@@ -1,13 +1,17 @@
-import { createPropertyFactoryContract } from '@devprotocol/dev-kit/l2'
-import { whenDefined } from '@devprotocol/util-ts'
+import { createPropertyFactoryContract, PropertyContract } from '@devprotocol/dev-kit/l2'
+import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 import { providers } from 'ethers'
 import useSWR from 'swr'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { SWRCachePath } from '../../const/cache-path'
 import { useProvider } from '../../context/walletContext'
+import { AddressContractContainer } from '../../types/AddressContractContainer'
 import { getPropertyData, mapProviderToDevContracts } from '../../utils/utils'
 
-export const getUserPropertyList = async (provider: providers.JsonRpcProvider, address?: string) => {
+export const getUserPropertyList = async (
+  provider: providers.JsonRpcProvider,
+  address?: string
+): Promise<UndefinedOr<AddressContractContainer<PropertyContract>[]>> => {
   if (!address || address === EMPTY_USER_TOKEN_PATH) {
     return []
   }
@@ -17,7 +21,13 @@ export const getUserPropertyList = async (provider: providers.JsonRpcProvider, a
   }
   const propertyFactoryContract = createPropertyFactoryContract(provider)(networkDevContracts.propertyFactory)
   const properties = await propertyFactoryContract.getPropertiesOfAuthor(address)
-  const calls = properties.map(_address => getPropertyData(provider, _address))
+  const calls = properties.map(async _address => {
+    const contract = await getPropertyData(provider, _address)
+    return {
+      address: _address,
+      contract
+    }
+  })
   const propertyData = await Promise.all(calls)
   return propertyData
 }

@@ -274,10 +274,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@devprotocol/dev-kit@^5.11.1":
-  version "5.11.1"
-  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-5.11.1.tgz#ba5eb893fcac2639dcfba00c165d5e22d4d6147d"
-  integrity sha512-aItoIye2khtRUBmxbynW5hqTrEogykY9ozyLMq7uU8hRcQAxi66KljyxFJfkTaZtqBpwnBxu/K7g2xXKHqlWOw==
+"@devprotocol/dev-kit@^5.11.3":
+  version "5.11.3"
+  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-5.11.3.tgz#d747bb2331e9ccea59879f3ecd5f3ccc9716723e"
+  integrity sha512-pej1ZW1R+YnWtknzu1n5HmvOrkdWTs/88qy6Y5cd1fUa5ukJQsUxWP70epj1Tj1o6E2Tros72V0p0Z/KqFA3vw==
   dependencies:
     "@types/bent" "^7.3.1"
     async-ray "^3.2.0"
@@ -8519,7 +8519,6 @@ tailwindcss@^3.0.16:
   version "3.0.16"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.16.tgz#eb6e7a0ecec56e43b9dad439b8cb3a5da1e0c1a3"
   integrity sha512-1L8E5Wr+o1c4kxxObNz2owJe94a7BLEMV+2Lz6wzprJdcs3ENSRR9t4OZf2OqtRNS/q/zFPuOKoLtQoy3Lrhhw==
-
   dependencies:
     arg "^5.0.1"
     chalk "^4.1.2"
