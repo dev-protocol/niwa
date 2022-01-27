@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import BackButton from '../../components/BackButton'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import UserTokenListItem from './UserTokenListItem'
 
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HSButton from '../../components/HSButton'
 import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
-import { useProvider } from '../../context/walletContext'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
 import { useEnabledMarkets } from '../../hooks/useEnabledMarkets'
 
@@ -16,22 +15,9 @@ interface TokensPageProps {
 }
 
 const TokensPage: React.FC<TokensPageProps> = () => {
-  const { ethersProvider } = useProvider()
-  const navigate = useNavigate()
   const { userAddress } = useParams()
   const { userProperties } = useUserPropertiesList(userAddress)
   const { enabledMarkets } = useEnabledMarkets()
-
-  useEffect(() => {
-    if (!ethersProvider) {
-      navigate(`/${EMPTY_USER_TOKEN_PATH}`)
-      return
-    }
-    ;(async () => {
-      const address = await ethersProvider.getSigner().getAddress()
-      navigate(`/${address}` ?? `/${EMPTY_USER_TOKEN_PATH}`)
-    })()
-  }, [ethersProvider, navigate])
 
   return (
     <div>
