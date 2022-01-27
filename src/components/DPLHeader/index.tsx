@@ -11,7 +11,7 @@ const LauncherHeader: React.FC<LauncherHeaderProps> = ({ children }) => {
       <div className="dpl-header__wrapper">
         <div className="dpl-header__brand">
           <Link to="/">
-            <h2>Launcher</h2>
+            <h2>Hanabi</h2>
           </Link>
         </div>
         <div className="dpl-header__actions">{children}</div>
