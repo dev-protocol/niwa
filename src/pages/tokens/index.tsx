@@ -9,6 +9,7 @@ import HSButton from '../../components/HSButton'
 import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useProvider } from '../../context/walletContext'
+import { useUserPropertiesList } from './fetchUserProperties.hook'
 
 interface TokensPageProps {
   // Props
@@ -19,6 +20,7 @@ const TokensPage: React.FC<TokensPageProps> = () => {
   const navigate = useNavigate()
   const { userAddress } = useParams()
   const [userTokens, _setUserTokens] = useState<UserToken[]>([])
+  const { userProperties } = useUserPropertiesList(userAddress)
 
   useEffect(() => {
     if (!ethersProvider) {
@@ -38,6 +40,10 @@ const TokensPage: React.FC<TokensPageProps> = () => {
 
     // TODO: fetch user tokens here
   }, [userAddress])
+
+  useEffect(() => {
+    console.log('fetch user properties changed: ', userProperties)
+  }, [userProperties])
 
   return (
     <div>
