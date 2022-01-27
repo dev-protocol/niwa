@@ -1,8 +1,8 @@
-import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { FunctionComponent } from 'react'
 import BackButton from '../../components/BackButton'
-import PageHeader from '../../components/PageHeader'
+import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeLink from './TokenizeLink'
+import { FaGithub, FaYoutube } from 'react-icons/fa'
 
 interface TokenizeMarketSelectProps {}
 
@@ -10,29 +10,27 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
   return (
     <div>
       <BackButton title="Your Tokens" path="/tokens" />
-      <PageHeader title="Create New Token" />
+      <DPLTitleBar title="Create New Token" />
 
-      <div className="mb-6">
-        <h2 className="section-header mb-2">Tokenize Your Project</h2>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <section className="mb-lg">
+        <h2 className="fs-h3 mb-md">Tokenize Your Project</h2>
+        <div className="grid-2">
           <TokenizeLink
             title="GitHub"
-            icon={faGithub}
+            icon={<FaGithub size="24px" />}
             details="Tokenize your GitHub repository to make OSS more active"
             path="/tokenize/github"
           />
 
           <TokenizeLink
             title="YouTube"
-            icon={faYoutube}
-            iconColor="#e93323"
+            icon={<FaYoutube color="red" size="24px" />}
             details="Tokenize your YouTube channel to pursue what you love"
-            disabled={true}
             path="#"
+            disabled
           />
-          <div></div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

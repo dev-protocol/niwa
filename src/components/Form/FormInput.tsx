@@ -11,7 +11,6 @@ interface FormInputProps {
 const FormInput: FunctionComponent<FormInputProps> = ({ id, placeholder, value, onChange, disabled }) => {
   return (
     <input
-      className="border-2 border-grey-500 rounded px-2 w-full"
       id={id}
       placeholder={placeholder ?? ''}
       value={value}

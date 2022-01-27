@@ -4,6 +4,6 @@ dist
 dist-ssr
 *.local
 yarn-error.log
-.env
 
 .vercel
+.env

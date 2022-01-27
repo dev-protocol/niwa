@@ -1,26 +1,31 @@
-import { FunctionComponent } from 'react'
+import React, { useEffect, useState } from 'react'
+import { EMPTY_USER_TOKEN_PATH } from '../../const'
+import { useProvider } from '../../context/walletContext'
 import HomeNavItem from './HomeNavitem'
 import STokenPositionDetail from '../supporters'
 
 interface HomeProps { }
 
-const Home: FunctionComponent<HomeProps> = () => {
+const Home: React.FC<HomeProps> = () => {
+  const { ethersProvider } = useProvider()
+  const [userTokensPath, setUserTokensPath] = useState(EMPTY_USER_TOKEN_PATH)
+  useEffect(() => {
+    if (!ethersProvider) {
+      setUserTokensPath(EMPTY_USER_TOKEN_PATH)
+      return
+    }
+    ; (async () => {
+      const address = await ethersProvider.getSigner().getAddress()
+      setUserTokensPath(address ?? EMPTY_USER_TOKEN_PATH)
+    })()
+  }, [ethersProvider])
+
   return (
-    <div className="flex justify-center">
-      <nav className="pt-12">
-        <div className="bg-gradient-to-r from-blue-100 to-cyan-100 rounded drop-shadow">
-          <HomeNavItem title="Tokens" path="/tokens" message="Launch your project tokens and manage them" />
-        </div>
-        <div className="bg-gradient-to-r from-green-100 to-yellow-100 rounded drop-shadow">
-          <HomeNavItem title="Growth" path="/growth" message="Grow your project and make friends" />
-        </div>
-      </nav>
-      <STokenPositionDetail />
-    </div>
+    <section className="grid-2">
+      <HomeNavItem title="Tokens" path={userTokensPath} message="Launch your project tokens and manage them" />
+      <HomeNavItem title="Growth" path="/growth" message="Grow your project and make friends" />
+    </section>
   )
 }
-
-// 243, 170, 60
-// 250, 250, 220
 
 export default Home

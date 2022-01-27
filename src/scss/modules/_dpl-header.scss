@@ -1,0 +1,51 @@
+@use 'node_modules/@devprotocol/hashi';
+
+@mixin render() {
+    .dpl-header {
+        width: 100%;
+        @include hashi.color-apply('header', (
+            fill: 'surface',
+            ink: 'surface-ink',
+            border: 'surface'
+        ), 'filled', $tone: 300);
+        
+        @include hashi.dark-mode {
+            @include hashi.color-apply('header', (
+                fill: 'surface',
+                ink: 'surface-ink',
+                border: 'surface'
+            ), 'filled', $tone: 300);
+        }
+        
+        .dpl-header__wrapper {
+            width: calc(100% - 30px);
+            max-width: 1077px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            margin: 0 auto;
+            padding: hashi.theme-token-get('padding-sm') 0;
+    
+            .dpl-header__brand {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-basis: 100%;
+        
+                h2 {
+                    font-family: hashi.theme-token-get('family-header');
+                    font-size: hashi.theme-token-get('size-h2');
+                    font-weight: hashi.theme-token-get('weight-h2');
+                    line-height: hashi.theme-token-get('line-height-h2');
+                }
+            }
+    
+            .dpl-header__actions {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                flex-basis: 100%;
+            }
+        }
+    }
+}
