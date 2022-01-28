@@ -64,11 +64,11 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
         <div className="text-right">
           <div className="flex">
             <Link to={`/${address}`} className="hs-link">
-              <div className="m[right]-2">
+              <span className="mr-xs">
                 {address.substring(2, 6)}
                 ...
                 {address.substring(address.length - 4, address.length)}
-              </div>
+              </span>
               <FaChevronRight size={12} />
             </Link>
           </div>
