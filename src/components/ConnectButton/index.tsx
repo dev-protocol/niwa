@@ -6,6 +6,8 @@ import { whenDefined } from '@devprotocol/util-ts'
 import React, { useEffect, useState } from 'react'
 import { useProvider } from '../../context/walletContext'
 import HSButton from '../HSButton'
+import { Link } from 'react-router-dom'
+import { FaChevronRight } from 'react-icons/fa'
 
 const providerOptions = {
   injected: {
@@ -15,7 +17,7 @@ const providerOptions = {
     package: WalletConnectProvider,
     options: {
       // TODO: will this work? was taken from the governance dapp code
-      infuraId: '75ebe953349644b6998136d868f5cd97'
+      infuraId: import.meta.env.VITE_INFURA_PROJECT_ID
     }
   }
 }
@@ -50,6 +52,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
     onChainChanged(connectedProvider.chainId)
 
     connectedProvider.on('chainChanged', (chainId: number) => {
+      // TODO: handle connected chain change by routing to different deployments or alert message
       onChainChanged(chainId)
       window.location.reload()
     })
@@ -60,11 +63,14 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
       {address && (
         <div className="text-right">
           <div className="flex">
-            <span>
-              {address.substring(0, 6)}
-              ...
-              {address.substring(address.length - 4, address.length)}
-            </span>
+            <Link to={`/${address}`} className="hs-link">
+              <div className="m[right]-2">
+                {address.substring(2, 6)}
+                ...
+                {address.substring(address.length - 4, address.length)}
+              </div>
+              <FaChevronRight size={12} />
+            </Link>
           </div>
         </div>
       )}
