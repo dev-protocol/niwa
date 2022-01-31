@@ -4,5 +4,6 @@ export const SWRCachePath = {
   getEnabledMarkets: () => `enabledMarkets`,
   getMarket: (address: string) => `market/${address}`,
   getPropertyMetrics: (address: string) => `propertyMetrics/${address}`,
-  useGetAssetsByProperties: (propertyAddress?: string) => `useGetAssetsByProperties/${propertyAddress}`
+  useGetAssetsByProperties: (propertyAddress?: string) => `useGetAssetsByProperties/${propertyAddress}`,
+  usePropertyDetails: (propertyAddress?: string) => `propertyDetails/${propertyAddress}`
 } as const

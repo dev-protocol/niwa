@@ -65,7 +65,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       return
     }
     setIsLoading(false)
-    navigate(`/tokens/${propertyAddress}`)
+    navigate(`/properties/${propertyAddress}`)
   }
 
   const submitDisabled = () => {

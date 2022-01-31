@@ -54,20 +54,24 @@ export type AssetProperty = {
   id: UndefinedOr<string>
 }
 
+export const getAssetsByProperties = async (provider: providers.BaseProvider, propertyAddress: string) => {
+  const metrics = await metricsOfProperty(provider, propertyAddress)
+  const markets = await whenDefined(metrics, met => Promise.all(met.map(m => getMarketMetrics(provider, m))))
+  const behaviors = await whenDefined(markets, marks =>
+    Promise.all(marks.map(mak => whenDefined(mak, async m => (await getMarket(provider, m))?.behavior())))
+  )
+  const ids = await whenDefinedAll([behaviors, metrics], ([behav, mets]) =>
+    Promise.all(behav.map((beh, i) => whenDefinedAll([beh, mets[i]], ([b, m]) => getId(provider, b, m))))
+  )
+  const res = whenDefinedAll([ids, markets], ([idx, marks]) => marks.map((market, i) => ({ market, id: idx[i] })))
+  return res
+}
+
 export const useGetAssetsByProperties = (propertyAddress?: string): SWRResponse<UndefinedOr<AssetProperty[]>, any> => {
   const { nonConnectedEthersProvider } = useProvider()
   return useSWR(SWRCachePath.useGetAssetsByProperties(propertyAddress), () =>
     whenDefinedAll([nonConnectedEthersProvider, propertyAddress], async ([client, property]) => {
-      const metrics = await metricsOfProperty(client, property)
-      const markets = await whenDefined(metrics, met => Promise.all(met.map(m => getMarketMetrics(client, m))))
-      const behaviors = await whenDefined(markets, marks =>
-        Promise.all(marks.map(mak => whenDefined(mak, async m => (await getMarket(client, m))?.behavior())))
-      )
-      const ids = await whenDefinedAll([behaviors, metrics], ([behav, mets]) =>
-        Promise.all(behav.map((beh, i) => whenDefinedAll([beh, mets[i]], ([b, m]) => getId(client, b, m))))
-      )
-      const res = whenDefinedAll([ids, markets], ([idx, marks]) => marks.map((market, i) => ({ market, id: idx[i] })))
-      return res
+      return await getAssetsByProperties(client, property)
     })
   )
 }
