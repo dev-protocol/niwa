@@ -4,6 +4,7 @@ import { ethers, providers } from 'ethers'
 import { Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
+import { AssetProperty } from '../hooks/useMetrics'
 
 export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   switch (market?.toUpperCase()) {
@@ -147,4 +148,8 @@ export const infuraEndpoint = () => `${infuraBaseEndpoint}/${infuraProjectId}`
 
 export const getPropertyData = async (provider: providers.JsonRpcProvider, address: string) => {
   return await createPropertyContract(provider)(address)
+}
+
+export const matchMarketToAsset = (targetMarket: string, assetProperties: AssetProperty[]) => {
+  return assetProperties.find(p => p.market === targetMarket)
 }

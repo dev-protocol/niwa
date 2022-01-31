@@ -10,9 +10,9 @@ import { getPropertyData, mapProviderToDevContracts } from '../../utils/utils'
 
 export const getUserPropertyList = async (
   provider: providers.JsonRpcProvider,
-  address?: string
+  userAddress?: string
 ): Promise<UndefinedOr<AddressContractContainer<PropertyContract>[]>> => {
-  if (!address || address === EMPTY_USER_TOKEN_PATH) {
+  if (!userAddress || userAddress === EMPTY_USER_TOKEN_PATH) {
     return []
   }
   const networkDevContracts = await mapProviderToDevContracts(provider)
@@ -20,7 +20,7 @@ export const getUserPropertyList = async (
     return
   }
   const propertyFactoryContract = createPropertyFactoryContract(provider)(networkDevContracts.propertyFactory)
-  const properties = await propertyFactoryContract.getPropertiesOfAuthor(address)
+  const properties = await propertyFactoryContract.getPropertiesOfAuthor(userAddress)
   const calls = properties.map(async _address => {
     const contract = await getPropertyData(provider, _address)
     return {

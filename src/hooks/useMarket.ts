@@ -3,10 +3,10 @@ import useSWR from 'swr'
 import { SWRCachePath } from '../const/cache-path'
 import { whenDefined } from '@devprotocol/util-ts'
 import { providers } from 'ethers'
-import { createMarketContract, createMarketFactoryContract, createMetricsContract } from '@devprotocol/dev-kit/l2'
+import { createMarketContract } from '@devprotocol/dev-kit/l2'
 import { mapProviderToDevContracts } from '../utils/utils'
 
-const getMarket = async (provider: providers.BaseProvider, marketAddress: string) => {
+export const getMarket = async (provider: providers.BaseProvider, marketAddress: string) => {
   const networkDevContracts = await mapProviderToDevContracts(provider)
   if (!networkDevContracts) {
     return
