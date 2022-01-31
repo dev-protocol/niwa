@@ -8,7 +8,6 @@ import HSButton from '../../components/HSButton'
 import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
-import { useEnabledMarkets } from '../../hooks/useEnabledMarkets'
 
 interface TokensPageProps {
   // Props
@@ -17,7 +16,6 @@ interface TokensPageProps {
 const TokensPage: React.FC<TokensPageProps> = () => {
   const { userAddress } = useParams()
   const { userProperties } = useUserPropertiesList(userAddress)
-  const { enabledMarkets } = useEnabledMarkets()
 
   return (
     <div>
@@ -38,12 +36,7 @@ const TokensPage: React.FC<TokensPageProps> = () => {
         {userAddress && userAddress !== EMPTY_USER_TOKEN_PATH && userProperties && userProperties.length > 0 && (
           <div className="flex flex-col">
             {userProperties.map(property => (
-              <UserTokenListItem
-                key={property.address}
-                property={property}
-                enabledMarkets={enabledMarkets}
-                userAddress={userAddress}
-              />
+              <UserTokenListItem key={property.address} property={property} userAddress={userAddress} />
             ))}
           </div>
         )}
