@@ -7,7 +7,7 @@ import { createMarketContract, createMarketFactoryContract, MarketContract } fro
 import { mapProviderToDevContracts } from '../utils/utils'
 import { AddressContractContainer } from '../types/AddressContractContainer'
 
-const getEnabledMarkets = async (
+export const getEnabledMarkets = async (
   provider: providers.BaseProvider
 ): Promise<UndefinedOr<AddressContractContainer<MarketContract>[]>> => {
   const networkDevContracts = await mapProviderToDevContracts(provider)

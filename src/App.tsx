@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
-import TokenPage from './pages/token'
+import PropertyPage from './pages/property'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
@@ -37,7 +37,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/:userAddress" element={<TokensPage />} />
-              <Route path="/tokens/:hash" element={<TokenPage />} />
+              <Route path="/properties/:hash" element={<PropertyPage />} />
               <Route path="/growth" element={<GrowthPage />} />
               <Route path="/tokenize" element={<TokenizeMarketSelect />} />
               <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
