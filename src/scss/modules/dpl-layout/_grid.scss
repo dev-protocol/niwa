@@ -16,7 +16,7 @@
             height: 100%;
         }
         
-        @include hashi.theme-breakpoint-create('medium') {
+        @include hashi.breakpoint-create('medium') {
             grid-template-columns: repeat(2, 1fr);
         }
     }

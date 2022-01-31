@@ -18,6 +18,7 @@
 @use 'modules/dpl-title-bar';
 
 @use 'modules/home-nav-item';
+@use 'modules/steps-card';
 
 @include hashi.init() {
     /* purgecss start ignore */
@@ -87,10 +88,16 @@
     @include dpl-title-bar.render();
     
     @include home-nav-item.render();
+    @include steps-card.render();
     /* purgecss end ignore */
     
     @include hs-utils.color-utils();
     @include hs-utils.shape-utils();
     @include hs-utils.typography-utils();
+    @include hs-utils.layout-utils();
+    
+    .text-align-center {
+        text-align: center;
+    }
 }
 
