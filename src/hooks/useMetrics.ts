@@ -6,6 +6,7 @@ import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
 import { providers } from 'ethers'
 import {
   createMarketBehaviorContract,
+  createMarketContract,
   createMetricsContract,
   createMetricsFactoryContract
 } from '@devprotocol/dev-kit/l2'
@@ -38,6 +39,14 @@ export const getMarketMetrics = async (provider: providers.BaseProvider, marketA
   }
   const metrics = createMetricsContract(provider)(marketAddress)
   return metrics.market()
+}
+
+export const getMarketMetricsById = async (provider: providers.BaseProvider, marketAddress: string, id: string) => {
+  const market = createMarketContract(provider)(marketAddress)
+  const behavior = await market.behavior()
+  const marketBehavior = createMarketBehaviorContract(provider)(behavior)
+  const metricsAddress = await marketBehavior.getMetrics(id) // for example github repo name or youtube channel id
+  return metricsAddress
 }
 
 export type AssetProperty = {
