@@ -1,13 +1,8 @@
-import { createPropertyContract } from '@devprotocol/dev-kit/l2'
 import { whenDefinedAll } from '@devprotocol/util-ts'
-import { providers } from 'ethers'
 import useSWR from 'swr'
 import { SWRCachePath } from '../../const/cache-path'
 import { useProvider } from '../../context/walletContext'
-
-export const getPropertyData = async (provider: providers.JsonRpcProvider, address: string) => {
-  return await createPropertyContract(provider)(address)
-}
+import { getPropertyData } from '../../utils/utils'
 
 export const usePropertyData = (propertyAddress?: string) => {
   const { nonConnectedEthersProvider } = useProvider()
