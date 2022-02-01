@@ -66,10 +66,15 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
       />
       <FormField
         label="Token Symbol"
+        helper="Symbol should be 3 to 4 characters long (for example DEV)"
         id="tokenSymbol"
         required={true}
         value={tokenSymbol}
-        onChange={val => setTokenSymbol(val)}
+        onChange={val => {
+          if (val.length <= 4) {
+            setTokenSymbol(val.toUpperCase())
+          }
+        }}
       />
       <FormField
         label="Personal Access Token"

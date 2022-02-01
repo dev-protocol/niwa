@@ -5,12 +5,13 @@ import { usePropertyData } from './fetch-token-data.hook'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import { FaQuestionCircle, FaShareAlt, FaGithub } from 'react-icons/fa'
 
-interface TokenProps {}
+interface TokenProps { }
 
 const Token: React.FC<TokenProps> = () => {
-  const { hash } = useParams()
-  const [assetName, setAssetName] = useState('')
-  const [assetSymbol, setAssetSymbol] = useState('')
+  // const { hash } = useParams()
+  const hash = '0xe45d65c6d6aA3e2a4c8aAcc0C8153778663fe794'
+  const [assetName, setAssetName] = useState<readonly number[]>([])
+  const [assetSymbol, setAssetSymbol] = useState<readonly number[]>([])
   const { propertyData, error } = usePropertyData(hash)
 
   useEffect(() => {
@@ -18,9 +19,11 @@ const Token: React.FC<TokenProps> = () => {
     if (!propertyData) {
       return
     }
-    ;(async () => {
-      setAssetSymbol(await propertyData.symbol())
-      setAssetName(await propertyData.name())
+    ; (async () => {
+      setAssetName(await propertyData.positionsOfProperty('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6'))
+      console.log('hi')
+      console.log(await propertyData.positionsOfProperty('0x3A0E2d68bb08A5F8B35a751E7829BE89623246a6'))
+      setAssetSymbol(await propertyData.positionsOfOwner('0xdE62195B5DF46D95D5349944E66E39d7C2a591f7'))
     })()
   }, [propertyData])
 
@@ -29,8 +32,10 @@ const Token: React.FC<TokenProps> = () => {
       {propertyData && (
         <>
           <div className="flex justify-between items-center">
-            <DPLTitleBar title={assetSymbol} />
+            {/* <DPLTitleBar title={assetSymbol} /> */}
             <FaShareAlt color="#fff" />
+            {assetName}
+            {assetSymbol}
           </div>
           <div className="font-bold">{hash}</div>
           <div className="flex justify-between">

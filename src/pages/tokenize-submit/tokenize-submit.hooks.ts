@@ -4,6 +4,7 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 import { useCallback, useState } from 'react'
 import { Market } from '../../const'
 import { useProvider } from '../../context/walletContext'
+import { getMarketMetricsById } from '../../hooks/useMetrics'
 import {
   getNetworkMarketAddresses,
   getValidNetworkName,
@@ -104,28 +105,34 @@ export const useCreateAndAuthenticate = () => {
           return
         }
 
-        const created = await propertyFactoryContract.createAndAuthenticate(
-          tokenName,
-          tokenSymbol,
-          marketAddress,
-          [assetName, khaosPubSig],
-          {
-            metricsFactoryAddress: networkDevContracts.metricsFactory
-          },
-          {
-            fallback: {
-              from: userAddress,
-              // value from stake.social createAndAuthenticate
-              // should this be more dynamic based on network?
-              gasLimit: 2000000
+        const metricsAddress = await getMarketMetricsById(ethersProvider, marketAddress, assetName)
+        if (metricsAddress === '0x0000000000000000000000000000000000000000') {
+          const created = await propertyFactoryContract.createAndAuthenticate(
+            tokenName,
+            tokenSymbol,
+            marketAddress,
+            [assetName, khaosPubSig],
+            {
+              metricsFactoryAddress: networkDevContracts.metricsFactory
+            },
+            {
+              fallback: {
+                from: userAddress,
+                // value from stake.social createAndAuthenticate
+                // should this be more dynamic based on network?
+                gasLimit: 2000000
+              }
             }
-          }
-        )
+          )
 
-        await created.waitForAuthentication()
+          await created.waitForAuthentication()
 
-        setIsLoading(false)
-        return created.property
+          setIsLoading(false)
+          return created.property
+        } else {
+          setError(Error(`Metrics address ${metricsAddress} already exists for id ${assetName}`))
+          setIsLoading(false)
+        }
       } catch (error) {
         console.log(error)
         setError(error instanceof Error ? error : Error(`failed to create and authenticate asset`))
