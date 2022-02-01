@@ -17,6 +17,7 @@ import { TokenizeProvider } from './context/tokenizeContext'
 
 import FooterImg from './img/FOOTER_IMG_Powered by Dev Protocol.svg'
 import PageNotFound from './pages/errors/404'
+import StakePage from './pages/stake'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -37,6 +38,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/:userAddress" element={<TokensPage />} />
+              <Route path="/properties/:hash/stake" element={<StakePage />} />
               <Route path="/properties/:hash" element={<PropertyPage />} />
               <Route path="/growth" element={<GrowthPage />} />
               <Route path="/tokenize" element={<TokenizeMarketSelect />} />

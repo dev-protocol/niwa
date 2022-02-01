@@ -153,3 +153,9 @@ export const getPropertyData = async (provider: providers.JsonRpcProvider, addre
 export const matchMarketToAsset = (targetMarket: string, assetProperties: AssetProperty[]) => {
   return assetProperties.find(p => p.market === targetMarket)
 }
+
+const validNumber = new RegExp(/^\d*\.?\d*$/)
+
+export const isNumberInput = (str: string): boolean => {
+  return validNumber.test(str)
+}
