@@ -2,7 +2,7 @@ import { createPropertyFactoryContract } from '@devprotocol/dev-kit/l2'
 import { sign } from '@devprotocol/khaos-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { useCallback, useState } from 'react'
-import { Market } from '../../const'
+import { ERROR_MSG, Market } from '../../const'
 import { useProvider } from '../../context/walletContext'
 import { getMarketMetricsById } from '../../hooks/useMetrics'
 import {
@@ -20,7 +20,7 @@ type ICreateKhaosPubSignParams = {
 
 export const useCreateKhaosPubSign = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<UndefinedOr<Error>>()
+  const [error, setError] = useState<UndefinedOr<string>>()
   const { ethersProvider } = useProvider()
 
   const callback = useCallback(
@@ -28,7 +28,7 @@ export const useCreateKhaosPubSign = () => {
       setIsLoading(true)
       setError(undefined)
       if (!ethersProvider) {
-        setError(Error('no user provider found'))
+        setError(ERROR_MSG.no_provider)
         setIsLoading(false)
         return
       }
@@ -36,7 +36,7 @@ export const useCreateKhaosPubSign = () => {
       try {
         const networkName = await getValidNetworkName(ethersProvider)
         if (!networkName) {
-          setError(Error('no valid network name found'))
+          setError(ERROR_MSG.invalid_network)
           setIsLoading(false)
           return
         }
@@ -52,7 +52,8 @@ export const useCreateKhaosPubSign = () => {
         setIsLoading(false)
         return res.publicSignature
       } catch (error) {
-        setError(error instanceof Error ? error : Error(`fail to sign ${signId} market asset`))
+        console.error('createKhaosPubSign error: ', error)
+        setError(`Failed to sign ${signId} market asset`)
         setIsLoading(false)
         console.log(error)
       }
@@ -66,7 +67,7 @@ export const useCreateKhaosPubSign = () => {
 export const useCreateAndAuthenticate = () => {
   const { ethersProvider } = useProvider()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<Error>()
+  const [error, setError] = useState<UndefinedOr<string>>()
 
   const callback = useCallback(
     async (tokenName: string, tokenSymbol: string, assetName: string, khaosPubSig: string, market: Market) => {
@@ -74,7 +75,7 @@ export const useCreateAndAuthenticate = () => {
       setError(undefined)
 
       if (!ethersProvider) {
-        setError(Error('no provider found'))
+        setError(ERROR_MSG.no_provider)
         setIsLoading(false)
         return
       }
@@ -82,7 +83,7 @@ export const useCreateAndAuthenticate = () => {
       try {
         const networkDevContracts = await mapProviderToDevContracts(ethersProvider)
         if (!networkDevContracts) {
-          setError(Error('Invalid network'))
+          setError(ERROR_MSG.invalid_network)
           setIsLoading(false)
           return
         }
@@ -94,13 +95,13 @@ export const useCreateAndAuthenticate = () => {
         const userAddress = await signer.getAddress()
         const marketOptions = await getNetworkMarketAddresses(ethersProvider)
         if (!marketOptions) {
-          setError(Error('No matching market addresses found'))
+          setError(ERROR_MSG.no_matching_market_options)
           setIsLoading(false)
           return
         }
         const marketAddress = selectMarketAddressOption(market, marketOptions)
         if (!marketAddress) {
-          setError(Error('No matching market address found'))
+          setError(ERROR_MSG.no_matching_market)
           setIsLoading(false)
           return
         }
@@ -130,12 +131,12 @@ export const useCreateAndAuthenticate = () => {
           setIsLoading(false)
           return created.property
         } else {
-          setError(Error(`Metrics address ${metricsAddress} already exists for id ${assetName}`))
+          setError(`Metrics address ${metricsAddress} already exists for id ${assetName}`)
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
-        setError(error instanceof Error ? error : Error(`failed to create and authenticate asset`))
+        console.error(error)
+        setError(`Failed to create and authenticate asset`)
         setIsLoading(false)
       }
     },

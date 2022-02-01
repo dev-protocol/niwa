@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
+import { isValidNetwork } from '../../utils/utils'
 
 interface GithubFormProps {}
 
@@ -40,6 +41,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={network?.name ?? ''}
         placeholder="Please Connect Wallet"
         disabled={true}
+        isError={!isValidNetwork(network?.chainId)}
       />
       <FormField
         label="Your Wallet Address"
