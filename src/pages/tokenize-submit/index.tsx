@@ -8,6 +8,7 @@ import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 import DPLTitleBar from '../../components/DPLTitleBar'
+import HSButton from '../../components/HSButton'
 
 interface TokenizeSubmitProps {}
 
@@ -15,12 +16,12 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
-  const [error, setError] = useState<UndefinedOr<string>>('')
+  const [error, setError] = useState<UndefinedOr<string>>()
   const [isLoading, setIsLoading] = useState(false)
   const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken, validateForm } =
     useContext(TokenizeContext)
-  const { createKhaosPubSign } = useCreateKhaosPubSign()
-  const { createAndAuthenticate } = useCreateAndAuthenticate()
+  const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
+  const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -124,19 +125,15 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         </div>
 
         <div className="float-right flex flex-col items-end">
-          <div className="h-4 mb-2">
-            {error && <span className="text-sm font-bold text-red-500 italic">Error tokenizing asset: *{error}</span>}
+          <div className="mb-sm mt-sm flex flow-column align-end">
+            {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
+            {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
+            {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
           </div>
 
-          <button
-            onClick={submit}
-            className={`bg-gradient-to-br from-blue-400 to-purple-600 text-white rounded px-4 py-2 ${
-              submitDisabled() ? 'opacity-60' : 'opacity-100'
-            }`}
-            disabled={submitDisabled()}
-          >
+          <HSButton context="submit" type="filled" isDisabled={submitDisabled()} onClick={submit}>
             Sign and submit
-          </button>
+          </HSButton>
         </div>
       </div>
     </div>
