@@ -1,8 +1,8 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { BigNumber, constants } from 'ethers'
+import { BigNumber, constants, utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HSButton from '../../components/HSButton'
@@ -12,6 +12,8 @@ import { useDevAllowance } from '../../hooks/useAllowance'
 import { useDevApprove } from '../../hooks/useApprove'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
+import StakeStep from './StakeStep'
+import { useLockup } from './useLockup'
 
 interface StakePageProps {}
 
@@ -26,6 +28,9 @@ const StakePage: React.FC<StakePageProps> = () => {
   const [allowance, setAllowance] = useState<UndefinedOr<BigNumber>>()
   const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
   const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
+  const { lockup, isLoading: lockupLoading } = useLockup()
+  const [isStakingComplete, setIsStakingComplete] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!ethersProvider) {
@@ -56,7 +61,7 @@ const StakePage: React.FC<StakePageProps> = () => {
     }
   }, [searchParams])
 
-  const onApproveClick = async () => {
+  const approveHandler = async () => {
     if (!lockupAddress) {
       setError('Error finding DEV lockup address')
       return
@@ -71,6 +76,32 @@ const StakePage: React.FC<StakePageProps> = () => {
     setAllowance(constants.MaxUint256)
   }
 
+  const lockupHandler = async () => {
+    if (!hash) {
+      setError(ERROR_MSG.no_property_address)
+      return
+    }
+    if (amount <= 0) {
+      setError('Insufficient amount')
+    }
+
+    console.log(utils.parseUnits(`${amount}`).toString())
+
+    const success = await lockup(hash, utils.parseUnits(`${amount}`))
+    if (!success) {
+      setError('There was an error staking')
+      return
+    }
+
+    setIsStakingComplete(true)
+
+    // lockup(hash, amount)
+  }
+
+  const navigateToPosition = async () => {
+    navigate(`https://stakes.social`)
+  }
+
   return (
     <>
       {!isLoading && propertyDetails && (
@@ -83,20 +114,31 @@ const StakePage: React.FC<StakePageProps> = () => {
             </div>
           )}
           {ethersProvider && (
-            <div className="grid-2">
-              <div className="flex align-center">
-                <b>Approval</b>
-                <FaCheckCircle className="ml-xs" color={allowance?.gt(0) ? 'green' : 'grey'} />
-              </div>
-              <div className="flex flow-column">
-                <span className="mb-sm">Approve your DEV tokens for stakeability</span>
-                <HSButton
-                  label="Approve"
-                  type="filled"
-                  isDisabled={allowance?.gt(0) || approveIsLoading || allowanceIsLoading}
-                  onClick={onApproveClick}
-                />
-              </div>
+            <div className="flex flow-column">
+              <StakeStep
+                name="Approve"
+                label="Approve your DEV tokens for stakeability"
+                btnText="Approve"
+                isDisabled={allowance?.gt(0) || allowanceIsLoading || approveIsLoading || allowanceIsLoading}
+                isComplete={allowance?.gt(0) ?? false}
+                onClick={approveHandler}
+              />
+              <StakeStep
+                name="Stake"
+                btnText="Stake"
+                label="Approve your DEV tokens for stakeability"
+                isDisabled={!allowance || allowance.isZero() || lockupLoading || isStakingComplete}
+                isComplete={isStakingComplete}
+                onClick={lockupHandler}
+              />
+              <StakeStep
+                name="Complete"
+                btnText="See your staking position on Stakes.social"
+                label={`You've staked ${amount} and received sTokens!`}
+                isDisabled={!isStakingComplete}
+                isComplete={isStakingComplete}
+                onClick={navigateToPosition}
+              />
             </div>
           )}
         </div>
