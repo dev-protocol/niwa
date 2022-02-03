@@ -6,7 +6,6 @@ import PropertyPage from './pages/property'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
-import HowItWorksPage from './pages/how-it-works'
 
 import ConnectButton from './components/ConnectButton'
 import DPLHeader from './components/DPLHeader'
@@ -36,7 +35,6 @@ function App() {
           <TokenizeProvider>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/:userAddress" element={<TokensPage />} />
               <Route path="/properties/:hash/stake" element={<StakePage />} />
               <Route path="/properties/:hash" element={<PropertyPage />} />

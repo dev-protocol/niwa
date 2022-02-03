@@ -5,6 +5,7 @@ import { FaQuestionCircle, FaShareAlt, FaGithub } from 'react-icons/fa'
 import { Market } from '../../const'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
+import HowItWorks from '../../components/HowItWorks'
 
 interface TokenProps {}
 
@@ -67,6 +68,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
                 />
               ))}
           </div>
+          <HowItWorks />
         </>
       )}
 

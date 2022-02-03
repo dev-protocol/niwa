@@ -1,11 +1,10 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { BigNumber, constants, utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
-import { FaCheckCircle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
-import HSButton from '../../components/HSButton'
+import HowItWorks from '../../components/HowItWorks'
 import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
 import { useDevAllowance } from '../../hooks/useAllowance'
@@ -145,6 +144,7 @@ const StakePage: React.FC<StakePageProps> = () => {
       )}
       {isLoading && <span>loading...</span>}
       {error && <span className="text-danger-400">{error}</span>}
+      <HowItWorks />
     </>
   )
 }
