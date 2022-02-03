@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import TokensPage from './pages/tokens'
 import GrowthPage from './pages/growth'
-import TokenPage from './pages/token'
+import PropertyPage from './pages/property'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
 import AuthCallbackPage from './pages/auth-callback'
+import HowItWorksPage from './pages/how-it-works'
 
 import ConnectButton from './components/ConnectButton'
 import DPLHeader from './components/DPLHeader'
@@ -15,7 +16,9 @@ import { DPLFooter, DPLFooterSection } from './components/DPLFooter'
 import { useWalletProviderContext, WalletContext } from './context/walletContext'
 import { TokenizeProvider } from './context/tokenizeContext'
 
-import FooterImg from './img/FOOTER_IMG_ Powered by Dev Protocol.png'
+import FooterImg from './img/FOOTER_IMG_Powered by Dev Protocol.svg'
+import PageNotFound from './pages/errors/404'
+import StakePage from './pages/stake'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -34,13 +37,16 @@ function App() {
           <TokenizeProvider>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/:userAddress" element={<TokensPage />} />
-              <Route path="/tokens/:hash" element={<TokenPage />} />
+              <Route path="/properties/:hash/stake" element={<StakePage />} />
+              <Route path="/properties/:hash" element={<PropertyPage />} />
               <Route path="/growth" element={<GrowthPage />} />
               <Route path="/tokenize" element={<TokenizeMarketSelect />} />
               <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
               <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
               <Route path="/auth/:market/callback" element={<AuthCallbackPage />} />
+              <Route path="/404" element={<PageNotFound />} />
             </Routes>
           </TokenizeProvider>
         </main>
@@ -66,7 +72,9 @@ function App() {
             </ul>
           </DPLFooterSection>
           <DPLFooterSection>
-            <img width="100px" height="auto" src={FooterImg} alt="Footer Image" />
+            <a href="https://devprotocol.xyz" target="_blank" rel="noreferrer">
+              <img width="100px" height="auto" src={FooterImg} alt="Footer Image" />
+            </a>
           </DPLFooterSection>
         </DPLFooter>
       </BrowserRouter>

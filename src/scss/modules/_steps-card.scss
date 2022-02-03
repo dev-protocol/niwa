@@ -1,0 +1,18 @@
+@use 'node_modules/@devprotocol/hashi';
+
+@mixin render() {
+    .steps-card {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        
+        .steps-card__media {
+            margin-bottom: hashi.theme-token-get('margin-xs');
+        }
+        
+        h3 {
+            text-align: center;
+        }
+    }
+}

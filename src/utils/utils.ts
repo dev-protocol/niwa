@@ -3,6 +3,8 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers, providers } from 'ethers'
 import { Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
+import { createPropertyContract } from '@devprotocol/dev-kit/l2'
+import { AssetProperty } from '../hooks/useMetrics'
 
 export const getMarketFromString = (market: UndefinedOr<string>): Market => {
   switch (market?.toUpperCase()) {
@@ -62,7 +64,7 @@ export const isValidNetwork = (chainId: UndefinedOr<number>) => {
   }
 }
 
-export const mapProviderToDevContracts = async (provider: ethers.providers.Web3Provider) => {
+export const mapProviderToDevContracts = async (provider: ethers.providers.BaseProvider) => {
   const network = await provider.getNetwork()
   switch (network.chainId) {
     case 421611: // // arbitrum testnet
@@ -143,3 +145,17 @@ export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
 export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
 
 export const infuraEndpoint = () => `${infuraBaseEndpoint}/${infuraProjectId}`
+
+export const getPropertyData = async (provider: providers.JsonRpcProvider, address: string) => {
+  return await createPropertyContract(provider)(address)
+}
+
+export const matchMarketToAsset = (targetMarket: string, assetProperties: AssetProperty[]) => {
+  return assetProperties.find(p => p.market === targetMarket)
+}
+
+const validNumber = new RegExp(/^\d*\.?\d*$/)
+
+export const isNumberInput = (str: string): boolean => {
+  return validNumber.test(str)
+}

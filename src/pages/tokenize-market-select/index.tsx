@@ -9,7 +9,7 @@ interface TokenizeMarketSelectProps {}
 const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () => {
   return (
     <div>
-      <BackButton title="Your Tokens" path="/tokens" />
+      <BackButton title="Home" path="/" />
       <DPLTitleBar title="Create New Token" />
 
       <section className="mb-lg">
