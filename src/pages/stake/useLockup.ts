@@ -1,14 +1,13 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { BigNumber, providers } from 'ethers'
-import { createLockupContract } from '@devprotocol/dev-kit/l2'
 import { useCallback, useState } from 'react'
 import { ERROR_MSG } from '../../const'
 import { mapProviderToDevContracts } from '../../utils/utils'
 import { useProvider } from '../../context/walletContext'
+import { positionsCreate } from '@devprotocol/dev-kit/agent'
 
 export const lockup = async ({
   provider,
-  lockupAddress,
   propertyAddress,
   amount
 }: {
@@ -17,8 +16,7 @@ export const lockup = async ({
   propertyAddress: string
   amount: BigNumber
 }) => {
-  const lockup = createLockupContract(provider)(lockupAddress)
-  return await lockup.depositToProperty(propertyAddress, amount.toString())
+  return await positionsCreate({ provider, destination: propertyAddress, amount: amount.toString() })
 }
 
 export const useLockup = () => {
@@ -44,12 +42,21 @@ export const useLockup = () => {
 
       try {
         setIsLoading(false)
-        return await lockup({
+        const tx = await lockup({
           provider: ethersProvider,
           lockupAddress: networkContracts.lockup,
           propertyAddress,
           amount
         })
+        console.log('tx is: ', tx)
+        if (!tx) {
+          setError(`Tx failed`)
+          setIsLoading(false)
+          return
+        }
+        const res = await tx.wait()
+        console.log('res is: ', res)
+        return res
       } catch (error) {
         console.error(error)
         setError(`Error staking on ${propertyAddress}`)
