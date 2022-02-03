@@ -120,6 +120,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                 btnText="Approve"
                 isDisabled={allowance?.gt(0) || allowanceIsLoading || approveIsLoading || allowanceIsLoading}
                 isComplete={allowance?.gt(0) ?? false}
+                isVisible={true}
                 onClick={approveHandler}
               />
               <StakeStep
@@ -128,6 +129,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                 label="Approve your DEV tokens for stakeability"
                 isDisabled={!allowance || allowance.isZero() || lockupLoading || isStakingComplete}
                 isComplete={isStakingComplete}
+                isVisible={allowance && allowance.gt(0) ? true : false}
                 onClick={lockupHandler}
               />
               <StakeStep
@@ -136,6 +138,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                 label={`You've staked ${amount} and received sTokens!`}
                 isDisabled={!isStakingComplete}
                 isComplete={isStakingComplete}
+                isVisible={isStakingComplete}
                 onClick={navigateToPosition}
               />
             </div>
