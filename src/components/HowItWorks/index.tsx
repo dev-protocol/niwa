@@ -7,11 +7,11 @@ import Purse from '../../img/PURSE.svg'
 import Seedling from '../../img/SEEDLING.svg'
 import FaqCard from './FaqCard'
 
-interface HowItWorksPageProps {
+interface HowItWorksProps {
   // Props
 }
 
-const HowItWorksPage: React.FC<HowItWorksPageProps> = () => {
+const HowItWorks: React.FC<HowItWorksProps> = () => {
   return (
     <div>
       <h1 className="size-h1 weight-h1 line-height-h1 text-align-center mb-md">How it works</h1>
@@ -42,4 +42,4 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = () => {
   )
 }
 
-export default HowItWorksPage
+export default HowItWorks

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type ButtonStyle = 'outlined' | 'filled' | 'danger' | 'native-blue' | 'neutral'
 
@@ -47,10 +48,12 @@ const HSButton: React.FC<HSButtonProps> = ({
     return ButtonBase
   } else {
     const isLinkExternal: boolean = link.charAt(0) !== '/' && link.charAt(0) !== '#'
-    return (
+    return isLinkExternal ? (
       <a href={link} target={isLinkExternal ? '_blank' : '_self'} rel="noreferrer">
         {ButtonBase}
       </a>
+    ) : (
+      <Link to={link}>{ButtonBase}</Link>
     )
   }
 }
