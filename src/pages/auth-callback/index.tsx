@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import useSWR from 'swr'
 import { Market } from '../../const'
+import BackButton from '../../components/BackButton'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString } from '../../utils/utils'
 import { useCreateKhaosPubSign, useCreateAndAuthenticate } from '../tokenize-submit/tokenize-submit.hooks'
@@ -15,6 +16,7 @@ interface QueryString {
 
 const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const params = useParams()
+  const [error, setError] = useState<UndefinedOr<string>>()
   const { search, hash } = useLocation()
   const target = search ? search : hash
   const queryParams = target
@@ -82,7 +84,10 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
   const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
 
-  console.log('verify:', verifyData, youtubeData, accessToken, params, queryParams)
+  const displayMessage = (msg: string) => {
+    setError(msg)
+    console.log(msg)
+  }
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -90,15 +95,14 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     setMarket(_market)
 
     if (_market !== Market.YOUTUBE) {
-      navigate('/tokenize')
-      return
+      return displayMessage('invalid market')
     }
 
     if (!accessToken || !verifyData || !youtubeData || !isVerify) {
-      return
+      return displayMessage('invalid oauth')
     }
 
-    // get pubsign with khaos
+    // get pubsign via khaos
     const personalAccessToken = accessToken
     const assetName = youtubeData.channelId
     createKhaosPubSign({
@@ -107,12 +111,13 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
       signId: 'youtube-market',
     }).then((pubSig?: string) => {
       if (!pubSig) {
-        return navigate('/tokenize')
+        return displayMessage('fail createKhaosPubSign')
       }
+      // authenticate
       createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, _market)
         .then((propertyAddress?: string) => {
           if (!propertyAddress) {
-            return navigate('/tokenize')
+            return displayMessage('fail createAndAuthenticate')
           }
           return navigate(`/properties/${propertyAddress}`)
         })
@@ -121,7 +126,16 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
 
   return (
     <div>
-      <p>waiting...</p>
+      <BackButton title='Tokenize YouTube Market' path='/tokenize/youtube' />
+      {(error || khaosError || tokenizeError) ? (
+          <div className="mb-sm mt-sm flex flow-column align-end">
+            {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
+            {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
+            {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
+          </div>
+      ) : (
+        <p>waiting...</p>
+      )}
     </div>
   )
 }
