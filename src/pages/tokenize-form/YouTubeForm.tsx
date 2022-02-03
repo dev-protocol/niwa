@@ -11,6 +11,10 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
   const {
     network,
     address,
+    tokenName,
+    setTokenName,
+    tokenSymbol,
+    setTokenSymbol,
   } = useContext(TokenizeContext)
 
   const submit = () => {
@@ -47,6 +51,25 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
         value={address}
         placeholder="Please Connect Wallet"
         disabled={true}
+      />
+      <FormField
+        label="Token Name"
+        id="tokenName"
+        required={true}
+        value={tokenName}
+        onChange={val => setTokenName(val)}
+      />
+      <FormField
+        label="Token Symbol"
+        helper="Symbol should be 3 to 4 characters long (for example DEV)"
+        id="tokenSymbol"
+        required={true}
+        value={tokenSymbol}
+        onChange={val => {
+          if (val.length <= 4) {
+            setTokenSymbol(val.toUpperCase())
+          }
+        }}
       />
 
       <div className="float-right flex flex-col items-end">

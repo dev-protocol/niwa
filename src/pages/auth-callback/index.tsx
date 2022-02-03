@@ -1,8 +1,10 @@
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import useSWR from 'swr'
 import { Market } from '../../const'
+import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString } from '../../utils/utils'
+import { useCreateKhaosPubSign, useCreateAndAuthenticate } from '../tokenize-submit/tokenize-submit.hooks'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 interface AuthCallbackPageProps {}
@@ -73,6 +75,12 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     },
     swrOptions
   )
+  const {
+    tokenName,
+    tokenSymbol,
+  } = useContext(TokenizeContext)
+  const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
+  const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
 
   console.log('verify:', verifyData, youtubeData, accessToken, params, queryParams)
 
@@ -90,8 +98,26 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
       return
     }
 
-    // TODO: store data for tokenize
-  }, [params, navigate, setMarket, market])
+    // get pubsign with khaos
+    const personalAccessToken = accessToken
+    const assetName = youtubeData.channelId
+    createKhaosPubSign({
+      personalAccessToken,
+      assetName,
+      signId: 'youtube-market',
+    }).then((pubSig?: string) => {
+      if (!pubSig) {
+        return navigate('/tokenize')
+      }
+      createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, _market)
+        .then((propertyAddress?: string) => {
+          if (!propertyAddress) {
+            return navigate('/tokenize')
+          }
+          return navigate(`/properties/${propertyAddress}`)
+        })
+    })
+  }, [params, navigate, setMarket, market, youtubeData])
 
   return (
     <div>
