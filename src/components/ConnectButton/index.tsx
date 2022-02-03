@@ -45,17 +45,18 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
       providerOptions,
       cacheProvider: false
     })
-    const connectedProvider = await modalProvider.connect()
-    const newProvider = whenDefined(connectedProvider, p => new providers.Web3Provider(p))
-    setEthersProvider(newProvider)
+    const provider = await modalProvider.connect()
+    const updater = createProviderUpdater(provider)
+    provider?.on('accountsChanged', updater)
+    provider?.on('chainChanged', updater)
+  }
 
-    onChainChanged(connectedProvider.chainId)
-
-    connectedProvider.on('chainChanged', (chainId: number) => {
-      // TODO: handle connected chain change by routing to different deployments or alert message
-      onChainChanged(chainId)
-      window.location.reload()
-    })
+  const createProviderUpdater = (provider: any) => {
+    return () => {
+      const ethersProvider = new providers.Web3Provider(provider)
+      setEthersProvider(ethersProvider)
+      return { ethersProvider }
+    }
   }
 
   return (
