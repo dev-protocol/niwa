@@ -34,7 +34,7 @@ export const useCreateKhaosPubSign = () => {
       }
 
       try {
-        const networkName = await getValidNetworkName(ethersProvider)
+        const networkName = await getValidNetworkName((await ethersProvider.getNetwork()).chainId)
         if (!networkName) {
           setError(ERROR_MSG.invalid_network)
           setIsLoading(false)

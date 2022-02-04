@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react'
 import { useProvider } from '../../context/walletContext'
 import HSButton from '../HSButton'
 import { Link } from 'react-router-dom'
-import { FaChevronRight } from 'react-icons/fa'
+import { FaChevronRight, FaExclamationTriangle } from 'react-icons/fa'
+import { connectedNetworkMatchesDeployment, getDeploymentUrlByChainId, isValidNetwork } from '../../utils/utils'
 
 const providerOptions = {
   injected: {
@@ -27,7 +28,7 @@ type ConnectButtonParams = {
 }
 
 const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
-  const { ethersProvider, setEthersProvider } = useProvider()
+  const { ethersProvider, setEthersProvider, isValidConnectedNetwork } = useProvider()
   const [address, setAddress] = useState<string | null>(null)
 
   useEffect(() => {
@@ -45,10 +46,16 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
       providerOptions,
       cacheProvider: false
     })
-    const provider = await modalProvider.connect()
-    const updater = createProviderUpdater(provider)
-    provider?.on('accountsChanged', updater)
-    provider?.on('chainChanged', updater)
+    const connectedProvider = await modalProvider.connect()
+    const newProvider = whenDefined(connectedProvider, p => new providers.Web3Provider(p))
+    setEthersProvider(newProvider)
+
+    onChainChanged(connectedProvider.chainId)
+
+    const updater = createProviderUpdater(connectedProvider)
+
+    connectedProvider?.on('chainChanged', updater)
+    connectedProvider?.on('accountsChanged', updater)
   }
 
   const createProviderUpdater = (provider: any) => {
@@ -64,14 +71,24 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
       {address && (
         <div className="text-right">
           <div className="flex">
-            <Link to={`/${address}`} className="hs-link">
-              <span className="mr-xs">
-                {address.substring(2, 6)}
-                ...
-                {address.substring(address.length - 4, address.length)}
-              </span>
-              <FaChevronRight size={12} />
-            </Link>
+            {isValidConnectedNetwork && (
+              <Link to={`/${address}`} className="hs-link">
+                <span className="mr-xs">
+                  {address.substring(2, 6)}
+                  ...
+                  {address.substring(address.length - 4, address.length)}
+                </span>
+                <FaChevronRight size={12} />
+              </Link>
+            )}
+            {!isValidConnectedNetwork && (
+              <div className="flex align-center">
+                <FaExclamationTriangle className="text-danger-400" />
+                <div className="text-danger-400 ml-xs">
+                  Connect Wallet to <span className="uppercase">{import.meta.env.VITE_L2_NETWORK}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

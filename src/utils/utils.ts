@@ -1,7 +1,7 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers, providers } from 'ethers'
-import { Market } from '../const'
+import { DEPLOYMENTS, Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
 import { AssetProperty } from '../hooks/useMetrics'
@@ -114,15 +114,8 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
   }
 }
 
-export const getValidNetworkName = async (
-  provider: UndefinedOr<ethers.providers.Web3Provider>
-): Promise<UndefinedOr<NetworkName>> => {
-  if (!provider) {
-    Promise.reject('No provider found')
-    return
-  }
-  const network = await provider.getNetwork()
-  switch (network.chainId) {
+export const getValidNetworkName = (chainId: number): UndefinedOr<NetworkName> => {
+  switch (chainId) {
     case 421611: // // arbitrum testnet
       return 'arbitrum-rinkeby'
     case 42161: // arbitrum mainnet
@@ -132,8 +125,7 @@ export const getValidNetworkName = async (
     case 80001: // polygon testnet
       return 'polygon-mumbai'
     default:
-      Promise.reject('Invalid network')
-      return
+      return undefined
   }
 }
 
@@ -158,4 +150,23 @@ const validNumber = new RegExp(/^\d*\.?\d*$/)
 
 export const isNumberInput = (str: string): boolean => {
   return validNumber.test(str)
+}
+
+export const connectedNetworkMatchesDeployment = (chainId: number) => {
+  return getValidNetworkName(chainId) === import.meta.env.VITE_L2_NETWORK
+}
+
+export const getDeploymentUrlByChainId = (chainId: number): UndefinedOr<string> => {
+  switch (chainId) {
+    case 421611: // arbitrum testnet
+      return DEPLOYMENTS.arbitrum_rinkeby
+    case 42161: // arbitrum mainnet
+      return DEPLOYMENTS.arbitrum_one
+    case 137: // polygon mainnet
+      return DEPLOYMENTS.polygon_mainnet
+    case 80001: // polygon testnet
+      return DEPLOYMENTS.polygon_mumbai
+    default:
+      return undefined
+  }
 }
