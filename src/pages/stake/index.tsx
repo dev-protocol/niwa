@@ -138,7 +138,7 @@ const StakePage: React.FC<StakePageProps> = () => {
               />
               <StakeStep
                 name="Complete"
-                btnText="See your staking position on Stakes.social"
+                btnText="See your staking positions"
                 label={`You've staked ${amount} and received sTokens!`}
                 isDisabled={!isStakingComplete}
                 isComplete={isStakingComplete}
