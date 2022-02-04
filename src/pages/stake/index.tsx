@@ -105,7 +105,6 @@ const StakePage: React.FC<StakePageProps> = () => {
     }
 
     const newUserPositions = await fetchPositionsOfOwner(userAddress)
-    console.log('new user positions are: ', newUserPositions)
     if (!newUserPositions) {
       setError('No user positions found')
       return
@@ -115,7 +114,7 @@ const StakePage: React.FC<StakePageProps> = () => {
       console.error('error finding new position...')
       console.log('existing positions: ', existingUserPositions)
       console.log('new positions: ', newUserPositions)
-      setError('Error filter new user position')
+      setError('Error filtering new user position')
       return
     }
     setUserPosition(newPosition)
