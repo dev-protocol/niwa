@@ -51,7 +51,7 @@ function App() {
         <DPLFooter>
           <DPLFooterSection>
             <ul className="mb-sm">
-              <p className="fs-h4 fw-h3">Network</p>
+              <p className="size-h4 weight-h3">Network</p>
               <li>
                 <a href="#">Arbitrium</a>
               </li>
@@ -60,7 +60,7 @@ function App() {
               </li>
             </ul>
             <ul>
-              <p className="fs-h4 fw-h3">Testnet</p>
+              <p className="size-h4 weight-h3">Testnet</p>
               <li>
                 <a href="#">Arbitrum Rinkeby</a>
               </li>

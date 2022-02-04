@@ -26,7 +26,7 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
   onChange
 }) => {
   return (
-    <label className={`hs-text-field${isError ? ' danger' : ''}`}>
+    <label className={`hs-text-field${isError ? ' danger' : ''}${isDisabled ? ' hs-text-field--disabled' : ''}`}>
       <span className="hs-text-field__label">
         {label} {isRequired && <span className="ml-xs text-danger-400">*</span>}
       </span>

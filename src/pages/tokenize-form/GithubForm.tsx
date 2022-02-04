@@ -50,6 +50,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         value={address}
         placeholder="Please Connect Wallet"
         disabled={true}
+        isError={!address}
       />
       <FormField
         label="GitHub Repository Name"

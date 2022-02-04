@@ -286,12 +286,12 @@
     js-base64 "^3.7.2"
     ramda "^0.28.0"
 
-"@devprotocol/hashi@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@devprotocol/hashi/-/hashi-0.1.2.tgz#a4ee6e52bfa8758945c57c082c42f3aa7d650314"
-  integrity sha512-NflN59+9QEZReBlabUZjzfQJnqRI25nOnYyE8NDZ6AoOcZK53a85RXloMBonkxvzAh1jxaD80zy/Zg96K2Cdhg==
+"@devprotocol/hashi@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@devprotocol/hashi/-/hashi-0.1.4.tgz#5d8b7a506a0f6c184034741256825b7ebdcb0d3a"
+  integrity sha512-IkxPfMGPREZCF19RG+lpUrRRF/vG5hmkkKGXKsxo7m9qulQ3t24Ut3vGYU3zfly45QaX1IgeRAOQM3VHlC0CDg==
   dependencies:
-    "@matteusan/sentro" "0.1.19"
+    "@matteusan/sentro" "0.1.20"
 
 "@devprotocol/khaos-core@1.6.0", "@devprotocol/khaos-core@^1.6.0":
   version "1.6.0"
@@ -853,10 +853,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@matteusan/sentro@0.1.19":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@matteusan/sentro/-/sentro-0.1.19.tgz#cbab1dac51c6645ede0ed646612e0b74ea4158cd"
-  integrity sha512-vwbeEQc+fAN4kUKO/5osGPcDRhmyTnCjPC0z6p0empywju5cKodzYzR7rgBno922YO2r3x6XoKW5bzafZuibxg==
+"@matteusan/sentro@0.1.20":
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/@matteusan/sentro/-/sentro-0.1.20.tgz#edbd1e335c5662c08a1898dc07d8742d02124d85"
+  integrity sha512-7pqB45X1SFy/sdlIABf1ShVw+BQRXLAe/+VYRQh0pcEUAWgtghoA9DAu5q7PexK4q+azuotHuP0cGhzoFqlV0w==
 
 "@metamask/detect-provider@^1.2.0":
   version "1.2.0"

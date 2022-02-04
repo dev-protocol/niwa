@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@devprotocol/dev-kit": "^5.12.0",
-    "@devprotocol/hashi": "^0.1.2",
+    "@devprotocol/hashi": "^0.1.4",
     "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
     "@metamask/detect-provider": "^1.2.0",

@@ -112,20 +112,20 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         <FormField label="Supply" id="supply" value="10,000,000" required disabled />
         <FormField label="Dev Protocol Treasury Fee" id="fee" value="500,000" required disabled />
 
-        <div className="flex text-sm">
-          <span>What is the </span>
+        <p>
+          What is the{' '}
           <a
             href="https://initto.devprotocol.xyz/en/what-is-treasury/"
             target="_blank"
-            className="ml-1"
+            className="hs-link size-sm"
             rel="noreferrer"
           >
             Dev Protocol Treasury Fee?
           </a>
-        </div>
+        </p>
 
-        <div className="float-right flex flex-col items-end">
-          <div className="mb-sm mt-sm flex flow-column align-end">
+        <div className="flex flow-row justify-end mb-sm mt-sm">
+          <div className="flex flow-column align-end mr-sm">
             {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
             {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
             {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}

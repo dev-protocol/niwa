@@ -56,7 +56,7 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
           </div>
         </Link>
       )}
-      {isLoading && <div className="mb-lg">loading...</div>}
+      {isLoading && <div className="mb-lg">Loading...</div>}
       {error && <div className="mb-lg">{error}</div>}
     </>
   )

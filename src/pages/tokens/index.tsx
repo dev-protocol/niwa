@@ -34,7 +34,7 @@ const TokensPage: React.FC<TokensPageProps> = () => {
           </HSCard>
         )}
         {userAddress && userAddress !== EMPTY_USER_TOKEN_PATH && userProperties && userProperties.length > 0 && (
-          <div className="flex flex-col">
+          <div className="flex flow-column">
             {userProperties.map(property => (
               <UserTokenListItem key={property.address} property={property} userAddress={userAddress} />
             ))}
