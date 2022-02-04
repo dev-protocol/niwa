@@ -9,8 +9,9 @@ import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
 import { useDevAllowance } from '../../hooks/useAllowance'
 import { useDevApprove } from '../../hooks/useApprove'
+import { usePositionsOfOwner } from '../../hooks/usePositionsOfOwner'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
+import { filterNewPosition, isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
 import StakeStep from './StakeStep'
 import { useLockup } from './useLockup'
 
@@ -28,6 +29,8 @@ const StakePage: React.FC<StakePageProps> = () => {
   const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
   const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
   const { lockup, isLoading: lockupLoading } = useLockup()
+  const { fetchPositionsOfOwner } = usePositionsOfOwner()
+  const [userPosition, setUserPosition] = useState<UndefinedOr<number>>()
   const [isStakingComplete, setIsStakingComplete] = useState(false)
   const navigate = useNavigate()
 
@@ -82,9 +85,18 @@ const StakePage: React.FC<StakePageProps> = () => {
     }
     if (amount <= 0) {
       setError('Insufficient amount')
+      return
+    }
+    if (!ethersProvider) {
+      setError(ERROR_MSG.no_provider)
+      return
     }
 
     console.log(utils.parseUnits(`${amount}`).toString())
+
+    const userAddress = await ethersProvider.getSigner().getAddress()
+    const existingUserPositions = await fetchPositionsOfOwner(userAddress)
+    console.log('existing user positions are: ', existingUserPositions)
 
     const success = await lockup(hash, utils.parseUnits(`${amount}`))
     if (!success) {
@@ -92,13 +104,25 @@ const StakePage: React.FC<StakePageProps> = () => {
       return
     }
 
+    const newUserPositions = await fetchPositionsOfOwner(userAddress)
+    if (!newUserPositions) {
+      setError('No user positions found')
+      return
+    }
+    const newPosition = filterNewPosition(newUserPositions, existingUserPositions)
+    if (!newPosition) {
+      console.error('error finding new position...')
+      console.log('existing positions: ', existingUserPositions)
+      console.log('new positions: ', newUserPositions)
+      setError('Error filtering new user position')
+      return
+    }
+    setUserPosition(newPosition)
     setIsStakingComplete(true)
-
-    // lockup(hash, amount)
   }
 
   const navigateToPosition = async () => {
-    navigate(`https://stakes.social`)
+    window.location.replace(`https://stakes.social/profile/positions/${userPosition}`)
   }
 
   return (
