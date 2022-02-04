@@ -123,7 +123,7 @@ const StakePage: React.FC<StakePageProps> = () => {
   }
 
   const navigateToPosition = async () => {
-    navigate(`https://stakes.social/profile/positions/${userPosition}`)
+    window.location.replace(`https://stakes.social/profile/positions/${userPosition}`)
   }
 
   return (
