@@ -26,8 +26,8 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
             title="YouTube"
             icon={<FaYoutube color="red" size="24px" />}
             details="Tokenize your YouTube channel to pursue what you love"
-            path="#"
-            disabled
+            disabled={false}
+            path="/tokenize/youtube"
           />
         </div>
       </section>

@@ -6,6 +6,7 @@ import PropertyPage from './pages/property'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
+import AuthCallbackPage from './pages/auth-callback'
 
 import ConnectButton from './components/ConnectButton'
 import DPLHeader from './components/DPLHeader'
@@ -42,6 +43,7 @@ function App() {
               <Route path="/tokenize" element={<TokenizeMarketSelect />} />
               <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
               <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
+              <Route path="/auth/:market/callback" element={<AuthCallbackPage />} />
               <Route path="/404" element={<PageNotFound />} />
             </Routes>
           </TokenizeProvider>
