@@ -9,11 +9,11 @@ import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
 
-interface TokensPageProps {
+interface UserPropertiesListPageProps {
   // Props
 }
 
-const TokensPage: React.FC<TokensPageProps> = () => {
+const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
   const { userAddress } = useParams()
   const { userProperties } = useUserPropertiesList(userAddress)
 
@@ -45,4 +45,4 @@ const TokensPage: React.FC<TokensPageProps> = () => {
   )
 }
 
-export default TokensPage
+export default UserPropertiesListPage

@@ -9,9 +9,8 @@ import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
 import { useDevAllowance } from '../../hooks/useAllowance'
 import { useDevApprove } from '../../hooks/useApprove'
-import { usePositionsOfOwner } from '../../hooks/usePositionsOfOwner'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { filterNewPosition, isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
+import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
 import StakeStep from './StakeStep'
 import { useLockup } from './useLockup'
 
@@ -29,8 +28,6 @@ const StakePage: React.FC<StakePageProps> = () => {
   const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
   const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
   const { lockup, isLoading: lockupLoading } = useLockup()
-  const { fetchPositionsOfOwner } = usePositionsOfOwner()
-  const [userPosition, setUserPosition] = useState<UndefinedOr<number>>()
   const [isStakingComplete, setIsStakingComplete] = useState(false)
   const navigate = useNavigate()
 
@@ -47,7 +44,6 @@ const StakePage: React.FC<StakePageProps> = () => {
       }
       setLockupAddress(networkContracts.lockup)
       const _allowance = await fetchAllowance(networkContracts.lockup)
-      console.log('allowance is: ', _allowance?.toString())
       setAllowance(_allowance)
     })()
   }, [ethersProvider, fetchAllowance])
@@ -92,37 +88,21 @@ const StakePage: React.FC<StakePageProps> = () => {
       return
     }
 
-    console.log(utils.parseUnits(`${amount}`).toString())
-
-    const userAddress = await ethersProvider.getSigner().getAddress()
-    const existingUserPositions = await fetchPositionsOfOwner(userAddress)
-    console.log('existing user positions are: ', existingUserPositions)
-
     const success = await lockup(hash, utils.parseUnits(`${amount}`))
     if (!success) {
       setError('There was an error staking')
       return
     }
 
-    const newUserPositions = await fetchPositionsOfOwner(userAddress)
-    if (!newUserPositions) {
-      setError('No user positions found')
-      return
-    }
-    const newPosition = filterNewPosition(newUserPositions, existingUserPositions)
-    if (!newPosition) {
-      console.error('error finding new position...')
-      console.log('existing positions: ', existingUserPositions)
-      console.log('new positions: ', newUserPositions)
-      setError('Error filtering new user position')
-      return
-    }
-    setUserPosition(newPosition)
     setIsStakingComplete(true)
   }
 
-  const navigateToPosition = async () => {
-    window.location.replace(`https://stakes.social/profile/positions/${userPosition}`)
+  const navigateToUserPositions = async () => {
+    if (!ethersProvider) {
+      return
+    }
+
+    navigate(`/${await ethersProvider.getSigner().getAddress()}/positions`)
   }
 
   return (
@@ -163,7 +143,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                 isDisabled={!isStakingComplete}
                 isComplete={isStakingComplete}
                 isVisible={isStakingComplete}
-                onClick={navigateToPosition}
+                onClick={navigateToUserPositions}
               />
             </div>
           )}
