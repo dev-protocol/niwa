@@ -44,7 +44,6 @@ const StakePage: React.FC<StakePageProps> = () => {
       }
       setLockupAddress(networkContracts.lockup)
       const _allowance = await fetchAllowance(networkContracts.lockup)
-      console.log('allowance is: ', _allowance?.toString())
       setAllowance(_allowance)
     })()
   }, [ethersProvider, fetchAllowance])
@@ -82,9 +81,12 @@ const StakePage: React.FC<StakePageProps> = () => {
     }
     if (amount <= 0) {
       setError('Insufficient amount')
+      return
     }
-
-    console.log(utils.parseUnits(`${amount}`).toString())
+    if (!ethersProvider) {
+      setError(ERROR_MSG.no_provider)
+      return
+    }
 
     const success = await lockup(hash, utils.parseUnits(`${amount}`))
     if (!success) {
@@ -93,12 +95,14 @@ const StakePage: React.FC<StakePageProps> = () => {
     }
 
     setIsStakingComplete(true)
-
-    // lockup(hash, amount)
   }
 
-  const navigateToPosition = async () => {
-    navigate(`https://stakes.social`)
+  const navigateToUserPositions = async () => {
+    if (!ethersProvider) {
+      return
+    }
+
+    navigate(`/${await ethersProvider.getSigner().getAddress()}/positions`)
   }
 
   return (
@@ -142,12 +146,12 @@ const StakePage: React.FC<StakePageProps> = () => {
               />
               <StakeStep
                 name="Complete"
-                btnText="See your staking position on Stakes.social"
+                btnText="See your staking positions"
                 label={`You've staked ${amount} and received sTokens!`}
                 isDisabled={!isStakingComplete}
                 isComplete={isStakingComplete}
                 isVisible={isStakingComplete}
-                onClick={navigateToPosition}
+                onClick={navigateToUserPositions}
               />
             </div>
           )}

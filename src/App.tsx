@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
-import TokensPage from './pages/tokens'
+import UserPropertiesListPage from './pages/user-properties-list'
+import UserPositionsListPage from './pages/user-positions-list'
 import GrowthPage from './pages/growth'
 import PropertyPage from './pages/property'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
@@ -36,7 +37,8 @@ function App() {
           <TokenizeProvider>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/:userAddress" element={<TokensPage />} />
+              <Route path="/:userAddress" element={<UserPropertiesListPage />} />
+              <Route path="/:userAddress/positions" element={<UserPositionsListPage />} />
               <Route path="/properties/:hash/stake" element={<StakePage />} />
               <Route path="/properties/:hash" element={<PropertyPage />} />
               <Route path="/growth" element={<GrowthPage />} />
