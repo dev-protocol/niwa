@@ -11,7 +11,6 @@ interface HomeNavItemProps {
 }
 
 const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({ title, message, path, isExternal, isDisabled }) => {
-  const containerClasses = 'bg-gradient-to-r from-cyan-500 to-blue-500'
   return (
     <>
       {isDisabled && (

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import BackButton from '../../components/BackButton'
 import { useParams } from 'react-router-dom'
 import UserTokenListItem from './UserTokenListItem'
 
 import DPLTitleBar from '../../components/DPLTitleBar'
-import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
 import { crunchAddress } from '../../utils/utils'
+import Card from '../../components/Card'
 
 interface UserPropertiesListPageProps {
   // Props
@@ -23,9 +23,9 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
       <DPLTitleBar title="Properties" sub={`${userAddress ? crunchAddress(userAddress) : '...'} Properties`} />
       <div>
         {userProperties && userProperties.length <= 0 && (
-          <HSCard className="border-surface-400">
-            <HSCardContents>You have no tokens</HSCardContents>
-          </HSCard>
+          <Card>
+            <span>You have no tokens</span>
+          </Card>
         )}
       </div>
       <div>

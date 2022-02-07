@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Card from '../../components/Card'
 
 interface TokenizeLinkProps {
   title: string
@@ -24,10 +25,10 @@ const TokenizeLink: React.FC<TokenizeLinkProps> = ({ title, icon, details, path,
   )
 
   return disabled ? (
-    <div className="border-2 border-gray-200 rounded py-4 px-8">{LinkContents}</div>
+    <Card isDisabled={disabled}>{LinkContents}</Card>
   ) : (
-    <Link to={path} className="border-2 border-gray-200 rounded py-4 px-8">
-      {LinkContents}
+    <Link to={path}>
+      <Card>{LinkContents}</Card>
     </Link>
   )
 }

@@ -126,7 +126,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         </div>
 
         <div className="float-right flex flex-col items-end">
-          <div className="my-2 flex flow-column align-end">
+          <div className="my-2 flex flex-col items-end">
             {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
             {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
             {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}

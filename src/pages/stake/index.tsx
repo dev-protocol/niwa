@@ -79,7 +79,7 @@ const StakePage: React.FC<StakePageProps> = () => {
             </div>
           )}
           {ethersProvider && (
-            <div className="flex flow-column">
+            <div className="flex flex-col">
               <StakeStep
                 name="Stake"
                 btnText="Stake"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Card from '../../components/Card'
 import { isNumberInput } from '../../utils/utils'
 
 interface StakeOptionProps {
@@ -31,20 +32,43 @@ const StakeOption: React.FC<StakeOptionProps> = ({ optionName, fixedAmount, isCu
   }
 
   return (
-    <div className="flex flow-column">
-      <span>{optionName}</span>
-      <div>
-        {!isCustom && <input readOnly value={stakeAmount} />}
-        {isCustom && <input value={stakeAmount ?? ''} onChange={e => onChange(e.target.value)} placeholder="1000" />}
-        <span>DEV</span>
+    <Card>
+      <div className="flex flex-col">
+        <span>{optionName}</span>
+
+        {!isCustom && (
+          <div className="flex">
+            <div className="flex items-end">
+              <span className="text-4xl font-bold mr-2">{stakeAmount}</span>
+              <span className="font-bold text-xl">DEV</span>
+            </div>
+          </div>
+        )}
+
+        {isCustom && (
+          <input
+            className="text-4xl border-none focus:border-transparent focus:ring-0 focus:outline-none"
+            value={stakeAmount ?? ''}
+            onChange={e => onChange(e.target.value)}
+            placeholder="1000"
+          />
+        )}
+
+        <Link
+          className={`bg-gradient-to-r from-blue-500 to-cyan-600 rounded text-white py-2 px-4 text-center text-lg my-4 ${
+            !formValid ? 'opacity-75' : ''
+          }`}
+          to={formValid ? `/properties/${propertyAddress}/stake?amount=${stakeAmount}` : '#'}
+        >
+          Stake
+        </Link>
+        <div className="text-sm text-gray-500">
+          Stake a{!isCustom && <span> {optionName} </span>}
+          {isCustom && <span> custom amount </span>}
+          and get a thank you
+        </div>
       </div>
-      <Link to={formValid ? `/properties/${propertyAddress}/stake?amount=${stakeAmount}` : '#'}>Stake</Link>
-      <div>
-        Stake a{!isCustom && <span> {optionName} </span>}
-        {isCustom && <span> custom amount </span>}
-        and get a thank you
-      </div>
-    </div>
+    </Card>
   )
 }
 

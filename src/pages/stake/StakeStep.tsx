@@ -19,7 +19,7 @@ const StakeStep: React.FC<StakeStepProps> = ({ isComplete, isDisabled, label, on
         <b>{name}</b>
         <FaCheckCircle className="ml-xs" color={isComplete ? 'green' : 'grey'} />
       </div>
-      <div className="flex flow-column">
+      <div className="flex flex-col">
         <span className="mb-sm">{label}</span>
         <HSButton label={btnText} type="filled" isDisabled={isDisabled} onClick={onClick} />
       </div>
