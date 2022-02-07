@@ -4,6 +4,7 @@ import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import { isValidNetwork } from '../../utils/utils'
+import TermsCheckBox from './TermsCheckBox'
 
 interface GithubFormProps {}
 
@@ -20,7 +21,9 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
     tokenSymbol,
     setTokenSymbol,
     personalAccessToken,
-    setPersonalAccessToken
+    setPersonalAccessToken,
+    agreedToTerms,
+    setAgreedToTerms
   } = useContext(TokenizeContext)
 
   const submit = () => {
@@ -93,7 +96,9 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
       >
         Create a Personal Access Token without any scopes.
       </a>
-      <p className="fs-small">The PAT is confidentially authenticated using the Khaos oracle.</p>
+      <p className="fs-small mb-sm">The PAT is confidentially authenticated using the Khaos oracle.</p>
+
+      <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
 
       <div className="row-end">
         <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>

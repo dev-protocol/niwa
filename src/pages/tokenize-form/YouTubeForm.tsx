@@ -3,19 +3,14 @@ import { FaYoutube } from 'react-icons/fa'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
+import TermsCheckBox from './TermsCheckBox'
 
 interface YouTubeFormProps {}
 
 const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
   const [isValid] = useState(true)
-  const {
-    network,
-    address,
-    tokenName,
-    setTokenName,
-    tokenSymbol,
-    setTokenSymbol,
-  } = useContext(TokenizeContext)
+  const { network, address, tokenName, setTokenName, tokenSymbol, setTokenSymbol, agreedToTerms, setAgreedToTerms } =
+    useContext(TokenizeContext)
 
   const submit = () => {
     if (!isValid) {
@@ -23,8 +18,10 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
     }
 
     const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
-    const redirectUri = encodeURI(import.meta.env.VITE_YOUTUBE_AUTH_REDIRECT_URI as string || '')
-    const scope = encodeURI('https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.email')
+    const redirectUri = encodeURI((import.meta.env.VITE_YOUTUBE_AUTH_REDIRECT_URI as string) || '')
+    const scope = encodeURI(
+      'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.email'
+    )
     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`
 
     window.location.assign(url)
@@ -43,7 +40,6 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
         disabled={true}
       />
       <div className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</div>
-
       <FormField
         label="Your Wallet Address"
         id="address"
@@ -71,14 +67,9 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
           }
         }}
       />
-
+      <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
       <div className="float-right flex flex-col items-end">
-        <HSButton
-          context="submit"
-          type="filled"
-          isDisabled={!isValid}
-          onClick={submit}
-        >
+        <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>
           Authorize YouTube Account
         </HSButton>
       </div>
