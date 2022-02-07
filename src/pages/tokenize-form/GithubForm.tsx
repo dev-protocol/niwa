@@ -74,7 +74,6 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
         />
         <FormField
           label="Token Symbol"
-          helper="Symbol should be 3 to 4 characters long (for example DEV)"
           id="tokenSymbol"
           required={true}
           value={tokenSymbol}

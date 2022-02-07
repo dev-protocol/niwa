@@ -57,7 +57,7 @@ const HSButton: React.FC<HSButtonProps> = ({
 
   const ButtonBase = (
     <button
-      className={`${btnStyles.background} ${btnStyles.text} px-4 py-2 rounded`}
+      className={`${btnStyles.background} ${btnStyles.text} px-4 py-2 rounded ${isDisabled ? 'opacity-50' : ''}`}
       role="button"
       type={context}
       onClick={onClick}

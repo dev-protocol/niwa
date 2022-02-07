@@ -28,46 +28,48 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
   }
 
   return (
-    <div>
-      <FaYoutube />
-      YouTube Market
-      <FormField
-        label="Network"
-        id="network"
-        required={true}
-        value={network?.name ?? ''}
-        placeholder="Please Connect Wallet"
-        disabled={true}
-      />
-      <div className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</div>
-      <FormField
-        label="Your Wallet Address"
-        id="address"
-        required={true}
-        value={address}
-        placeholder="Please Connect Wallet"
-        disabled={true}
-      />
-      <FormField
-        label="Token Name"
-        id="tokenName"
-        required={true}
-        value={tokenName}
-        onChange={val => setTokenName(val)}
-      />
-      <FormField
-        label="Token Symbol"
-        id="tokenSymbol"
-        required={true}
-        value={tokenSymbol}
-        onChange={val => {
-          if (val.length <= 4) {
-            setTokenSymbol(val.toUpperCase())
-          }
-        }}
-      >
-        <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
-      </FormField>
+    <div className="flex flex-col">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormField
+          label="Network"
+          id="network"
+          required={true}
+          value={network?.name ?? ''}
+          placeholder="Please Connect Wallet"
+          disabled={true}
+        >
+          <span className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</span>
+        </FormField>
+
+        <FormField
+          label="Your Wallet Address"
+          id="address"
+          required={true}
+          value={address}
+          placeholder="Please Connect Wallet"
+          disabled={true}
+        />
+        <FormField
+          label="Token Name"
+          id="tokenName"
+          required={true}
+          value={tokenName}
+          onChange={val => setTokenName(val)}
+        />
+        <FormField
+          label="Token Symbol"
+          id="tokenSymbol"
+          required={true}
+          value={tokenSymbol}
+          onChange={val => {
+            if (val.length <= 4) {
+              setTokenSymbol(val.toUpperCase())
+            }
+          }}
+        >
+          <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+        </FormField>
+      </div>
       <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
       <div className="float-right flex flex-col items-end">
         <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>
