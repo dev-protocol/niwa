@@ -116,7 +116,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
               <a
                 href="https://initto.devprotocol.xyz/en/what-is-treasury/"
                 target="_blank"
-                className="ml-1 text-cyan-500"
+                className="ml-1 text-link"
                 rel="noreferrer"
               >
                 Dev Protocol Treasury Fee?

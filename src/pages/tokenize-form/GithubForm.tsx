@@ -99,7 +99,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
               href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
               target="_blank"
               rel="noreferrer"
-              className="text-link text-sm text-cyan-500"
+              className="text-link text-sm text-link"
             >
               Create a Personal Access Token without any scopes.
             </a>

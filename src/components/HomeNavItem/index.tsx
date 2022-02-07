@@ -42,8 +42,8 @@ interface HomeNavItemContentProps {
 const HomeNavItemContent: FunctionComponent<HomeNavItemContentProps> = ({ title, message, isDisabled = false }) => {
   return (
     <div
-      className={`bg-gradient-to-r rounded py-4 px-8 text-white ${
-        isDisabled ? 'opacity-75 from-blue-400 to-cyan-500' : 'from-blue-500 to-cyan-600'
+      className={`bg-gradient-to-r rounded py-4 px-8 text-white from-primary to-secondary h-full ${
+        isDisabled ? 'opacity-50' : ''
       }`}
     >
       <div className="flex items-center">
