@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { FaChevronLeft } from 'react-icons/fa'
-import HSButton from '../HSButton'
+import { Link } from 'react-router-dom'
 
 interface BackButtonProps {
   title: string
@@ -9,11 +9,10 @@ interface BackButtonProps {
 
 const BackButton: FunctionComponent<BackButtonProps> = ({ title, path }) => {
   return (
-    <div className="mb-md">
-      <HSButton link={path} type="outlined neutral" icon={<FaChevronLeft />}>
-        {title}
-      </HSButton>
-    </div>
+    <Link to={path} className="flex items-center mb-4">
+      <FaChevronLeft size="12" />
+      <span className="ml-1">{title}</span>
+    </Link>
   )
 }
 

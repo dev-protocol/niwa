@@ -7,15 +7,14 @@ interface LauncherHeaderProps {
 
 const LauncherHeader: React.FC<LauncherHeaderProps> = ({ children }) => {
   return (
-    <header className="dpl-header">
-      <div className="dpl-header__wrapper">
-        <div className="dpl-header__brand">
-          <Link to="/">
-            <h2>Hanabi</h2>
-          </Link>
-        </div>
-        <div className="dpl-header__actions">{children}</div>
+    <header className="container mx-auto px-4 flex justify-between py-4 h-24 mb-8">
+      <div className="flex items-center">
+        <Link to="/">
+          <h1 className="font-bold text-xl">Niwa</h1>
+        </Link>
+        <span className="ml-4 text-sm justify-center">Social Token Launcher</span>
       </div>
+      <div className="flex items-center">{children}</div>
     </header>
   )
 }

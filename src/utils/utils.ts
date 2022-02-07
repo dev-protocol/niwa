@@ -171,6 +171,24 @@ export const getDeploymentUrlByChainId = (chainId: number): UndefinedOr<string> 
   }
 }
 
+export const deployedNetworkToReadable = (
+  net: 'arbitrum-one' | 'arbitrum-rinkeby' | 'polygon-mainnet' | 'polygon-mumbai'
+) => {
+  switch (net) {
+    case 'arbitrum-one':
+      return 'Arbitrum'
+
+    case 'arbitrum-rinkeby':
+      return 'Arbitrum Rinkeby'
+
+    case 'polygon-mainnet':
+      return 'Polygon'
+
+    case 'polygon-mumbai':
+      return 'Polygon Mumbai'
+  }
+}
+
 export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {
   // Previously user had no positions
   // If new positions exist, return the first

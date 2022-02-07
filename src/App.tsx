@@ -30,7 +30,7 @@ function App() {
       {isRoot && (
         <BrowserRouter>
           <DPLHeader></DPLHeader>
-          <main className="container mx-auto">
+          <main className="container mx-auto px-2">
             <Routes>
               <Route path="/" element={<NetworkSelectPage />} />
               <Route path="/*" element={<Navigate to="/" />} />
@@ -45,7 +45,7 @@ function App() {
             <DPLHeader>
               <ConnectButton />
             </DPLHeader>
-            <main className="content-wrap">
+            <main className="container mx-auto px-4">
               <TokenizeProvider>
                 <Routes>
                   <Route path="/" element={<Home />} />
@@ -63,31 +63,33 @@ function App() {
               </TokenizeProvider>
             </main>
             <DPLFooter>
-              <DPLFooterSection>
-                <ul className="mb-sm">
-                  <p className="fs-h4 fw-h3">Network</p>
-                  <li>
-                    <a href="https://arbitrum.niwa.xyz/">Arbitrium</a>
-                  </li>
-                  <li>
-                    <a href="https://polygon.niwa.xyz/">Polygon</a>
-                  </li>
-                </ul>
-                <ul>
-                  <p className="fs-h4 fw-h3">Testnet</p>
-                  <li>
-                    <a href="https://arbitrum-rinkeby.niwa.xyz/">Arbitrum Rinkeby</a>
-                  </li>
-                  <li>
-                    <a href="https://polygon-mumbai.niwa.xyz/">Polygon Mumbai</a>
-                  </li>
-                </ul>
-              </DPLFooterSection>
-              <DPLFooterSection>
-                <a href="https://devprotocol.xyz" target="_blank" rel="noreferrer">
-                  <img width="100px" height="auto" src={FooterImg} alt="Footer Image" />
-                </a>
-              </DPLFooterSection>
+              <div className="flex justify-between">
+                <DPLFooterSection>
+                  <ul className="mb-4">
+                    <p className="font-bold">Network</p>
+                    <li className="text-sm">
+                      <a href="https://arbitrum.niwa.xyz/">Arbitrium</a>
+                    </li>
+                    <li className="text-sm">
+                      <a href="https://polygon.niwa.xyz/">Polygon</a>
+                    </li>
+                  </ul>
+                  <ul>
+                    <p className="font-bold">Testnet</p>
+                    <li className="text-sm">
+                      <a href="https://arbitrum-rinkeby.niwa.xyz/">Arbitrum Rinkeby</a>
+                    </li>
+                    <li className="text-sm">
+                      <a href="https://polygon-mumbai.niwa.xyz/">Polygon Mumbai</a>
+                    </li>
+                  </ul>
+                </DPLFooterSection>
+                <DPLFooterSection>
+                  <a href="https://devprotocol.xyz" target="_blank" rel="noreferrer">
+                    <img width="100px" height="auto" src={FooterImg} alt="Footer Image" />
+                  </a>
+                </DPLFooterSection>
+              </div>
             </DPLFooter>
           </BrowserRouter>
         </WalletContext.Provider>
