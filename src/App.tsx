@@ -55,19 +55,19 @@ function App() {
             <ul className="mb-sm">
               <p className="fs-h4 fw-h3">Network</p>
               <li>
-                <a href="#">Arbitrium</a>
+                <a href="https://arbitrum.niwa.xyz/">Arbitrium</a>
               </li>
               <li>
-                <a href="#">Polygon</a>
+                <a href="https://polygon.niwa.xyz/">Polygon</a>
               </li>
             </ul>
             <ul>
               <p className="fs-h4 fw-h3">Testnet</p>
               <li>
-                <a href="#">Arbitrum Rinkeby</a>
+                <a href="https://arbitrum-rinkeby.niwa.xyz/">Arbitrum Rinkeby</a>
               </li>
               <li>
-                <a href="#">Polygon Mumbai</a>
+                <a href="https://polygon-mumbai.niwa.xyz/">Polygon Mumbai</a>
               </li>
             </ul>
           </DPLFooterSection>
