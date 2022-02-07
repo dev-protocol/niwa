@@ -20,7 +20,7 @@ const TermsCheckBox: React.FC<TermsCheckBoxProps> = ({ isChecked, setAgreedToTer
         target="_blank"
         rel="noreferrer"
         style={{ marginLeft: '0.2rem' }}
-        className="hs-link text-cyan-500"
+        className="hs-link text-link"
       >
         Terms of Service
       </a>
