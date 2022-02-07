@@ -5,5 +5,3 @@ module.exports = {
   },
   plugins: []
 }
-
-// 5B8BF5

@@ -57,7 +57,6 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
       />
       <FormField
         label="Token Symbol"
-        helper="Symbol should be 3 to 4 characters long (for example DEV)"
         id="tokenSymbol"
         required={true}
         value={tokenSymbol}
@@ -66,7 +65,9 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
             setTokenSymbol(val.toUpperCase())
           }
         }}
-      />
+      >
+        <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+      </FormField>
       <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
       <div className="float-right flex flex-col items-end">
         <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>
