@@ -24,7 +24,7 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
   onChange,
   children
 }) => {
-  const inputClasses = 'border border-gray-300 rounded py-2 px-4'
+  const inputClasses = 'border border-gray-300 rounded py-2 px-sm'
 
   return (
     <label className={`flex flex-col hs-text-field${isError ? ' danger' : ''}`}>

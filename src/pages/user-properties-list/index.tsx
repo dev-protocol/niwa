@@ -30,7 +30,7 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
       </div>
       <div>
         {userAddress && userAddress !== EMPTY_USER_TOKEN_PATH && userProperties && userProperties.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             {userProperties.map(property => (
               <UserTokenListItem key={property.address} property={property} userAddress={userAddress} />
             ))}

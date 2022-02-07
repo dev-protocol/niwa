@@ -6,7 +6,7 @@ interface DPLFooterProps {
 
 const DPLFooter: React.FC<DPLFooterProps> = ({ children }) => {
   return (
-    <footer className="border-t py-8 mt-12">
+    <footer className="border-t py-md mt-lg">
       <div>{children}</div>
     </footer>
   )

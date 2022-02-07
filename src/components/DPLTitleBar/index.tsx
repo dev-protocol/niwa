@@ -11,7 +11,7 @@ const DPLTitleBar: React.FC<DPLTitleBarProps> = ({ title, sub }) => {
       <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary mb-8">
         {title}
       </h1>
-      {sub && <h2 className="mb-4 text-xl">{sub}</h2>}
+      {sub && <h2 className="mb-sm text-xl">{sub}</h2>}
     </>
   )
 }
