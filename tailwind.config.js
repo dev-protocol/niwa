@@ -10,7 +10,15 @@ module.exports = {
       gradientColorStops: theme => ({
         primary: '#3b82f6',
         secondary: '#0891b2'
-      })
+      }),
+      borderRadius: {},
+      padding: {},
+      margin: {},
+      spacing: {},
+      fontFamily: {},
+      fontSize: {},
+      fontWeight: {},
+      lineHeight: {}
     }
   },
   plugins: []
