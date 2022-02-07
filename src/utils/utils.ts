@@ -189,6 +189,10 @@ export const deployedNetworkToReadable = (
   }
 }
 
+export const crunchAddress = (address: string) => {
+  return `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
+}
+
 export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {
   // Previously user had no positions
   // If new positions exist, return the first
