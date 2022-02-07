@@ -9,7 +9,7 @@ For local development please create a .env file using the dotenv file found in t
 VITE_L2_NETWORK=arbitrum-rinkeby
 VITE_INFURA_PROJECT_ID=
 VITE_INFURA_BASE_ENDPOINT=
-VITE_IS_ROOT=
+VITE_IS_ROOT= # boolean
 ```
 
 Setting `VITE_IS_ROOT` to `true` will prompt the network select page.

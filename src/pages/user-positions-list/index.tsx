@@ -1,3 +1,4 @@
+import { Positions } from '@devprotocol/dev-kit/l2'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
@@ -5,7 +6,6 @@ import DPLTitleBar from '../../components/DPLTitleBar'
 import { HSCard, HSCardContents } from '../../components/HSCard'
 import { usePosition } from '../../hooks/usePosition'
 import { usePositionsOfOwner } from '../../hooks/usePositionsOfOwner'
-import { Position } from '../../types/Position'
 import UserPositionListItem from './UserPositionListItem'
 
 interface UserPositionsListPageProps {}
@@ -14,7 +14,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
   const { userAddress } = useParams()
   const { fetchPositionsOfOwner } = usePositionsOfOwner()
   const { fetchPosition } = usePosition()
-  const [userPositions, setUserPositions] = useState<Position[]>([])
+  const [userPositions, setUserPositions] = useState<Positions[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -22,27 +22,15 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
       return
     }
     ;(async () => {
-      const positions: Position[] = []
       setIsLoading(true)
-      setUserPositions(positions)
+      setUserPositions([])
       const userPositionIds = await fetchPositionsOfOwner(userAddress)
       const positionCalls = userPositionIds?.map(async id => fetchPosition(id))
       if (!positionCalls) {
         return
       }
       const res = await Promise.all([...positionCalls])
-      setUserPositions(
-        res.map(
-          pos =>
-            ({
-              property: pos?.property,
-              amount: pos?.amount,
-              price: pos?.price,
-              cumulativeReward: pos?.cumulativeReward,
-              pendingReward: pos?.pendingReward
-            } as Position)
-        ) ?? []
-      )
+      setUserPositions(res.filter((position): position is Positions => !!position))
       setIsLoading(false)
     })()
   }, [userAddress, fetchPositionsOfOwner, fetchPosition])

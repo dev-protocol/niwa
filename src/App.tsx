@@ -23,10 +23,11 @@ import NetworkSelectPage from './pages/network-select'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
+  const isRoot = import.meta.env.VITE_IS_ROOT === 'true'
 
   return (
     <>
-      {import.meta.env.VITE_IS_ROOT && (
+      {isRoot && (
         <BrowserRouter>
           <DPLHeader></DPLHeader>
           <main className="container mx-auto">
@@ -38,7 +39,7 @@ function App() {
         </BrowserRouter>
       )}
 
-      {!import.meta.env.VITE_IS_ROOT && (
+      {!isRoot && (
         <WalletContext.Provider value={walletProviderContext}>
           <BrowserRouter>
             <DPLHeader>
