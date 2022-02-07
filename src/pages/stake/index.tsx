@@ -23,7 +23,7 @@ const StakePage: React.FC<StakePageProps> = () => {
   const [error, setError] = useState<UndefinedOr<string>>()
   const { propertyDetails, isLoading, error: propertyDetailsError } = usePropertyDetails(hash)
   const { fetchAllowance, isLoading: allowanceIsLoading, error: allowanceError } = useDevAllowance()
-  const { ethersProvider } = useProvider()
+  const { ethersProvider, isValidConnectedNetwork } = useProvider()
   const [allowance, setAllowance] = useState<UndefinedOr<BigNumber>>()
   const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
   const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
@@ -122,7 +122,13 @@ const StakePage: React.FC<StakePageProps> = () => {
                 name="Approve"
                 label="Approve your DEV tokens for stakeability"
                 btnText="Approve"
-                isDisabled={allowance?.gt(0) || allowanceIsLoading || approveIsLoading || allowanceIsLoading}
+                isDisabled={
+                  allowance?.gt(0) ||
+                  allowanceIsLoading ||
+                  approveIsLoading ||
+                  allowanceIsLoading ||
+                  !isValidConnectedNetwork
+                }
                 isComplete={allowance?.gt(0) ?? false}
                 isVisible={true}
                 onClick={approveHandler}
@@ -131,7 +137,9 @@ const StakePage: React.FC<StakePageProps> = () => {
                 name="Stake"
                 btnText="Stake"
                 label="Approve your DEV tokens for stakeability"
-                isDisabled={!allowance || allowance.isZero() || lockupLoading || isStakingComplete}
+                isDisabled={
+                  !allowance || allowance.isZero() || lockupLoading || isStakingComplete || !isValidConnectedNetwork
+                }
                 isComplete={isStakingComplete}
                 isVisible={allowance && allowance.gt(0) ? true : false}
                 onClick={lockupHandler}

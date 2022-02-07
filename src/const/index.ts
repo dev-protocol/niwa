@@ -13,3 +13,10 @@ export const ERROR_MSG = {
   no_matching_market: 'No matching market address found',
   no_property_address: 'No property address found'
 } as const
+
+export const DEPLOYMENTS = {
+  arbitrum_rinkeby: 'https://arbitrum-rinkeby.niwa.xyz',
+  arbitrum_one: 'https://arbitrum.niwa.xyz',
+  polygon_mumbai: 'https://polygon-mumbai.niwa.xyz',
+  polygon_mainnet: 'https://polygon.niwa.xyz'
+}
