@@ -1,4 +1,4 @@
-# Social Token Launcher
+# Niwa
 
 ## Development
 
