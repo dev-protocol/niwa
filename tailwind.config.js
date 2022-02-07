@@ -15,7 +15,9 @@ module.exports = {
       padding: {},
       margin: {},
       spacing: {},
-      fontFamily: {},
+      fontFamily: {
+        body: ['Syne', 'sans-serif']
+      },
       fontSize: {},
       fontWeight: {},
       lineHeight: {}

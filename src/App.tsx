@@ -26,7 +26,7 @@ function App() {
   const isRoot = import.meta.env.VITE_IS_ROOT === 'true'
 
   return (
-    <div className="min-h-screen flex flex-col justify-between container mx-auto px-2">
+    <div className="min-h-screen flex flex-col justify-between container mx-auto px-2 font-body">
       <div>
         {isRoot && (
           <BrowserRouter>

@@ -2,12 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* h1,
-footer {
-  font-family: 'Syne', sans-serif;
-} */
-
-body {
-  font-family: 'Syne', sans-serif;
-}
