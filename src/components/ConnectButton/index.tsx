@@ -23,11 +23,9 @@ const providerOptions = {
   }
 }
 
-type ConnectButtonParams = {
-  onChainChanged(id: number): void
-}
+type ConnectButtonParams = {}
 
-const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
+const ConnectButton: React.FC<ConnectButtonParams> = () => {
   const { ethersProvider, setEthersProvider, isValidConnectedNetwork } = useProvider()
   const [address, setAddress] = useState<string | null>(null)
 
@@ -49,8 +47,6 @@ const ConnectButton: React.FC<ConnectButtonParams> = ({ onChainChanged }) => {
     const connectedProvider = await modalProvider.connect()
     const newProvider = whenDefined(connectedProvider, p => new providers.Web3Provider(p))
     setEthersProvider(newProvider)
-
-    onChainChanged(connectedProvider.chainId)
 
     const updater = createProviderUpdater(connectedProvider)
 

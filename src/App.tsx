@@ -23,15 +23,11 @@ import StakePage from './pages/stake'
 function App() {
   const walletProviderContext = useWalletProviderContext()
 
-  const updateChain = (_chainId: number) => {
-    // TODO - check if chain matches deployment network (ie arbitrum.launcher.com)
-  }
-
   return (
     <WalletContext.Provider value={walletProviderContext}>
       <BrowserRouter>
         <DPLHeader>
-          <ConnectButton onChainChanged={updateChain} />
+          <ConnectButton />
         </DPLHeader>
         <main className="content-wrap">
           <TokenizeProvider>
