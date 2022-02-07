@@ -19,6 +19,23 @@ export const approve = async ({
   return await dev.approve(spenderAddress, constants.MaxUint256.toString())
 }
 
+// For testing
+export const revoke = async ({
+  provider,
+  spenderAddress
+}: {
+  provider: providers.BaseProvider
+  spenderAddress: string
+}) => {
+  const networkContracts = await mapProviderToDevContracts(provider)
+  if (!networkContracts) {
+    return
+  }
+
+  const dev = createDevContract(provider)(networkContracts.token)
+  return await dev.approve(spenderAddress, constants.Zero.toString())
+}
+
 export const useDevApprove = () => {
   const { ethersProvider } = useProvider()
   const [isLoading, setIsLoading] = useState(false)

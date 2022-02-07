@@ -1,5 +1,5 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { BigNumber, constants, utils } from 'ethers'
+import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
@@ -7,10 +7,8 @@ import DPLTitleBar from '../../components/DPLTitleBar'
 import HowItWorks from '../../components/HowItWorks'
 import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
-import { useDevAllowance } from '../../hooks/useAllowance'
-import { useDevApprove } from '../../hooks/useApprove'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
+import { isNumberInput } from '../../utils/utils'
 import StakeStep from './StakeStep'
 import { useLockup } from './useLockup'
 
@@ -22,35 +20,14 @@ const StakePage: React.FC<StakePageProps> = () => {
   const [amount, setAmount] = useState(0)
   const [error, setError] = useState<UndefinedOr<string>>()
   const { propertyDetails, isLoading, error: propertyDetailsError } = usePropertyDetails(hash)
-  const { fetchAllowance, isLoading: allowanceIsLoading, error: allowanceError } = useDevAllowance()
   const { ethersProvider, isValidConnectedNetwork } = useProvider()
-  const [allowance, setAllowance] = useState<UndefinedOr<BigNumber>>()
-  const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
-  const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
   const { lockup, isLoading: lockupLoading } = useLockup()
   const [isStakingComplete, setIsStakingComplete] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!ethersProvider) {
-      return
-    }
-
-    ;(async () => {
-      const networkContracts = await mapProviderToDevContracts(ethersProvider)
-      if (!networkContracts) {
-        setError(ERROR_MSG.invalid_network)
-        return
-      }
-      setLockupAddress(networkContracts.lockup)
-      const _allowance = await fetchAllowance(networkContracts.lockup)
-      setAllowance(_allowance)
-    })()
-  }, [ethersProvider, fetchAllowance])
-
-  useEffect(() => {
-    setError(propertyDetailsError ?? allowanceError ?? approveError)
-  }, [propertyDetailsError, allowanceError, approveError])
+    setError(propertyDetailsError)
+  }, [propertyDetailsError])
 
   useEffect(() => {
     const _amount = searchParams.get('amount')
@@ -58,21 +35,6 @@ const StakePage: React.FC<StakePageProps> = () => {
       setAmount(+_amount)
     }
   }, [searchParams])
-
-  const approveHandler = async () => {
-    if (!lockupAddress) {
-      setError('Error finding DEV lockup address')
-      return
-    }
-
-    const success = await approve(lockupAddress)
-    console.log('success is: ', success)
-    if (!success) {
-      setError('Error approving Dev Lockup Contract')
-      return
-    }
-    setAllowance(constants.MaxUint256)
-  }
 
   const lockupHandler = async () => {
     if (!hash) {
@@ -119,29 +81,12 @@ const StakePage: React.FC<StakePageProps> = () => {
           {ethersProvider && (
             <div className="flex flow-column">
               <StakeStep
-                name="Approve"
-                label="Approve your DEV tokens for stakeability"
-                btnText="Approve"
-                isDisabled={
-                  allowance?.gt(0) ||
-                  allowanceIsLoading ||
-                  approveIsLoading ||
-                  allowanceIsLoading ||
-                  !isValidConnectedNetwork
-                }
-                isComplete={allowance?.gt(0) ?? false}
-                isVisible={true}
-                onClick={approveHandler}
-              />
-              <StakeStep
                 name="Stake"
                 btnText="Stake"
-                label="Approve your DEV tokens for stakeability"
-                isDisabled={
-                  !allowance || allowance.isZero() || lockupLoading || isStakingComplete || !isValidConnectedNetwork
-                }
+                label="Stake your Dev Tokens"
+                isDisabled={lockupLoading || isStakingComplete || !isValidConnectedNetwork}
                 isComplete={isStakingComplete}
-                isVisible={allowance && allowance.gt(0) ? true : false}
+                isVisible={true}
                 onClick={lockupHandler}
               />
               <StakeStep

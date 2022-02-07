@@ -9,14 +9,21 @@ import { positionsCreate } from '@devprotocol/dev-kit/agent'
 export const lockup = async ({
   provider,
   propertyAddress,
-  amount
+  amount,
+  userAddress
 }: {
   provider: providers.BaseProvider
   lockupAddress: string
   propertyAddress: string
   amount: BigNumber
+  userAddress: string
 }) => {
-  return await positionsCreate({ provider, destination: propertyAddress, amount: amount.toString() })
+  return await positionsCreate({
+    provider: provider,
+    destination: propertyAddress,
+    amount: amount.toString(),
+    from: userAddress
+  })
 }
 
 export const useLockup = () => {
@@ -40,13 +47,16 @@ export const useLockup = () => {
         return
       }
 
+      const userAddress = await ethersProvider.getSigner().getAddress()
+
       try {
         setIsLoading(false)
         const tx = await lockup({
           provider: ethersProvider,
           lockupAddress: networkContracts.lockup,
           propertyAddress,
-          amount
+          amount,
+          userAddress
         })
         console.log('tx is: ', tx)
         if (!tx) {
@@ -54,8 +64,8 @@ export const useLockup = () => {
           setIsLoading(false)
           return
         }
-        const res = await tx.wait()
-        console.log('res is: ', res)
+        const approve = await tx.approveIfNeeded({})
+        const res = await approve.waitOrSkip()
         return res
       } catch (error) {
         console.error(error)

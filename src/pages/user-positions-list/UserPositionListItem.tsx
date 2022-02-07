@@ -1,9 +1,9 @@
+import { Positions } from '@devprotocol/dev-kit/l2'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Position } from '../../types/Position'
 
 interface UserPositionListItemProps {
-  position: Position
+  position: Positions
 }
 
 const UserPositionListItem: React.FC<UserPositionListItemProps> = ({ position }) => {
