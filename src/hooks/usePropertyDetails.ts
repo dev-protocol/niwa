@@ -65,7 +65,7 @@ export const usePropertyDetails = (propertyAddress?: string) => {
         return
       }
 
-      const [propertyName, propertySymbol] = await Promise.all([propertyData.name(), propertyData.name()])
+      const [propertyName, propertySymbol] = await Promise.all([propertyData.name(), propertyData.symbol()])
 
       const matchingMarket = await matchMarket(propertyAddress, enabledMarkets)
       if (!matchingMarket) {

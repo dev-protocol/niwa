@@ -81,51 +81,52 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       />
       <DPLTitleBar title="Tokenize" />
       <div>
-        <FormField
-          label="Network"
-          id="network"
-          helper="Minting only available on Arbitrum and Polyon."
-          value={network?.name ?? ''}
-          placeholder="Please Connect Wallet"
-          disabled
-          required
-        />
-        <FormField
-          label="Your Wallet Address"
-          id="address"
-          value={address}
-          placeholder="Please Connect Wallet"
-          disabled
-          required
-        />
-        <FormField
-          label="GitHub Repository Name"
-          placeholder="owner_name/repository_name"
-          id="repoName"
-          value={assetName}
-          disabled
-          required
-        />
-        <FormField label="Token Name" id="tokenName" value={tokenName} required disabled />
-        <FormField label="Token Symbol" id="tokenSymbol" value={tokenSymbol} required disabled />
-        <FormField label="Personal Access Token" id="pac" value={personalAccessToken} required disabled />
-        <FormField label="Supply" id="supply" value="10,000,000" required disabled />
-        <FormField label="Dev Protocol Treasury Fee" id="fee" value="500,000" required disabled />
-
-        <div className="flex text-sm">
-          <span>What is the </span>
-          <a
-            href="https://initto.devprotocol.xyz/en/what-is-treasury/"
-            target="_blank"
-            className="ml-1"
-            rel="noreferrer"
-          >
-            Dev Protocol Treasury Fee?
-          </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            label="Network"
+            id="network"
+            value={network?.name ?? ''}
+            placeholder="Please Connect Wallet"
+            disabled
+            required
+          />
+          <FormField
+            label="Your Wallet Address"
+            id="address"
+            value={address}
+            placeholder="Please Connect Wallet"
+            disabled
+            required
+          />
+          <FormField
+            label="GitHub Repository Name"
+            placeholder="owner_name/repository_name"
+            id="repoName"
+            value={assetName}
+            disabled
+            required
+          />
+          <FormField label="Token Name" id="tokenName" value={tokenName} required disabled />
+          <FormField label="Token Symbol" id="tokenSymbol" value={tokenSymbol} required disabled />
+          <FormField label="Personal Access Token" id="pac" value={personalAccessToken} required disabled />
+          <FormField label="Supply" id="supply" value="10,000,000" required disabled />
+          <FormField label="Dev Protocol Treasury Fee" id="fee" value="500,000" required disabled>
+            <div className="flex text-sm">
+              <span>What is the </span>
+              <a
+                href="https://initto.devprotocol.xyz/en/what-is-treasury/"
+                target="_blank"
+                className="ml-1 text-cyan-500"
+                rel="noreferrer"
+              >
+                Dev Protocol Treasury Fee?
+              </a>
+            </div>
+          </FormField>
         </div>
 
         <div className="float-right flex flex-col items-end">
-          <div className="mb-sm mt-sm flex flow-column align-end">
+          <div className="my-2 flex flex-col items-end">
             {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
             {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
             {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}

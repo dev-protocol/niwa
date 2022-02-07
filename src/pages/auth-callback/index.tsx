@@ -22,10 +22,10 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const queryParams = target
     .slice(1)
     .split('&')
-    .map((str) => [str.split('=')[0], str.split('=')[1]])
+    .map(str => [str.split('=')[0], str.split('=')[1]])
     .reduce((acc, a) => {
-      acc[a[0]] = a[1];
-      return acc;
+      acc[a[0]] = a[1]
+      return acc
     }, {} as QueryString)
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
@@ -35,7 +35,7 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const swrOptions = {
     revalidateOnFocus: false,
     shouldRetryOnError: false,
-    focusThrottleInterval: 0,
+    focusThrottleInterval: 0
   }
 
   const accessToken = queryParams.access_token || ''
@@ -77,10 +77,7 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     },
     swrOptions
   )
-  const {
-    tokenName,
-    tokenSymbol,
-  } = useContext(TokenizeContext)
+  const { tokenName, tokenSymbol } = useContext(TokenizeContext)
   const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
   const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
 
@@ -108,31 +105,30 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     createKhaosPubSign({
       personalAccessToken,
       assetName,
-      signId: 'youtube-market',
+      signId: 'youtube-market'
     }).then((pubSig?: string) => {
       if (!pubSig) {
         return displayMessage('fail createKhaosPubSign')
       }
       // authenticate
-      createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, _market)
-        .then((propertyAddress?: string) => {
-          if (!propertyAddress) {
-            return displayMessage('fail createAndAuthenticate')
-          }
-          return navigate(`/properties/${propertyAddress}`)
-        })
+      createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, _market).then((propertyAddress?: string) => {
+        if (!propertyAddress) {
+          return displayMessage('fail createAndAuthenticate')
+        }
+        return navigate(`/properties/${propertyAddress}`)
+      })
     })
   }, [params, navigate, setMarket, market, youtubeData])
 
   return (
     <div>
-      <BackButton title='Tokenize YouTube Market' path='/tokenize/youtube' />
-      {(error || khaosError || tokenizeError) ? (
-          <div className="mb-sm mt-sm flex flow-column align-end">
-            {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
-            {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
-            {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
-          </div>
+      <BackButton title="Tokenize YouTube Market" path="/tokenize/youtube" />
+      {error || khaosError || tokenizeError ? (
+        <div className="mb-sm mt-sm flex flex-col align-end">
+          {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
+          {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
+          {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
+        </div>
       ) : (
         <p>waiting...</p>
       )}

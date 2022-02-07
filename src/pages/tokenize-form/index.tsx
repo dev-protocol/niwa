@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Market } from '../../const'
-import { getMarketFromString } from '../../utils/utils'
+import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import GithubForm from './GithubForm'
 import YouTubeForm from './YouTubeForm'
@@ -29,7 +29,7 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   return (
     <div>
       <BackButton title="Tokenize" path="/tokenize" />
-      <DPLTitleBar title="Invitation Request" />
+      <DPLTitleBar title="Invitation Request" sub={`${marketToReadable(market)} Project Information`} />
       {market === Market.GITHUB && <GithubForm />}
       {market === Market.YOUTUBE && <YouTubeForm />}
     </div>

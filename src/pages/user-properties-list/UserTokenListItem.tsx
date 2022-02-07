@@ -6,6 +6,8 @@ import { AddressContractContainer } from '../../types/AddressContractContainer'
 import { utils, BigNumber } from 'ethers'
 import { Link } from 'react-router-dom'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
+import { crunchAddress } from '../../utils/utils'
+import Card from '../../components/Card'
 
 interface UserTokenListItemProps {
   property: AddressContractContainer<PropertyContract>
@@ -27,6 +29,10 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
   }
 
   useEffect(() => {
+    console.log('property details are: ', propertyDetails)
+  }, [propertyDetails])
+
+  useEffect(() => {
     ;(async () => {
       setSupply(bnFormatString(await contract.totalSupply()))
       setUserHoldAmount(bnFormatString(await contract.balanceOf(userAddress)))
@@ -36,28 +42,34 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
   return (
     <>
       {propertyDetails && !isLoading && (
-        <Link to={`/properties/${property.address}`} className="flex flex-col mb-lg">
-          <div className="w-full text-gray-300">{address}</div>
-          <div className="w-full grid grid-cols-1 sm:grid-cols-3">
+        <Link to={`/properties/${property.address}`}>
+          <Card>
+            <div className="flex flex-col"></div>
             <div className="font-bold">
               {propertyDetails.propertyName} ({propertyDetails.propertySymbol})
             </div>
-            <div className="flex items-center">
-              <span className="font-bold">
-                {userHoldAmount} {propertyDetails.propertySymbol}
-              </span>
-              <span className="text-sm ml-xs"> out of {supply}</span>
+            <div className="w-full text-gray-500">{crunchAddress(address)}</div>
+            <div className="flex">
+              <div className="flex items-center">
+                <div>
+                  {userHoldAmount} <span className="text-sm ml-1"> / {supply}</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="w-full flex items-center">
-            {propertyDetails.market === Market.GITHUB && <FaGithub />}
-            {propertyDetails.market === Market.YOUTUBE && <FaYoutube />}
-            <span className="ml-xs">{propertyDetails.id}</span>
-          </div>
+            <div className="w-full flex items-center">
+              {propertyDetails.market === Market.GITHUB && <FaGithub />}
+              {propertyDetails.market === Market.YOUTUBE && <FaYoutube />}
+              <span className="ml-2">{propertyDetails.id}</span>
+            </div>
+          </Card>
         </Link>
       )}
-      {isLoading && <div className="mb-lg">loading...</div>}
-      {error && <div className="mb-lg">{error}</div>}
+      {isLoading && <div>loading...</div>}
+      {error && (
+        <Card isDisabled={true}>
+          <div className={`break-words`}>{error}</div>
+        </Card>
+      )}
     </>
   )
 }

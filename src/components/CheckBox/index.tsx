@@ -9,9 +9,9 @@ interface CheckBoxProps {
 
 const CheckBox: React.FC<CheckBoxProps> = ({ isChecked, text, name, onChange }) => {
   return (
-    <label className="flex align-center">
+    <label className="flex items-center">
       <input name={name} type="checkbox" checked={isChecked} onChange={onChange} />
-      <span className="ml-xs">{text}</span>
+      <span className="ml-2">{text}</span>
     </label>
   )
 }

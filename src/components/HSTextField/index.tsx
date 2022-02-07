@@ -5,7 +5,6 @@ interface HSTextFieldProps {
   label: string
   type: string
   placeholder?: string
-  helper?: string
   value?: string
   isError?: boolean
   isRequired?: boolean
@@ -18,22 +17,24 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
   label,
   type,
   placeholder,
-  helper,
   value,
   isError,
   isRequired,
   isDisabled,
-  onChange
+  onChange,
+  children
 }) => {
+  const inputClasses = 'border border-gray-300 rounded py-2 px-4'
+
   return (
-    <label className={`hs-text-field${isError ? ' danger' : ''}`}>
-      <span className="hs-text-field__label">
+    <label className={`flex flex-col hs-text-field${isError ? ' danger' : ''}`}>
+      <span className="font-bold mb-2">
         {label} {isRequired && <span className="ml-xs text-danger-400">*</span>}
       </span>
       {type == 'textarea' ? (
         <textarea
           name={name}
-          className="hs-text-field__input"
+          className={inputClasses}
           rows={4}
           placeholder={placeholder ?? ''}
           value={value}
@@ -43,7 +44,7 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
       ) : (
         <input
           name={name}
-          className="hs-text-field__input"
+          className={inputClasses}
           type={type}
           placeholder={placeholder ?? ''}
           value={value}
@@ -51,7 +52,7 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
           disabled={isDisabled}
         />
       )}
-      <span className="hs-text-field__helper">{helper}</span>
+      {children}
     </label>
   )
 }

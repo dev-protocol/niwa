@@ -8,6 +8,7 @@ import { useProvider } from '../../context/walletContext'
 import HSButton from '../HSButton'
 import { Link } from 'react-router-dom'
 import { FaChevronRight, FaExclamationTriangle } from 'react-icons/fa'
+import { crunchAddress, deployedNetworkToReadable, getMarketFromString } from '../../utils/utils'
 
 const providerOptions = {
   injected: {
@@ -67,14 +68,14 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
         <div className="text-right">
           <div className="flex">
             {isValidConnectedNetwork && (
-              <Link to={`/${address}`} className="hs-link">
-                <span className="mr-xs">
-                  {address.substring(2, 6)}
-                  ...
-                  {address.substring(address.length - 4, address.length)}
-                </span>
-                <FaChevronRight size={12} />
-              </Link>
+              <div className="font-sans text-sm flex font-bold flex items-center">
+                <span className="mr-8">{deployedNetworkToReadable(import.meta.env.VITE_L2_NETWORK)}</span>
+                <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
+                <Link to={`/${address}`} className="flex items-center">
+                  <span className="mr-1">{crunchAddress(address)}</span>
+                  <FaChevronRight size={12} />
+                </Link>
+              </div>
             )}
             {!isValidConnectedNetwork && (
               <div className="flex align-center">
