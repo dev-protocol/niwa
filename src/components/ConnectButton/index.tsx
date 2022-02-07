@@ -8,7 +8,6 @@ import { useProvider } from '../../context/walletContext'
 import HSButton from '../HSButton'
 import { Link } from 'react-router-dom'
 import { FaChevronRight, FaExclamationTriangle } from 'react-icons/fa'
-import { connectedNetworkMatchesDeployment, getDeploymentUrlByChainId, isValidNetwork } from '../../utils/utils'
 
 const providerOptions = {
   injected: {
