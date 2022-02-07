@@ -24,7 +24,7 @@ const FormField: React.FC<FormFieldProps> = ({
   children
 }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-sm">
       <HSTextField
         name={id}
         label={label}
