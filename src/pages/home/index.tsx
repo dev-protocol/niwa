@@ -13,19 +13,13 @@ const Home: React.FC<HomeProps> = () => {
         isExternal={false}
       />
       <HomeNavItem
-        title="Holders"
+        title="Share"
         isDisabled={true}
         message="Send your tokens to community members and manage them"
         isExternal={false}
       />
-      <HomeNavItem
-        title="sTokens"
-        isDisabled={true}
-        message="View your supporters and manage sTokens"
-        isExternal={false}
-      />
       <HomeNavItem title="Perks" isDisabled={true} message="Offer perks and get more support" isExternal={false} />
-      <HomeNavItem title="Growth" isDisabled={true} message="Grow your project and make friends" isExternal={false} />
+      <HomeNavItem title="Apps" isDisabled={true} message="Find ways to grow your project" isExternal={false} />
     </section>
   )
 }
