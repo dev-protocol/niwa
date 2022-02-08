@@ -65,7 +65,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm mb-24">
             {hash &&
               options.map(option => (
                 <StakeOption
