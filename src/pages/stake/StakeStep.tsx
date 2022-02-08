@@ -14,12 +14,12 @@ interface StakeStepProps {
 
 const StakeStep: React.FC<StakeStepProps> = ({ isComplete, isDisabled, label, onClick, name, btnText, isVisible }) => {
   return (
-    <div className={`grid-2 mb-lg ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="flex align-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 align-baseline">
+      <div className={`flex items-center gap-1 ${isVisible ? 'opacity-100' : 'opacity-25'}`}>
         <b>{name}</b>
-        <FaCheckCircle className="ml-xs" color={isComplete ? 'green' : 'grey'} />
+        <FaCheckCircle className="ml-xs" color={isComplete ? 'green' : 'lightgray'} />
       </div>
-      <div className="flex flex-col">
+      <div className={`flex flex-col ${isVisible ? 'visible' : 'invisible'}`}>
         <span className="mb-sm">{label}</span>
         <HSButton label={btnText} type="filled" isDisabled={isDisabled} onClick={onClick} />
       </div>

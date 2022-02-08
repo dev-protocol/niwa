@@ -14,7 +14,7 @@ interface HowItWorksProps {
 const HowItWorks: React.FC<HowItWorksProps> = () => {
   return (
     <div>
-      <h1 className="text-2xl font-bold text-center mb-md border-t pt-lg">How it works</h1>
+      <h1 className="text-2xl font-bold text-center mb-md">How it works</h1>
       <section className="w-full flex flow-row justify-around gap-sm mb-xl">
         <StepsCard label="Get DEV" media={Card} mediaAlt="Image" />
         <StepsCard label="Stake DEV" media={Purse} mediaAlt="Image" />

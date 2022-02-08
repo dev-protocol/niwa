@@ -8,6 +8,7 @@ import StakeOption from './StakeOption'
 import HowItWorks from '../../components/HowItWorks'
 import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
 import { SectionLoading } from '../../components/Spinner'
+import { DPLHr } from '../../components/DPLHr'
 
 interface TokenProps {}
 
@@ -78,6 +79,8 @@ const PropertyPage: React.FC<TokenProps> = () => {
                 />
               ))}
           </div>
+          <DPLHr />
+
           <HowItWorks />
         </>
       )}

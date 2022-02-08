@@ -25,7 +25,10 @@ module.exports = {
       },
       fontSize: {},
       fontWeight: {},
-      lineHeight: {}
+      lineHeight: {},
+      backgroundImage: {
+        'heading-texture': "url('/src/img/HEADING_TEXTURE.png')"
+      }
     }
   },
   plugins: []

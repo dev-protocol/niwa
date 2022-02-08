@@ -1,4 +1,5 @@
 import React from 'react'
+import { DPLHr } from '../DPLHr'
 
 interface DPLFooterProps {
   // Props
@@ -6,8 +7,9 @@ interface DPLFooterProps {
 
 const DPLFooter: React.FC<DPLFooterProps> = ({ children }) => {
   return (
-    <footer className="border-t py-md mt-lg">
-      <div>{children}</div>
+    <footer className="mt-lg">
+      <DPLHr />
+      <div className="py-md ">{children}</div>
     </footer>
   )
 }
