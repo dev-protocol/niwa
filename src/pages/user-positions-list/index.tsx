@@ -55,7 +55,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
               </Card>
             )}
             {userAddress && userPositions && userPositions.length > 0 && (
-              <div className="flex flex-col">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
                 {userPositions.map((position, i) => (
                   <UserPositionListItem key={i} position={position} />
                 ))}
