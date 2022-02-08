@@ -16,9 +16,7 @@ interface NavTabItemProps {
 export const NavTabItem: React.FC<NavTabItemProps> = ({ title, path, isActive }) => {
   return (
     <Link
-      className={`mr-sm rounded px-sm py-1 ${
-        isActive ? 'bg-gradient-to-br from-primary to-secondary text-white' : 'bg-white text-blue-500'
-      }`}
+      className={`mr-sm rounded px-sm py-1 ${isActive ? 'bg-black from-primary to-secondary text-white' : 'bg-white'}`}
       to={path}
     >
       {title}
