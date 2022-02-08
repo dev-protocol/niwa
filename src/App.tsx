@@ -20,6 +20,7 @@ import FooterImg from './img/FOOTER_IMG_Powered by Dev Protocol.svg'
 import PageNotFound from './pages/errors/404'
 import StakePage from './pages/stake'
 import NetworkSelectPage from './pages/network-select'
+import { DEPLOYMENTS } from './const'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -73,19 +74,19 @@ function App() {
             <ul className="mb-4">
               <p className="font-bold">Network</p>
               <li className="text-sm">
-                <a href="https://arbitrum.niwa.xyz/">Arbitrium</a>
+                <a href={DEPLOYMENTS.arbitrum_one}>Arbitrium</a>
               </li>
               <li className="text-sm">
-                <a href="https://polygon.niwa.xyz/">Polygon</a>
+                <a href={DEPLOYMENTS.polygon_mainnet}>Polygon</a>
               </li>
             </ul>
             <ul>
               <p className="font-bold">Testnet</p>
               <li className="text-sm">
-                <a href="https://arbitrum-rinkeby.niwa.xyz/">Arbitrum Rinkeby</a>
+                <a href={DEPLOYMENTS.arbitrum_rinkeby}>Arbitrum Rinkeby</a>
               </li>
               <li className="text-sm">
-                <a href="https://polygon-mumbai.niwa.xyz/">Polygon Mumbai</a>
+                <a href={DEPLOYMENTS.polygon_mumbai}>Polygon Mumbai</a>
               </li>
             </ul>
           </DPLFooterSection>
