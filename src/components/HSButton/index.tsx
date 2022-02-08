@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-type ButtonStyle = 'outlined' | 'filled' | 'danger'
+type ButtonStyle = 'outlined' | 'filled' | 'danger' | 'success'
 
 interface HSButtonProps {
   label?: string
@@ -23,12 +23,13 @@ const HSButton: React.FC<HSButtonProps> = ({
   children,
   context = 'button'
 }) => {
-  const assertBackground = (type: ButtonStyle): string => {
+  const assertBackground = (type: ButtonStyle) => {
     switch (type) {
       case 'filled':
         return 'bg-blue-500'
       case 'outlined':
       case 'danger':
+      case 'success':
         return 'bg-white'
 
       default:
@@ -36,7 +37,7 @@ const HSButton: React.FC<HSButtonProps> = ({
     }
   }
 
-  const assertText = (type: ButtonStyle): string => {
+  const assertText = (type: ButtonStyle) => {
     switch (type) {
       case 'filled':
         return 'text-white'
@@ -44,20 +45,39 @@ const HSButton: React.FC<HSButtonProps> = ({
         return 'text-blue'
       case 'danger':
         return 'text-red'
+      case 'success':
+        return 'text-success'
 
       default:
         return 'bg-blue-500'
     }
   }
 
+  const assertBorder = (type: ButtonStyle) => {
+    switch (type) {
+      case 'outlined':
+        return 'border-blue-500'
+      case 'danger':
+        return 'border-red-500'
+      case 'success':
+        return 'border-success'
+      case 'filled':
+      default:
+        return 'border-transparent'
+    }
+  }
+
   const btnStyles = {
     background: assertBackground(type),
-    text: assertText(type)
+    text: assertText(type),
+    border: assertBorder(type)
   }
 
   const ButtonBase = (
     <button
-      className={`${btnStyles.background} ${btnStyles.text} px-4 py-2 rounded ${isDisabled ? 'opacity-50' : ''}`}
+      className={`${btnStyles.background} ${btnStyles.text} ${btnStyles.border} px-4 py-2 rounded border ${
+        isDisabled ? 'opacity-50' : ''
+      }`}
       role="button"
       type={context}
       onClick={onClick}

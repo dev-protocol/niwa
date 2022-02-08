@@ -140,7 +140,9 @@ const StakePage: React.FC<StakePageProps> = () => {
                   name="Stake"
                   btnText="Stake"
                   label="Stake your Dev Tokens"
-                  isDisabled={lockupLoading || isStakingComplete || !isValidConnectedNetwork}
+                  isDisabled={
+                    !allowance || allowance.isZero() || lockupLoading || isStakingComplete || !isValidConnectedNetwork
+                  }
                   isComplete={isStakingComplete}
                   isVisible={true}
                   onClick={lockupHandler}
@@ -150,7 +152,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                   btnText="See your staking positions"
                   label={`You've staked ${amount} and received sTokens!`}
                   isDisabled={!isStakingComplete}
-                  isComplete={isStakingComplete}
+                  isComplete={false}
                   isVisible={isStakingComplete}
                   onClick={navigateToUserPositions}
                 />
