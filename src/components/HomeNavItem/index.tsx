@@ -56,17 +56,17 @@ const HomeNavItemContent: FunctionComponent<HomeNavItemContentProps> = ({
 }) => {
   return (
     <div
-      className={`grid gap-4 rounded border py-sm px-md from-primary to-secondary h-full ${
-        isDisabled ? 'opacity-50' : ''
+      className={`grid gap-4 rounded shadow bg-white border border-transparent py-sm px-md from-primary to-secondary h-full ${
+        isDisabled ? 'bg-slate-50' : 'hover:border-gray-300'
       } ${className}`}
     >
-      <div className="flex items-center">
+      <div className={`flex gap-2 items-center ${isDisabled ? 'opacity-20' : ''}`}>
         <h2 className="text-4xl font-bold mr-1">{title}</h2>
         <div>
           <FaChevronRight />
         </div>
       </div>
-      <span className="font-bold">{message}</span>
+      <span className={`font-bold ${isDisabled ? 'opacity-20' : ''}`}>{message}</span>
     </div>
   )
 }
