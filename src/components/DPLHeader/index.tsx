@@ -12,7 +12,7 @@ const LauncherHeader: React.FC<LauncherHeaderProps> = ({ children }) => {
         <Link to="/">
           <h1 className="font-bold text-xl">Niwa</h1>
         </Link>
-        <span className="ml-sm text-sm justify-center">Social Token Launcher</span>
+        <span className="ml-sm text-sm justify-center pt-1">Social Token Launcher</span>
       </div>
       <div className="flex items-center">{children}</div>
     </header>
