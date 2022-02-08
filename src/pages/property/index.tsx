@@ -7,6 +7,7 @@ import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
 import HowItWorks from '../../components/HowItWorks'
 import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
+import { SectionLoading } from '../../components/Spinner'
 
 interface TokenProps {}
 
@@ -81,7 +82,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
         </>
       )}
 
-      {isLoading && <span>loading...</span>}
+      {isLoading && <SectionLoading />}
 
       {error && <div className="text-red-500">{error}</div>}
     </div>

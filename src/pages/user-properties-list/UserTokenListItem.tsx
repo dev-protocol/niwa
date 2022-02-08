@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import { crunchAddress } from '../../utils/utils'
 import Card from '../../components/Card'
+import { SectionLoading } from '../../components/Spinner'
 
 interface UserTokenListItemProps {
   property: AddressContractContainer<PropertyContract>
@@ -64,7 +65,7 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
           </Card>
         </Link>
       )}
-      {isLoading && <div>loading...</div>}
+      {isLoading && <SectionLoading />}
       {error && (
         <Card isDisabled={true}>
           <div className={`break-words`}>{error}</div>

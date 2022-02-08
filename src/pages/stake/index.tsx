@@ -5,6 +5,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HowItWorks from '../../components/HowItWorks'
+import { SectionLoading } from '../../components/Spinner'
 import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
@@ -100,11 +101,11 @@ const StakePage: React.FC<StakePageProps> = () => {
               />
             </div>
           )}
+          <HowItWorks />
         </div>
       )}
-      {isLoading && <span>loading...</span>}
+      {isLoading && <SectionLoading />}
       {error && <span className="text-danger-400">{error}</span>}
-      <HowItWorks />
     </>
   )
 }
