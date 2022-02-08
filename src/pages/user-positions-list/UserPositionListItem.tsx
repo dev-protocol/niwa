@@ -1,20 +1,32 @@
 import { Positions } from '@devprotocol/dev-kit/l2'
+import { utils } from 'ethers'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Card from '../../components/Card'
+import { crunchAddress } from '../../utils/utils'
 
 interface UserPositionListItemProps {
   position: Positions
 }
 
 const UserPositionListItem: React.FC<UserPositionListItemProps> = ({ position }) => {
+  const detail = (label: string, value: string) => (
+    <div>
+      <span className="text-xs font-bold text-gray-400">{label}</span>
+      <div className="font-normal text-ellipsis overflow-hidden">{value}</div>
+    </div>
+  )
+
   return (
-    <Link to={`/properties/${position.property}`} className="flex flex-col mb-lg">
-      <div className="w-full text-gray-300">{position.property}</div>
-      <div className="w-full">Amount: {position.amount}</div>
-      <div className="w-full">Price: {position.price}</div>
-      <div className="w-full">cumulativeReward: {position.cumulativeReward}</div>
-      <div className="w-full">pendingReward: {position.pendingReward}</div>
-    </Link>
+    <Card>
+      <Link to={`/properties/${position.property}`} className="grid grid-cols-1 gap-sm sm:grid-cols-2">
+        {detail('Property', crunchAddress(position.property))}
+        {detail('Amount', utils.formatEther(position.amount))}
+        {detail('Price', utils.formatEther(position.price))}
+        {detail('Cumulative Reward', utils.formatEther(position.cumulativeReward))}
+        {detail('Pending Reward', utils.formatEther(position.pendingReward))}
+      </Link>
+    </Card>
   )
 }
 
