@@ -5,7 +5,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        link: '#00A3FF'
+        link: '#00A3FF',
+        success: 'rgb(34, 197, 94)'
       },
       gradientColorStops: theme => ({
         primary: '#3b82f6',

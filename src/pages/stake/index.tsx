@@ -1,5 +1,5 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { utils } from 'ethers'
+import { BigNumber, constants, utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -10,8 +10,10 @@ import HowItWorks from '../../components/HowItWorks'
 import { SectionLoading } from '../../components/Spinner'
 import { ERROR_MSG } from '../../const'
 import { useProvider } from '../../context/walletContext'
+import { useDevAllowance } from '../../hooks/useAllowance'
+import { useDevApprove } from '../../hooks/useApprove'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { isNumberInput } from '../../utils/utils'
+import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
 import StakeStep from './StakeStep'
 import { useLockup } from './useLockup'
 
@@ -26,11 +28,32 @@ const StakePage: React.FC<StakePageProps> = () => {
   const { ethersProvider, isValidConnectedNetwork } = useProvider()
   const { lockup, isLoading: lockupLoading } = useLockup()
   const [isStakingComplete, setIsStakingComplete] = useState(false)
+  const [lockupAddress, setLockupAddress] = useState<UndefinedOr<string>>()
+  const { fetchAllowance, isLoading: allowanceIsLoading, error: allowanceError } = useDevAllowance()
+  const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
+  const [allowance, setAllowance] = useState<UndefinedOr<BigNumber>>()
   const navigate = useNavigate()
 
   useEffect(() => {
-    setError(propertyDetailsError)
-  }, [propertyDetailsError])
+    if (!ethersProvider) {
+      return
+    }
+
+    ;(async () => {
+      const networkContracts = await mapProviderToDevContracts(ethersProvider)
+      if (!networkContracts) {
+        setError(ERROR_MSG.invalid_network)
+        return
+      }
+      setLockupAddress(networkContracts.lockup)
+      const _allowance = await fetchAllowance(networkContracts.lockup)
+      setAllowance(_allowance)
+    })()
+  }, [ethersProvider, fetchAllowance])
+
+  useEffect(() => {
+    setError(propertyDetailsError ?? allowanceError ?? approveError)
+  }, [propertyDetailsError, allowanceError, approveError])
 
   useEffect(() => {
     const _amount = searchParams.get('amount')
@@ -70,6 +93,21 @@ const StakePage: React.FC<StakePageProps> = () => {
     navigate(`/${await ethersProvider.getSigner().getAddress()}/positions`)
   }
 
+  const approveHandler = async () => {
+    if (!lockupAddress) {
+      setError('Error finding DEV lockup address')
+      return
+    }
+
+    const success = await approve(lockupAddress)
+    console.log('success is: ', success)
+    if (!success) {
+      setError('Error approving Dev Lockup Contract')
+      return
+    }
+    setAllowance(constants.MaxUint256)
+  }
+
   return (
     <>
       {!isLoading && propertyDetails && (
@@ -90,10 +128,21 @@ const StakePage: React.FC<StakePageProps> = () => {
             {ethersProvider && (
               <div className="flex flex-col">
                 <StakeStep
+                  name="Approve"
+                  label="Approve your DEV tokens for stakeability"
+                  btnText="Approve"
+                  isDisabled={allowance?.gt(0) || allowanceIsLoading || approveIsLoading || allowanceIsLoading}
+                  isComplete={allowance?.gt(0) ?? false}
+                  isVisible={true}
+                  onClick={approveHandler}
+                />
+                <StakeStep
                   name="Stake"
                   btnText="Stake"
                   label="Stake your Dev Tokens"
-                  isDisabled={lockupLoading || isStakingComplete || !isValidConnectedNetwork}
+                  isDisabled={
+                    !allowance || allowance.isZero() || lockupLoading || isStakingComplete || !isValidConnectedNetwork
+                  }
                   isComplete={isStakingComplete}
                   isVisible={true}
                   onClick={lockupHandler}
@@ -103,7 +152,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                   btnText="See your staking positions"
                   label={`You've staked ${amount} and received sTokens!`}
                   isDisabled={!isStakingComplete}
-                  isComplete={isStakingComplete}
+                  isComplete={false}
                   isVisible={isStakingComplete}
                   onClick={navigateToUserPositions}
                 />
