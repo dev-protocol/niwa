@@ -20,6 +20,7 @@ import FooterImg from './img/FOOTER_IMG_Powered by Dev Protocol.svg'
 import PageNotFound from './pages/errors/404'
 import StakePage from './pages/stake'
 import NetworkSelectPage from './pages/network-select'
+import { Background } from './components/Background'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -27,7 +28,8 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between container mx-auto px-2 font-body">
-      <div>
+      <Background />
+      <div className="relative">
         {isRoot && (
           <BrowserRouter>
             <DPLHeader></DPLHeader>
@@ -67,7 +69,7 @@ function App() {
           </WalletContext.Provider>
         )}
       </div>
-      <DPLFooter>
+      <DPLFooter className="relative">
         <div className="flex justify-between">
           <DPLFooterSection>
             <ul className="mb-4">

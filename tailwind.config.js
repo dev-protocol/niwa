@@ -28,7 +28,9 @@ module.exports = {
       fontWeight: {},
       lineHeight: {},
       backgroundImage: {
-        'heading-texture': "url('/src/img/HEADING_TEXTURE.png')"
+        'heading-texture': "url('/src/img/HEADING_TEXTURE.png')",
+        'grad-orange': "url('/src/img/BACKGROUND_GRAD_ORANGE.jpg')",
+        'grad-blue': "url('/src/img/BACKGROUND_GRAD_BLUE.jpg')"
       }
     }
   },

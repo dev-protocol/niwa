@@ -68,7 +68,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
         <div className="text-right">
           <div className="flex">
             {isValidConnectedNetwork && (
-              <div className="font-sans text-sm flex font-bold flex items-center">
+              <div className="text-sm flex font-bold flex items-center">
                 <span className="mr-md">{deployedNetworkToReadable()}</span>
                 <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
                 <Link to={`/${address}`} className="flex items-center">

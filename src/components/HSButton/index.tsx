@@ -26,7 +26,7 @@ const HSButton: React.FC<HSButtonProps> = ({
   const assertBackground = (type: ButtonStyle) => {
     switch (type) {
       case 'filled':
-        return 'bg-blue-500'
+        return 'bg-black'
       case 'outlined':
       case 'danger':
       case 'success':

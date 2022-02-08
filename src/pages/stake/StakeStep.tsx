@@ -17,7 +17,7 @@ const StakeStep: React.FC<StakeStepProps> = ({ isComplete, isDisabled, label, on
     <div className="grid grid-cols-1 md:grid-cols-2 align-baseline items-baseline">
       <div className={`flex items-center gap-1 ${isVisible ? 'opacity-100' : 'opacity-25'}`}>
         <b>{name}</b>
-        <FaCheck size={14} className={`ml-sm text-green-500 ${isComplete ? 'text-success' : 'text-gray-300'}`} />
+        <FaCheck size={14} className={`ml-sm text-green-500 text-success ${isComplete ? 'visible' : 'invisible'}`} />
       </div>
       <div className={`flex flex-col ${isVisible ? 'visible' : 'invisible'}`}>
         <span className="mb-sm">{label}</span>
