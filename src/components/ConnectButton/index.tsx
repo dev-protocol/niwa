@@ -63,18 +63,20 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
   }
 
   return (
-    <>
+    <div className="mt-sm sm:mt-0">
       {address && (
         <div className="text-right">
           <div className="flex">
             {isValidConnectedNetwork && (
-              <div className="font-sans text-sm flex font-bold flex items-center">
+              <div className="font-sans text-sm flex flex-col sm:flex-row font-bold flex sm:items-center">
                 <span className="mr-md">{deployedNetworkToReadable()}</span>
-                <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
-                <Link to={`/${address}`} className="flex items-center">
-                  <span className="mr-1">{crunchAddress(address)}</span>
-                  <FaChevronRight size={12} />
-                </Link>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
+                  <Link to={`/${address}`} className="flex items-center">
+                    <span className="mr-1">{crunchAddress(address)}</span>
+                    <FaChevronRight size={12} />
+                  </Link>
+                </div>
               </div>
             )}
             {!isValidConnectedNetwork && (
@@ -93,7 +95,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
           Connect Wallet
         </HSButton>
       )}
-    </>
+    </div>
   )
 }
 
