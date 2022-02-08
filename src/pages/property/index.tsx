@@ -6,6 +6,7 @@ import { Market } from '../../const'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
 import HowItWorks from '../../components/HowItWorks'
+import { crunchAddress } from '../../utils/utils'
 
 interface TokenProps {}
 
@@ -39,20 +40,22 @@ const PropertyPage: React.FC<TokenProps> = () => {
       {propertyDetails && !isLoading && (
         <>
           <div className="flex justify-between items-center">
-            <DPLTitleBar title={propertyDetails?.propertySymbol ?? ''} />
-            <FaShareAlt color="#fff" />
+            <div>
+              <DPLTitleBar title={propertyDetails?.propertySymbol ?? ''} />
+            </div>
+            <FaShareAlt color="lightgray" />
           </div>
           <div className="font-bold">{hash}</div>
           <div className="flex justify-between">
-            <div className="flex w-4">
+            <div className="flex items-center">
               {propertyDetails.market === Market.GITHUB && <FaGithub color="#000" />}
               {propertyDetails.market === Market.YOUTUBE && <FaGithub color="red" />}
               {propertyDetails.market === Market.INVALID && <FaQuestionCircle color="#333" />}
-              <span className="ml-xs">{propertyDetails?.id}</span>
+              <span className="ml-1">{propertyDetails?.id}</span>
             </div>
             <div>
               <Link to="#">
-                <FaQuestionCircle color="#000" />
+                <FaQuestionCircle color="lightgray" />
               </Link>
             </div>
           </div>

@@ -72,7 +72,7 @@ const StakePage: React.FC<StakePageProps> = () => {
       {!isLoading && propertyDetails && (
         <div>
           <BackButton title="Back" path={`/properties/${hash}`} />
-          <DPLTitleBar title={`Stake ${amount} on ${propertyDetails.propertyName}`} />
+          <DPLTitleBar title={`Stake ${amount} on ${propertyDetails.propertyName}`} classNames="mb-md" />
           {!ethersProvider && (
             <div>
               <span>Please connect wallet to stake.</span>

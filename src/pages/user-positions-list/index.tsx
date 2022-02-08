@@ -38,7 +38,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="User Positions" />
+      <DPLTitleBar title="User Positions" classNames="mb-md" />
       <div>
         <div className="row-between mb-lg">
           <h2 className="fs-h3">{userAddress} Staked Property Positions</h2>

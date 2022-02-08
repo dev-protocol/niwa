@@ -190,7 +190,9 @@ export const deployedNetworkToReadable = (
 }
 
 export const crunchAddress = (address: string) => {
-  return `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
+  return address.length > 6
+    ? `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
+    : ''
 }
 
 export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {

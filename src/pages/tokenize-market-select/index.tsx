@@ -3,6 +3,7 @@ import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeLink from './TokenizeLink'
 import { FaGithub, FaLightbulb, FaTwitter, FaYoutube } from 'react-icons/fa'
+import TitleSubSection from '../../components/TitleSubSection'
 
 interface TokenizeMarketSelectProps {}
 
@@ -10,7 +11,10 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="Create New Token" sub="Tokenize Your Project" />
+      <DPLTitleBar title="Create New Token" classNames="mb-md" />
+      <TitleSubSection>
+        <h2>Tokenize Your Project</h2>
+      </TitleSubSection>
 
       <section className="mb-lg">
         <h2 className="fs-h3 mb-md"></h2>
