@@ -56,7 +56,7 @@ const HomeNavItemContent: FunctionComponent<HomeNavItemContentProps> = ({
 }) => {
   return (
     <div
-      className={`grid gap-4 rounded border py-sm px-md from-primary to-secondary h-full ${
+      className={`grid gap-4 rounded shadow bg-white hover:border-gray-300 border border-transparent py-sm px-md from-primary to-secondary h-full ${
         isDisabled ? 'opacity-50' : ''
       } ${className}`}
     >

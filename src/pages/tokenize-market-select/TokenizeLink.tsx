@@ -16,7 +16,7 @@ const TokenizeLink: React.FC<TokenizeLinkProps> = ({ title, icon, details, path,
       <div className="flex justify-between mb-2 items-center">
         <h3 className="flex items-center">
           <span>{icon}</span>
-          <span className="text-lg ml-2">{title}</span>
+          <span className="text-lg ml-2 font-bold">{title}</span>
         </h3>
         {disabled && <span>Coming Soon</span>}
       </div>
