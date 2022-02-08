@@ -1,8 +1,10 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
+import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
+import Card from '../../components/Card'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HowItWorks from '../../components/HowItWorks'
 import { SectionLoading } from '../../components/Spinner'
@@ -75,8 +77,13 @@ const StakePage: React.FC<StakePageProps> = () => {
           <BackButton title="Back" path={`/properties/${hash}`} />
           <DPLTitleBar title={`Stake ${amount} on ${propertyDetails.propertyName}`} classNames="mb-md" />
           {!ethersProvider && (
-            <div>
-              <span>Please connect wallet to stake.</span>
+            <div className="my-lg">
+              <Card>
+                <div className="flex justify-center items-center my-lg py-lg">
+                  <FaExclamationTriangle color="orange" />
+                  <span className="font-bold text-gray-500 ml-1">Please connect wallet to stake.</span>
+                </div>
+              </Card>
             </div>
           )}
           {ethersProvider && (
