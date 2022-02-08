@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import DPLTitleBar from '../../components/DPLTitleBar'
-import { FaQuestionCircle, FaShareAlt, FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaQuestionCircle, FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 import { Market } from '../../const'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
 import HowItWorks from '../../components/HowItWorks'
-import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
+import { deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
 import { SectionLoading } from '../../components/Spinner'
 
 interface TokenProps {}
