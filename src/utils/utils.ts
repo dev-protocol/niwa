@@ -83,6 +83,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
 
 type MarketAddressOptions = {
   github: string
+  youtube: string
 }
 
 export const getNetworkMarketAddresses = async (

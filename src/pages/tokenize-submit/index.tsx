@@ -2,13 +2,13 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 import { FunctionComponent, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
-import FormField from '../../components/Form'
 import { Market } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 import DPLTitleBar from '../../components/DPLTitleBar'
-import HSButton from '../../components/HSButton'
+import TokenizeResult from './TokenizeResult'
+import TokenizePreviewSubmit from './TokenizePreviewSubmit'
 
 interface TokenizeSubmitProps {}
 
@@ -18,6 +18,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
   const [market, setMarket] = useState<UndefinedOr<Market>>()
   const [error, setError] = useState<UndefinedOr<string>>()
   const [isLoading, setIsLoading] = useState(false)
+  const [newPropertyAddress, setNewPropertyAddress] = useState<UndefinedOr<string>>()
   const { network, address, isValid, assetName, tokenName, tokenSymbol, personalAccessToken, validateForm } =
     useContext(TokenizeContext)
   const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
@@ -33,6 +34,15 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
 
     setMarket(_market)
   }, [params, navigate, setMarket, market])
+
+  useEffect(() => {
+    if (tokenizeError) {
+      setError(tokenizeError)
+    }
+    if (khaosError) {
+      setError(khaosError)
+    }
+  }, [tokenizeError, khaosError])
 
   useEffect(() => {
     validateForm()
@@ -65,8 +75,8 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       setIsLoading(false)
       return
     }
+    setNewPropertyAddress(propertyAddress)
     setIsLoading(false)
-    navigate(`/properties/${propertyAddress}`)
   }
 
   const submitDisabled = () => {
@@ -80,63 +90,30 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
       <DPLTitleBar title="Tokenize" className="mb-md" />
-      <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
-          <FormField
-            label="Network"
-            id="network"
-            value={network?.name ?? ''}
-            placeholder="Please Connect Wallet"
-            disabled
-            required
-          />
-          <FormField
-            label="Your Wallet Address"
-            id="address"
-            value={address}
-            placeholder="Please Connect Wallet"
-            disabled
-            required
-          />
-          <FormField
-            label="GitHub Repository Name"
-            placeholder="owner_name/repository_name"
-            id="repoName"
-            value={assetName}
-            disabled
-            required
-          />
-          <FormField label="Token Name" id="tokenName" value={tokenName} required disabled />
-          <FormField label="Token Symbol" id="tokenSymbol" value={tokenSymbol} required disabled />
-          <FormField label="Personal Access Token" id="pac" value={personalAccessToken} required disabled />
-          <FormField label="Supply" id="supply" value="10,000,000" required disabled />
-          <FormField label="Dev Protocol Treasury Fee" id="fee" value="500,000" required disabled>
-            <div className="flex text-sm">
-              <span>What is the </span>
-              <a
-                href="https://initto.devprotocol.xyz/en/what-is-treasury/"
-                target="_blank"
-                className="ml-1 text-link"
-                rel="noreferrer"
-              >
-                Dev Protocol Treasury Fee?
-              </a>
-            </div>
-          </FormField>
-        </div>
 
-        <div className="float-right flex flex-col items-end">
-          <div className="my-2 flex flex-col items-end">
-            {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
-            {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
-            {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
-          </div>
+      {!isLoading && !error && !newPropertyAddress && (
+        <TokenizePreviewSubmit
+          networkName={network?.name ?? ''}
+          address={address}
+          assetName={assetName}
+          tokenName={tokenName}
+          tokenSymbol={tokenSymbol}
+          pat={personalAccessToken}
+          isDisabled={submitDisabled()}
+          submit={submit}
+        />
+      )}
 
-          <HSButton context="submit" type="filled" isDisabled={submitDisabled()} onClick={submit}>
-            Sign and submit
-          </HSButton>
+      {(isLoading || error || newPropertyAddress) && (
+        <div className="mt-lg">
+          <TokenizeResult
+            newPropertyAddress={newPropertyAddress}
+            errorMessage={error}
+            isLoading={isLoading}
+            market={market}
+          />
         </div>
-      </div>
+      )}
     </div>
   )
 }
