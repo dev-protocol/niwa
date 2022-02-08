@@ -1,8 +1,10 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
+import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
+import Card from '../../components/Card'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HowItWorks from '../../components/HowItWorks'
 import { SectionLoading } from '../../components/Spinner'
@@ -74,33 +76,40 @@ const StakePage: React.FC<StakePageProps> = () => {
         <div>
           <BackButton title="Back" path={`/properties/${hash}`} />
           <DPLTitleBar title={`Stake ${amount} on ${propertyDetails.propertyName}`} classNames="mb-md" />
-          {!ethersProvider && (
-            <div>
-              <span>Please connect wallet to stake.</span>
-            </div>
-          )}
-          {ethersProvider && (
-            <div className="flex flex-col">
-              <StakeStep
-                name="Stake"
-                btnText="Stake"
-                label="Stake your Dev Tokens"
-                isDisabled={lockupLoading || isStakingComplete || !isValidConnectedNetwork}
-                isComplete={isStakingComplete}
-                isVisible={true}
-                onClick={lockupHandler}
-              />
-              <StakeStep
-                name="Complete"
-                btnText="See your staking positions"
-                label={`You've staked ${amount} and received sTokens!`}
-                isDisabled={!isStakingComplete}
-                isComplete={isStakingComplete}
-                isVisible={isStakingComplete}
-                onClick={navigateToUserPositions}
-              />
-            </div>
-          )}
+          <div className="mb-md flex w-full">
+            {!ethersProvider && (
+              <div className="my-lg w-full">
+                <Card isDisabled={true}>
+                  <div className="flex justify-center items-center my-lg py-lg">
+                    <FaExclamationTriangle color="orange" />
+                    <span className="font-bold text-gray-500 ml-1">Please connect wallet to stake.</span>
+                  </div>
+                </Card>
+              </div>
+            )}
+            {ethersProvider && (
+              <div className="flex flex-col">
+                <StakeStep
+                  name="Stake"
+                  btnText="Stake"
+                  label="Stake your Dev Tokens"
+                  isDisabled={lockupLoading || isStakingComplete || !isValidConnectedNetwork}
+                  isComplete={isStakingComplete}
+                  isVisible={true}
+                  onClick={lockupHandler}
+                />
+                <StakeStep
+                  name="Complete"
+                  btnText="See your staking positions"
+                  label={`You've staked ${amount} and received sTokens!`}
+                  isDisabled={!isStakingComplete}
+                  isComplete={isStakingComplete}
+                  isVisible={isStakingComplete}
+                  onClick={navigateToUserPositions}
+                />
+              </div>
+            )}
+          </div>
           <HowItWorks />
         </div>
       )}
