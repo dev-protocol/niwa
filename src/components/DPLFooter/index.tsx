@@ -1,13 +1,15 @@
 import React from 'react'
+import { DPLHr } from '../DPLHr'
 
 interface DPLFooterProps {
-  // Props
+  className?: string
 }
 
-const DPLFooter: React.FC<DPLFooterProps> = ({ children }) => {
+const DPLFooter: React.FC<DPLFooterProps> = ({ className, children }) => {
   return (
-    <footer className="border-t py-md mt-lg">
-      <div>{children}</div>
+    <footer className={`mt-lg ${className}`}>
+      <DPLHr />
+      <div className="py-md ">{children}</div>
     </footer>
   )
 }

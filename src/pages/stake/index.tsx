@@ -5,6 +5,7 @@ import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Card from '../../components/Card'
+import { DPLHr } from '../../components/DPLHr'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import HowItWorks from '../../components/HowItWorks'
 import { SectionLoading } from '../../components/Spinner'
@@ -126,7 +127,7 @@ const StakePage: React.FC<StakePageProps> = () => {
               </div>
             )}
             {ethersProvider && (
-              <div className="flex flex-col">
+              <div className="grid gap-24">
                 <StakeStep
                   name="Approve"
                   label="Approve your DEV tokens for stakeability"
@@ -159,6 +160,8 @@ const StakePage: React.FC<StakePageProps> = () => {
               </div>
             )}
           </div>
+          <DPLHr />
+
           <HowItWorks />
         </div>
       )}

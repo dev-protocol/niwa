@@ -55,7 +55,7 @@ const StakeOption: React.FC<StakeOptionProps> = ({ optionName, fixedAmount, isCu
         )}
 
         <Link
-          className={`bg-gradient-to-r from-primary to-secondary rounded text-white py-2 px-sm text-center text-lg my-sm ${
+          className={`bg-black from-primary to-secondary rounded text-white py-2 px-sm text-center text-lg my-sm ${
             !formValid ? 'opacity-75' : ''
           }`}
           to={formValid ? `/properties/${propertyAddress}/stake?amount=${stakeAmount}` : '#'}
