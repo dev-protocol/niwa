@@ -31,7 +31,7 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   return (
     <div>
       <BackButton title="Tokenize" path="/tokenize" />
-      <DPLTitleBar title="Tokenize GitHub Form" classNames="mb-md" />
+      <DPLTitleBar title="Tokenize GitHub Form" className="mb-md" />
       <TitleSubSection>
         <div className="flex items-center">
           {market === Market.GITHUB && <FaGithub />}

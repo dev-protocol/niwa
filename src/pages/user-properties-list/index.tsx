@@ -8,7 +8,7 @@ import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
 import { crunchAddress } from '../../utils/utils'
 import Card from '../../components/Card'
-import TitleSubSection from '../../components/TitleSubSection'
+import { NavTabItem, NavTabs } from '../../components/NavTabs'
 
 interface UserPropertiesListPageProps {
   // Props
@@ -21,10 +21,12 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="Properties" classNames="mb-md" />
-      <TitleSubSection classNames="mb-sm">
-        <h2>{`${userAddress ? crunchAddress(userAddress) : '...'} Properties`}</h2>
-      </TitleSubSection>
+      <DPLTitleBar className="mb-sm" title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+      <NavTabs>
+        <NavTabItem title="Properties" isActive={true} path={`#`} />
+        <NavTabItem title="Positions" isActive={false} path={`/${userAddress}/positions`} />
+      </NavTabs>
+
       <div>
         {userProperties && userProperties.length <= 0 && (
           <Card>

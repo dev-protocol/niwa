@@ -11,7 +11,7 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="Create New Token" classNames="mb-md" />
+      <DPLTitleBar title="Create New Token" className="mb-md" />
       <TitleSubSection>
         <h2>Tokenize Your Project</h2>
       </TitleSubSection>

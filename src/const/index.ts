@@ -15,8 +15,8 @@ export const ERROR_MSG = {
 } as const
 
 export const DEPLOYMENTS = {
-  arbitrum_rinkeby: 'https://arbitrum-rinkeby.niwa.xyz',
-  arbitrum_one: 'https://arbitrum.niwa.xyz',
-  polygon_mumbai: 'https://polygon-mumbai.niwa.xyz',
-  polygon_mainnet: 'https://polygon.niwa.xyz'
+  arbitrum_rinkeby: 'https://arbitrum-rinkeby.niwa-beta.devprotocol.xyz',
+  arbitrum_one: 'https://arbitrum.niwa-beta.devprotocol.xyz',
+  polygon_mumbai: 'https://polygon-mumbai.niwa-beta.devprotocol.xyz',
+  polygon_mainnet: 'https://polygon.niwa-beta.devprotocol.xyz'
 }

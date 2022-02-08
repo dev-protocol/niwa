@@ -4,8 +4,11 @@ import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Card from '../../components/Card'
 import DPLTitleBar from '../../components/DPLTitleBar'
+import { NavTabItem, NavTabs } from '../../components/NavTabs'
+import { SectionLoading } from '../../components/Spinner'
 import { usePosition } from '../../hooks/usePosition'
 import { usePositionsOfOwner } from '../../hooks/usePositionsOfOwner'
+import { crunchAddress } from '../../utils/utils'
 import UserPositionListItem from './UserPositionListItem'
 
 interface UserPositionsListPageProps {}
@@ -38,11 +41,12 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="User Positions" classNames="mb-md" />
+      <DPLTitleBar className="mb-sm" title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+      <NavTabs>
+        <NavTabItem title="Properties" isActive={false} path={`/${userAddress}`} />
+        <NavTabItem title="Positions" isActive={true} path={`#`} />
+      </NavTabs>
       <div>
-        <div className="row-between mb-lg">
-          <h2 className="fs-h3">{userAddress} Staked Property Positions</h2>
-        </div>
         {!isLoading && (
           <>
             {userPositions && userPositions.length <= 0 && (
@@ -51,7 +55,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
               </Card>
             )}
             {userAddress && userPositions && userPositions.length > 0 && (
-              <div className="flex flex-col">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
                 {userPositions.map((position, i) => (
                   <UserPositionListItem key={i} position={position} />
                 ))}
@@ -59,7 +63,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
             )}
           </>
         )}
-        {isLoading && <span>...loading</span>}
+        {isLoading && <SectionLoading />}
       </div>
     </div>
   )

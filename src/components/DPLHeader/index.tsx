@@ -7,7 +7,7 @@ interface LauncherHeaderProps {
 
 const LauncherHeader: React.FC<LauncherHeaderProps> = ({ children }) => {
   return (
-    <header className="flex justify-between flex-col md:flex-row py-sm h-24 mb-md">
+    <header className="flex flex-col sm:flex-row justify-between py-sm h-24 mb-md">
       <div className="flex items-center">
         <Link to="/">
           <h1 className="font-bold text-xl">Niwa</h1>
