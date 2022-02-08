@@ -171,6 +171,28 @@ export const getDeploymentUrlByChainId = (chainId: number): UndefinedOr<string> 
   }
 }
 
+export const deployedNetworkToReadable = () => {
+  switch (import.meta.env.VITE_L2_NETWORK) {
+    case 'arbitrum-one':
+      return 'Arbitrum'
+
+    case 'arbitrum-rinkeby':
+      return 'Arbitrum Rinkeby'
+
+    case 'polygon-mainnet':
+      return 'Polygon'
+
+    case 'polygon-mumbai':
+      return 'Polygon Mumbai'
+  }
+}
+
+export const crunchAddress = (address: string) => {
+  return address.length > 6
+    ? `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
+    : ''
+}
+
 export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {
   // Previously user had no positions
   // If new positions exist, return the first
@@ -185,4 +207,17 @@ export const filterNewPosition = (newPositions: readonly number[], oldPositions?
   // Filter through new positions and remove if they also exist in old positions
   const filteredNewPositions = newPositions.filter(pos => !oldPositions?.includes(pos))
   return filteredNewPositions.length === 1 ? filteredNewPositions[0] : undefined
+}
+
+export const getExplorerUrl = () => {
+  switch (import.meta.env.VITE_L2_NETWORK) {
+    case 'arbitrum-one':
+      return 'https://explorer.arbitrum.io'
+    case 'arbitrum-rinkeby':
+      return 'https://rinkeby-explorer.arbitrum.io'
+    case 'polygon-mainnet':
+      return 'https://polygonscan.com'
+    case 'polygon-mumbai':
+      return 'https://mumbai.polygonscan.com'
+  }
 }

@@ -2,8 +2,8 @@ import { Positions } from '@devprotocol/dev-kit/l2'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
+import Card from '../../components/Card'
 import DPLTitleBar from '../../components/DPLTitleBar'
-import { HSCard, HSCardContents } from '../../components/HSCard'
 import { usePosition } from '../../hooks/usePosition'
 import { usePositionsOfOwner } from '../../hooks/usePositionsOfOwner'
 import UserPositionListItem from './UserPositionListItem'
@@ -38,7 +38,7 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="User Positions" />
+      <DPLTitleBar title="User Positions" classNames="mb-md" />
       <div>
         <div className="row-between mb-lg">
           <h2 className="fs-h3">{userAddress} Staked Property Positions</h2>
@@ -46,9 +46,9 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
         {!isLoading && (
           <>
             {userPositions && userPositions.length <= 0 && (
-              <HSCard className="border-surface-400">
-                <HSCardContents>You have no positions</HSCardContents>
-              </HSCard>
+              <Card>
+                <span>You have no positions</span>
+              </Card>
             )}
             {userAddress && userPositions && userPositions.length > 0 && (
               <div className="flex flex-col">

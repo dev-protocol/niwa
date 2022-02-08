@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom'
 import UserTokenListItem from './UserTokenListItem'
 
 import DPLTitleBar from '../../components/DPLTitleBar'
-import HSButton from '../../components/HSButton'
-import { HSCard, HSCardContents } from '../../components/HSCard'
 import { EMPTY_USER_TOKEN_PATH } from '../../const'
 import { useUserPropertiesList } from './fetchUserProperties.hook'
+import { crunchAddress } from '../../utils/utils'
+import Card from '../../components/Card'
+import TitleSubSection from '../../components/TitleSubSection'
 
 interface UserPropertiesListPageProps {
   // Props
@@ -20,21 +21,20 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar title="Tokens" />
+      <DPLTitleBar title="Properties" classNames="mb-md" />
+      <TitleSubSection classNames="mb-sm">
+        <h2>{`${userAddress ? crunchAddress(userAddress) : '...'} Properties`}</h2>
+      </TitleSubSection>
       <div>
-        <div className="row-between mb-lg">
-          <h2 className="fs-h3">Your Tokens</h2>
-          <HSButton link="/tokenize" type="filled">
-            + Create Token
-          </HSButton>
-        </div>
         {userProperties && userProperties.length <= 0 && (
-          <HSCard className="border-surface-400">
-            <HSCardContents>You have no tokens</HSCardContents>
-          </HSCard>
+          <Card>
+            <span>You have no tokens</span>
+          </Card>
         )}
+      </div>
+      <div>
         {userAddress && userAddress !== EMPTY_USER_TOKEN_PATH && userProperties && userProperties.length > 0 && (
-          <div className="flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             {userProperties.map(property => (
               <UserTokenListItem key={property.address} property={property} userAddress={userAddress} />
             ))}

@@ -1,12 +1,14 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Market } from '../../const'
-import { getMarketFromString } from '../../utils/utils'
+import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import GithubForm from './GithubForm'
 import YouTubeForm from './YouTubeForm'
 import BackButton from '../../components/BackButton'
 import { UndefinedOr } from '@devprotocol/util-ts'
+import TitleSubSection from '../../components/TitleSubSection'
+import { FaGithub, FaYoutube } from 'react-icons/fa'
 
 interface TokenizeFormPageProps {}
 
@@ -29,7 +31,14 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   return (
     <div>
       <BackButton title="Tokenize" path="/tokenize" />
-      <DPLTitleBar title="Invitation Request" />
+      <DPLTitleBar title="Invitation Request" classNames="mb-md" />
+      <TitleSubSection>
+        <div className="flex items-center">
+          {market === Market.GITHUB && <FaGithub />}
+          {market === Market.YOUTUBE && <FaYoutube color="red" />}
+          <span className="ml-1">{marketToReadable(market)} Project Information</span>
+        </div>
+      </TitleSubSection>
       {market === Market.GITHUB && <GithubForm />}
       {market === Market.YOUTUBE && <YouTubeForm />}
     </div>

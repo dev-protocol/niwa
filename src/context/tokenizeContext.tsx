@@ -22,6 +22,8 @@ export type ITokenize = {
   address: string
   setAddress: Dispatch<SetStateAction<string>>
   validateForm: () => void
+  agreedToTerms: boolean
+  setAgreedToTerms: Dispatch<SetStateAction<boolean>>
 }
 
 const tokenize: ITokenize = {
@@ -39,7 +41,9 @@ const tokenize: ITokenize = {
   setNetwork: () => {},
   address: '',
   setAddress: () => {},
-  validateForm: () => {}
+  validateForm: () => {},
+  agreedToTerms: false,
+  setAgreedToTerms: () => {}
 }
 
 export const TokenizeContext = React.createContext(tokenize)
@@ -52,6 +56,7 @@ export const TokenizeProvider: React.FC = ({ children }) => {
   const [isValid, setIsValid] = useState(false)
   const [network, setNetwork] = useState<UndefinedOr<ethers.providers.Network>>()
   const [address, setAddress] = useState('')
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
   const { ethersProvider } = useProvider()
 
   const detectNetwork = useCallback(async () => {
@@ -95,8 +100,20 @@ export const TokenizeProvider: React.FC = ({ children }) => {
       return
     }
 
+    if (!agreedToTerms) {
+      setIsValid(false)
+      return
+    }
+
     setIsValid(true)
-  }, [assetName.length, tokenName.length, tokenSymbol.length, personalAccessToken.length, network?.chainId])
+  }, [
+    assetName.length,
+    tokenName.length,
+    tokenSymbol.length,
+    personalAccessToken.length,
+    agreedToTerms,
+    network?.chainId
+  ])
 
   useEffect(() => validateForm(), [assetName, tokenName, tokenSymbol, personalAccessToken, validateForm])
 
@@ -117,7 +134,9 @@ export const TokenizeProvider: React.FC = ({ children }) => {
         setNetwork,
         address,
         setAddress,
-        validateForm
+        validateForm,
+        agreedToTerms,
+        setAgreedToTerms
       }}
     >
       {children}

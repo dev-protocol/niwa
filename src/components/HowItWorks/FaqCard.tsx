@@ -7,9 +7,9 @@ interface FaqCardProps {
 
 const FaqCard: React.FC<FaqCardProps> = ({ question, answer, children }) => {
   return (
-    <div className="flex flow-column gap-xs mb-sm">
-      <h3>{question}</h3>
-      <p>{answer || children}</p>
+    <div className="flex flex-col">
+      <h3 className="font-bold">{question}</h3>
+      <p className="text-sm">{answer || children}</p>
     </div>
   )
 }

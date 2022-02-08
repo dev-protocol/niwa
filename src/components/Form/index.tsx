@@ -4,7 +4,6 @@ import HSTextField from '../HSTextField'
 interface FormFieldProps {
   label: string
   id: string
-  helper?: string
   required?: boolean
   placeholder?: string
   disabled?: boolean
@@ -16,20 +15,19 @@ interface FormFieldProps {
 const FormField: React.FC<FormFieldProps> = ({
   label,
   id,
-  helper,
   required = false,
   disabled = false,
   placeholder,
   value,
   onChange,
-  isError
+  isError,
+  children
 }) => {
   return (
-    <div className="mb-lg">
+    <div className="mb-sm">
       <HSTextField
         name={id}
         label={label}
-        helper={helper}
         type="text"
         placeholder={placeholder}
         value={value}
@@ -37,7 +35,9 @@ const FormField: React.FC<FormFieldProps> = ({
         isError={isError}
         isRequired={required}
         isDisabled={disabled}
-      />
+      >
+        {children}
+      </HSTextField>
     </div>
   )
 }

@@ -5,22 +5,28 @@ import { FaChevronRight } from 'react-icons/fa'
 interface HomeNavItemProps {
   title: string
   message: string
-  path: string
+  path?: string
   isExternal: boolean
+  isDisabled?: boolean
 }
 
-const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({ title, message, path, isExternal }) => {
+const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({ title, message, path, isExternal, isDisabled }) => {
   return (
     <>
+      {isDisabled && (
+        <div>
+          <HomeNavItemContent title={title} message={message} isDisabled={isDisabled} />
+        </div>
+      )}
       {isExternal && (
         <a href={path}>
-          <HomeNavItemContent title={title} message={message} />
+          <HomeNavItemContent title={title} message={message} isDisabled={isDisabled} />
         </a>
       )}
 
-      {!isExternal && (
+      {!isExternal && path && (
         <Link to={path}>
-          <HomeNavItemContent title={title} message={message} />
+          <HomeNavItemContent title={title} message={message} isDisabled={isDisabled} />
         </Link>
       )}
     </>
@@ -30,18 +36,23 @@ const HomeNavItem: FunctionComponent<HomeNavItemProps> = ({ title, message, path
 interface HomeNavItemContentProps {
   title: string
   message: string
+  isDisabled?: boolean
 }
 
-const HomeNavItemContent: FunctionComponent<HomeNavItemContentProps> = ({ title, message }) => {
+const HomeNavItemContent: FunctionComponent<HomeNavItemContentProps> = ({ title, message, isDisabled = false }) => {
   return (
-    <div className="home-nav-item">
-      <div className="home-nav-item__header">
-        <h2 className="home-nav-item__label">{title}</h2>
-        <div className="home-nav-item__icon">
+    <div
+      className={`bg-gradient-to-r rounded py-sm px-md text-white from-primary to-secondary h-full ${
+        isDisabled ? 'opacity-50' : ''
+      }`}
+    >
+      <div className="flex items-center">
+        <h2 className="text-2xl mr-1">{title}</h2>
+        <div>
           <FaChevronRight />
         </div>
       </div>
-      <span className="home-nav-item__description">{message}</span>
+      <span>{message}</span>
     </div>
   )
 }

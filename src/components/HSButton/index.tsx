@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-type ButtonStyle = 'outlined' | 'filled' | 'danger' | 'native-blue' | 'neutral'
+type ButtonStyle = 'outlined' | 'filled' | 'danger' | 'success'
 
 interface HSButtonProps {
   label?: string
   icon?: React.ReactElement | string
-  type?: string
+  type?: ButtonStyle
   link?: string
   context?: 'button' | 'submit' | 'reset' | undefined
   onClick?: React.MouseEventHandler<HTMLButtonElement> | (() => void)
@@ -16,24 +16,68 @@ interface HSButtonProps {
 const HSButton: React.FC<HSButtonProps> = ({
   label,
   icon,
-  type,
+  type = 'filled',
   link,
   onClick,
   isDisabled,
   children,
   context = 'button'
 }) => {
-  const assertType = (type: string): string => {
-    const finalTypes: string[] = []
-    type.split(' ').forEach(type => {
-      finalTypes.push('hs-button--' + type)
-    })
-    return finalTypes.join(' ')
+  const assertBackground = (type: ButtonStyle) => {
+    switch (type) {
+      case 'filled':
+        return 'bg-blue-500'
+      case 'outlined':
+      case 'danger':
+      case 'success':
+        return 'bg-white'
+
+      default:
+        return 'bg-blue-500'
+    }
+  }
+
+  const assertText = (type: ButtonStyle) => {
+    switch (type) {
+      case 'filled':
+        return 'text-white'
+      case 'outlined':
+        return 'text-blue'
+      case 'danger':
+        return 'text-red'
+      case 'success':
+        return 'text-success'
+
+      default:
+        return 'bg-blue-500'
+    }
+  }
+
+  const assertBorder = (type: ButtonStyle) => {
+    switch (type) {
+      case 'outlined':
+        return 'border-blue-500'
+      case 'danger':
+        return 'border-red-500'
+      case 'success':
+        return 'border-success'
+      case 'filled':
+      default:
+        return 'border-transparent'
+    }
+  }
+
+  const btnStyles = {
+    background: assertBackground(type),
+    text: assertText(type),
+    border: assertBorder(type)
   }
 
   const ButtonBase = (
     <button
-      className={`hs-button${type ? ' ' + assertType(type) : ''}`}
+      className={`${btnStyles.background} ${btnStyles.text} ${btnStyles.border} px-4 py-2 rounded border ${
+        isDisabled ? 'opacity-50' : ''
+      }`}
       role="button"
       type={context}
       onClick={onClick}

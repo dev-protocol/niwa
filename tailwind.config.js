@@ -1,21 +1,33 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  content: ['./**/*.tsx', './**/*.ts'],
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    screens: {
-      small: '320px',
-      medium: '630px',
-      large: '890px'
-    },
-    colors: {},
-    borderRadius: {},
-    padding: {},
-    margin: {},
-    spacing: {},
-    fontFamily: {},
-    fontSize: {},
-    fontWeight: {},
-    lineHeight: {},
-    extend: {},
+    extend: {
+      colors: {
+        link: '#00A3FF',
+        success: 'rgb(34, 197, 94)'
+      },
+      gradientColorStops: theme => ({
+        primary: '#3b82f6',
+        secondary: '#0891b2'
+      }),
+      borderRadius: {},
+      padding: {},
+      margin: {},
+      spacing: {
+        sm: '1rem',
+        md: '2rem',
+        lg: '3rem',
+        xl: '4rem'
+      },
+      fontFamily: {
+        body: ['Syne', 'sans-serif']
+      },
+      fontSize: {},
+      fontWeight: {},
+      lineHeight: {}
+    }
   },
-  plugins: [],
+  plugins: []
 }

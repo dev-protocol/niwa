@@ -6,14 +6,14 @@ interface DPLFooterProps {
 
 const DPLFooter: React.FC<DPLFooterProps> = ({ children }) => {
   return (
-    <footer className="dpl-footer">
-      <div className="dpl-footer__wrapper">{children}</div>
+    <footer className="border-t py-md mt-lg">
+      <div>{children}</div>
     </footer>
   )
 }
 
 const DPLFooterSection: React.FC<DPLFooterProps> = ({ children }) => {
-  return <div className="dpl-footer__section">{children}</div>
+  return <div>{children}</div>
 }
 
 export { DPLFooter, DPLFooterSection }
