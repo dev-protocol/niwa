@@ -79,7 +79,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         title={market === Market.INVALID ? 'Tokenize' : `Tokenize ${marketToReadable(market)} Form`}
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
-      <DPLTitleBar title="Tokenize" />
+      <DPLTitleBar title="Tokenize" classNames="mb-md" />
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
           <FormField

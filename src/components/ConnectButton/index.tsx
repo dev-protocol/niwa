@@ -69,7 +69,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
           <div className="flex">
             {isValidConnectedNetwork && (
               <div className="font-sans text-sm flex font-bold flex items-center">
-                <span className="mr-md">{deployedNetworkToReadable(import.meta.env.VITE_L2_NETWORK)}</span>
+                <span className="mr-md">{deployedNetworkToReadable()}</span>
                 <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
                 <Link to={`/${address}`} className="flex items-center">
                   <span className="mr-1">{crunchAddress(address)}</span>
@@ -81,7 +81,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
               <div className="flex align-center">
                 <FaExclamationTriangle className="text-danger-400" />
                 <div className="text-danger-400 ml-xs">
-                  Connect Wallet to <span className="uppercase">{import.meta.env.VITE_L2_NETWORK}</span>
+                  Connect Wallet to <span className="uppercase">{deployedNetworkToReadable()}</span>
                 </div>
               </div>
             )}

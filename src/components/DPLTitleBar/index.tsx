@@ -2,16 +2,17 @@ import React from 'react'
 
 interface DPLTitleBarProps {
   title: string
-  sub?: string
+  classNames?: string
 }
 
-const DPLTitleBar: React.FC<DPLTitleBarProps> = ({ title, sub }) => {
+const DPLTitleBar: React.FC<DPLTitleBarProps> = ({ title, classNames }) => {
   return (
     <>
-      <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary mb-8">
+      <h1
+        className={`text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary ${classNames}`}
+      >
         {title}
       </h1>
-      {sub && <h2 className="mb-sm text-xl">{sub}</h2>}
     </>
   )
 }
