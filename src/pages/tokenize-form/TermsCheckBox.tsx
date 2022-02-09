@@ -16,7 +16,7 @@ const TermsCheckBox: React.FC<TermsCheckBoxProps> = ({ isChecked, setAgreedToTer
         text="By using Niwa, I agree to the "
       />
       <a
-        href="https://github.com/dev-protocol/niwa/blob/main/TERMS-OF-SERVICE.md"
+        href="https://github.com/dev-protocol/niwa/blob/main/TERMS-AND-CONDITIONS.md"
         target="_blank"
         rel="noreferrer"
         style={{ marginLeft: '0.2rem' }}
