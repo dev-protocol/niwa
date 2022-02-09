@@ -45,7 +45,19 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
           <TokenizeLink
             title="?????????"
             icon={<FaLightbulb color="orange" size="24px" />}
-            details="Suggest platform integration requests in the forum"
+            details={
+              <>
+                Suggest platform integration requests in{' '}
+                <a
+                  className="underline after:content-['↗']"
+                  href="https://community.devprotocol.xyz/c/market/21"
+                  target="_blank"
+                  rel="norefferer noopener noreferrer"
+                >
+                  the forum
+                </a>
+              </>
+            }
             disabled={true}
             path="/tokenize/youtube"
           />
