@@ -73,22 +73,29 @@ function App() {
       <DPLFooter className="relative">
         <div className="flex justify-between">
           <DPLFooterSection>
-            <ul className="mb-4">
-              <p className="font-bold">Network</p>
-              <li className="text-sm">
+            <ul className="mb-4 text-sm">
+              <p className="font-bold text-md">Network</p>
+              <li>
                 <a href={DEPLOYMENTS.arbitrum_one}>Arbitrium</a>
               </li>
-              <li className="text-sm">
+              <li>
                 <a href={DEPLOYMENTS.polygon_mainnet}>Polygon</a>
               </li>
             </ul>
-            <ul>
-              <p className="font-bold">Testnet</p>
-              <li className="text-sm">
+            <ul className="text-sm">
+              <p className="font-bold text-md">Testnet</p>
+              <li>
                 <a href={DEPLOYMENTS.arbitrum_rinkeby}>Arbitrum Rinkeby</a>
               </li>
               <li className="text-sm">
                 <a href={DEPLOYMENTS.polygon_mumbai}>Polygon Mumbai</a>
+              </li>
+            </ul>
+            <ul className="text-sm">
+              <li className="mt-sm">
+                <a href="https://github.com/dev-protocol/niwa/blob/main/TERMS-AND-CONDITIONS.md">
+                  Terms and Conditions
+                </a>
               </li>
             </ul>
           </DPLFooterSection>
