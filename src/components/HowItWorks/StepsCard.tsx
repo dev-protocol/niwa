@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface StepsCardProps {
-  label?: string
+  label?: string | React.ReactElement
   media?: string
   mediaAlt?: string
 }

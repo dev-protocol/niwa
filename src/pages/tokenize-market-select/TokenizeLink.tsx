@@ -5,7 +5,7 @@ import Card from '../../components/Card'
 interface TokenizeLinkProps {
   title: string
   icon?: React.ReactElement
-  details: string
+  details: string | React.ReactElement
   disabled?: boolean
   path: string
 }

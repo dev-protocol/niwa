@@ -222,3 +222,16 @@ export const getExplorerUrl = () => {
       return 'https://mumbai.polygonscan.com'
   }
 }
+
+export const getMajorDexUrl = () => {
+  switch (import.meta.env.VITE_L2_NETWORK) {
+    case 'arbitrum-one':
+      return 'https://app.uniswap.org/#/swap?chain=arbitrum'
+    case 'arbitrum-rinkeby':
+      return undefined
+    case 'polygon-mainnet':
+      return 'https://quickswap.exchange/#/swap?outputCurrency=0xA5577D1cec2583058A6Bd6d5DEAC44797c205701'
+    case 'polygon-mumbai':
+      return undefined
+  }
+}
