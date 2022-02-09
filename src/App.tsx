@@ -91,11 +91,14 @@ function App() {
                 <a href={DEPLOYMENTS.polygon_mumbai}>Polygon Mumbai</a>
               </li>
             </ul>
-            <ul className="text-sm">
+            <ul className="text-sm text-gray-400">
               <li className="mt-sm">
                 <a href="https://github.com/dev-protocol/niwa/blob/main/TERMS-AND-CONDITIONS.md">
                   Terms and Conditions
                 </a>
+              </li>
+              <li>
+                <a href="https://github.com/dev-protocol/niwa/blob/main/PRIVACY-POLICY.md">Privacy Policy</a>
               </li>
             </ul>
           </DPLFooterSection>
