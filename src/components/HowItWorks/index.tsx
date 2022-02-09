@@ -6,17 +6,28 @@ import Card from '../../img/CARD.svg'
 import Purse from '../../img/PURSE.svg'
 import Seedling from '../../img/SEEDLING.svg'
 import FaqCard from './FaqCard'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import { getMajorDexUrl } from '../../utils/utils'
 
 interface HowItWorksProps {
   // Props
 }
 
 const HowItWorks: React.FC<HowItWorksProps> = () => {
+  const dex = getMajorDexUrl()
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mb-md">How it works</h1>
       <section className="w-full flex flow-row justify-around gap-sm mb-xl">
-        <StepsCard label="Get DEV" media={Card} mediaAlt="Image" />
+        <StepsCard
+          label={
+            <a className="flex gap-1" href={dex} target="_blank" rel="noreferrer noopener">
+              Get DEV{dex ? <FaExternalLinkAlt className="ml-1" /> : ''}
+            </a>
+          }
+          media={Card}
+          mediaAlt="Image"
+        />
         <StepsCard label="Stake DEV" media={Purse} mediaAlt="Image" />
         <StepsCard label="Earn Rewards" media={Seedling} mediaAlt="Image" />
         <StepsCard label="Get Perks" media={Anpao} mediaAlt="Image" />
