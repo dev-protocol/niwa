@@ -9,6 +9,7 @@ import HowItWorks from '../../components/HowItWorks'
 import { deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
 import { SectionLoading } from '../../components/Spinner'
 import { DPLHr } from '../../components/DPLHr'
+import { TweetLarge } from '../../components/Tweet'
 
 interface TokenProps {}
 
@@ -38,7 +39,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
   ]
 
   return (
-    <div className="flex flex-col">
+    <div className="grid">
       {propertyDetails && !isLoading && (
         <>
           <div className="flex justify-between items-center">
@@ -79,6 +80,16 @@ const PropertyPage: React.FC<TokenProps> = () => {
                 />
               ))}
           </div>
+          <p className="text-center">
+            <TweetLarge
+              params={{
+                text: `I found a cool social token ${propertyDetails.propertySymbol}. Check it out on #Niwaxyz !`,
+                url: `${location.href}`
+              }}
+            >
+              Share and grow this project together
+            </TweetLarge>
+          </p>
           <DPLHr />
 
           <HowItWorks />
