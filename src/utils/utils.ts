@@ -114,8 +114,6 @@ export const getValidNetworkName = (chainId: number): UndefinedOr<NetworkName> =
 
 export const isError = (err: unknown): err is Error => err instanceof Error
 
-export type UnwrapFunc<T> = T extends (...arg: any) => Promise<infer U> ? U : T
-
 export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
 export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
 

@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 import { it, describe, expect, beforeEach } from 'vitest'
 import { Market } from '../const'
 import {
+  crunchAddress,
   getMarketFromString,
   getNetworkMarketAddresses,
   isValidNetwork,
@@ -83,6 +84,15 @@ describe(`utils`, () => {
     it('should fail with invalid market', () => {
       const marketAddress = selectMarketAddressOption(Market.INVALID, marketOptions!)
       expect(marketAddress).to.eq(undefined)
+    })
+  })
+
+  describe('crunchAddress', () => {
+    it('should crunch the address', () => {
+      expect(crunchAddress('0x466fd7d4dBeB049ee42b0DdDcb69D517125E3c94')).to.eq('466f...3c94')
+    })
+    it('should return an empty string', () => {
+      expect(crunchAddress('123')).to.eq('')
     })
   })
 })
