@@ -67,7 +67,7 @@ type MarketAddressOptions = {
 }
 
 export const getNetworkMarketAddresses = async (
-  provider: ethers.providers.Web3Provider
+  provider: ethers.providers.BaseProvider
 ): Promise<UndefinedOr<MarketAddressOptions>> => {
   const network = await provider.getNetwork()
   switch (network.chainId) {
@@ -80,8 +80,7 @@ export const getNetworkMarketAddresses = async (
     case 80001: // polygon testnet
       return marketAddresses.polygon.mumbai
     default:
-      Promise.reject('Invalid network')
-      return
+      return Promise.reject('Invalid network')
   }
 }
 
