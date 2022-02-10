@@ -27,11 +27,12 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
       return
     }
   }, [params, navigate, setMarket, market])
+  const readableMarket = market === Market.GITHUB ? "GitHub" : "YouTube"
 
   return (
     <div>
       <BackButton title="Tokenize" path="/tokenize" />
-      <DPLTitleBar title="Tokenize GitHub Form" className="mb-md" />
+      <DPLTitleBar title={`Tokenize ${readableMarket} Form`} className="mb-md" />
       <TitleSubSection>
         <div className="flex items-center">
           {market === Market.GITHUB && <FaGithub />}
