@@ -11,12 +11,7 @@ const WaitMarketPage: React.FC<WaitMarketPageProps> = () => {
       <DPLTitleBar className="mb-sm" title="YouTube Coming Soon!" />
       <div className="text-lg">
         Please wait and watch{' '}
-        <a
-          className="text-link"
-          href="https://discord.com/channels/547215761341546497/941145985864847400"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a className="text-link" href="https://discord.gg/cxHyurdTuM" target="_blank" rel="noreferrer">
           #🌈 niwa channel
         </a>{' '}
         on our Discord
