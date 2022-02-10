@@ -83,7 +83,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
           <p className="text-center">
             <TweetLarge
               params={{
-                text: `I found a cool social token ${propertyDetails.propertySymbol}. Check it out on #Niwaxyz !`,
+                text: `I found a cool social token $${propertyDetails.propertySymbol}. Check it out on #Niwaxyz !`,
                 url: `${location.href}`
               }}
             >
