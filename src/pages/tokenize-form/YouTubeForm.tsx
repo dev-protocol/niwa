@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useState } from 'react'
+import { FunctionComponent, useContext, useEffect, useState } from 'react'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
@@ -7,9 +7,13 @@ import TermsCheckBox from './TermsCheckBox'
 interface YouTubeFormProps {}
 
 const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
-  const [isValid] = useState(true)
+  const [isValid, setIsValid] = useState(true)
   const { network, address, tokenName, setTokenName, tokenSymbol, setTokenSymbol, agreedToTerms, setAgreedToTerms } =
     useContext(TokenizeContext)
+
+  useEffect(() => {
+    network && address && tokenName && tokenSymbol && agreedToTerms ? setIsValid(true) : setIsValid(false)
+  }, [network, address, tokenName, tokenSymbol, agreedToTerms])
 
   const submit = () => {
     if (!isValid) {
