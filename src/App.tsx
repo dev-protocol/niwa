@@ -23,6 +23,7 @@ import NetworkSelectPage from './pages/network-select'
 import { Background } from './components/Background'
 import { DEPLOYMENTS } from './const'
 import { FaDiscord, FaGithubSquare } from 'react-icons/fa'
+import WaitMarketPage from './pages/wait-market'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -62,6 +63,7 @@ function App() {
                     <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                     <Route path="/tokenize/:market" element={<TokenizeFormPage />} />
                     <Route path="/tokenize/:market/preview" element={<TokenizeSubmit />} />
+                    <Route path="/wait/youtube" element={<WaitMarketPage />} />
                     <Route path="/auth/:market/callback" element={<AuthCallbackPage />} />
                     <Route path="/404" element={<PageNotFound />} />
                   </Routes>
