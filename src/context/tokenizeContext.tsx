@@ -4,6 +4,9 @@ import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } fro
 import { useProvider } from '../context/walletContext'
 import { isValidNetwork } from '../utils/utils'
 
+export const CONTEXT_TOKENIZE_TOKEN_NAME_KEY = 'tokenize.tokenname';
+export const CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY = 'tokenize.tokensymbol';
+
 export type GithubFormParams = {}
 
 export type ITokenize = {
@@ -46,18 +49,33 @@ const tokenize: ITokenize = {
   setAgreedToTerms: () => {}
 }
 
-export const TokenizeContext = React.createContext(tokenize)
+export const TokenizeContext = React.createContext({
+  ...tokenize,
+  tokenName: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_NAME_KEY),
+  tokenSymbol: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY),
+})
 
 export const TokenizeProvider: React.FC = ({ children }) => {
   const [assetName, setAssetName] = useState('')
-  const [tokenName, setTokenName] = useState('')
-  const [tokenSymbol, setTokenSymbol] = useState('')
+  const [tokenName, setTokenName] = useState(localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_NAME_KEY) || '')
+  const [tokenSymbol, setTokenSymbol] = useState(localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY) || '')
   const [personalAccessToken, setPersonalAccessToken] = useState('')
   const [isValid, setIsValid] = useState(false)
   const [network, setNetwork] = useState<UndefinedOr<ethers.providers.Network>>()
   const [address, setAddress] = useState('')
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const { ethersProvider } = useProvider()
+
+  const setTokenNameWithStorage = (value: string) => {
+    localStorage.setItem(CONTEXT_TOKENIZE_TOKEN_NAME_KEY, value)
+    setTokenName(value)
+    return value
+  }
+  const setTokenSymbolWithStorage = (value: string) => {
+    localStorage.setItem(CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY, value)
+    setTokenSymbol(value)
+    return value
+  }
 
   const detectNetwork = useCallback(async () => {
     if (ethersProvider) {
@@ -123,9 +141,9 @@ export const TokenizeProvider: React.FC = ({ children }) => {
         assetName,
         setAssetName,
         tokenName,
-        setTokenName,
+        setTokenName: (v: any) => setTokenNameWithStorage(v),
         tokenSymbol,
-        setTokenSymbol,
+        setTokenSymbol: (v: any) => setTokenSymbolWithStorage(v),
         personalAccessToken,
         setPersonalAccessToken,
         isValid,

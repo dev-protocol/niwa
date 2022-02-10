@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import { FaChevronRight, FaExclamationTriangle } from 'react-icons/fa'
 import { crunchAddress, deployedNetworkToReadable } from '../../utils/utils'
 
-const providerOptions = {
+export const providerOptions = {
   injected: {
     package: detectEthereumProvider()
   },
