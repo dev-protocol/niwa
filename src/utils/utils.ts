@@ -89,6 +89,9 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
     case Market.GITHUB:
       return options.github
 
+    case Market.YOUTUBE:
+      return options.youtube
+
     default:
       return
   }

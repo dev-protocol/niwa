@@ -1,13 +1,15 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
+import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers } from 'ethers'
-import { it, describe, expect } from 'vitest'
+import { it, describe, expect, beforeEach } from 'vitest'
 import { Market } from '../const'
 import {
   getMarketFromString,
   getNetworkMarketAddresses,
   isValidNetwork,
   mapProviderToDevContracts,
-  marketToReadable
+  marketToReadable,
+  selectMarketAddressOption
 } from './utils'
 
 describe(`utils`, () => {
@@ -31,30 +33,57 @@ describe(`utils`, () => {
     expect(polygon).to.eq(true)
   })
 
-  it('mapProviderToDevContracts: should correctly map network addresses by chain id', async () => {
-    const chainId = 421611 // arbitrum testnet
-    const provider = new ethers.providers.InfuraProvider(chainId)
-    const contracts = await mapProviderToDevContracts(provider)
-    expect(contracts?.token).to.eq(addresses.arbitrum.rinkeby.token)
+  describe('mapProviderToDevContracts', () => {
+    it('should correctly map network addresses by chain id', async () => {
+      const chainId = 421611 // arbitrum testnet
+      const provider = new ethers.providers.InfuraProvider(chainId)
+      const contracts = await mapProviderToDevContracts(provider)
+      expect(contracts?.token).to.eq(addresses.arbitrum.rinkeby.token)
+    })
+
+    it('should reject mapping unsupported network', async () => {
+      const chainId = 1 // L1 is unsupported on niwa
+      const provider = new ethers.providers.InfuraProvider(chainId)
+      await expect(mapProviderToDevContracts(provider)).rejects.toEqual('Invalid network')
+    })
   })
 
-  it('mapProviderToDevContracts: should reject mapping unsupported network', async () => {
-    const chainId = 1 // L1 is unsupported on niwa
-    const provider = new ethers.providers.InfuraProvider(chainId)
-    await expect(mapProviderToDevContracts(provider)).rejects.toEqual('Invalid network')
+  describe('getNetworkMarketAddresses', () => {
+    it('should correctly map market addresses by chain id', async () => {
+      const chainId = 421611 // arbitrum testnet
+      const provider = new ethers.providers.InfuraProvider(chainId)
+      const addresses = await getNetworkMarketAddresses(provider)
+      expect(addresses?.github).to.eq(marketAddresses.arbitrum.rinkeby.github)
+    })
+    it('should reject mapping unsupported network', async () => {
+      const chainId = 1 // L1 is unsupported on niwa
+      const provider = new ethers.providers.InfuraProvider(chainId)
+      await expect(getNetworkMarketAddresses(provider)).rejects.toEqual('Invalid network')
+    })
   })
 
-  it('getNetworkMarketAddresses: should correctly map market addresses by chain id', async () => {
-    const chainId = 421611 // arbitrum testnet
-    const provider = new ethers.providers.InfuraProvider(chainId)
-    const addresses = await getNetworkMarketAddresses(provider)
-    expect(addresses?.github).to.eq(marketAddresses.arbitrum.rinkeby.github)
-  })
+  describe('selectMarketAddressOption', async () => {
+    let chainId,
+      provider,
+      marketOptions: UndefinedOr<{
+        github: string
+        youtube: string // arbitrum testnet
+      }>
 
-  it('getNetworkMarketAddresses: should reject mapping unsupported network', async () => {
-    const chainId = 1 // L1 is unsupported on niwa
-    const provider = new ethers.providers.InfuraProvider(chainId)
-    await expect(getNetworkMarketAddresses(provider)).rejects.toEqual('Invalid network')
+    beforeEach(async () => {
+      chainId = 421611 // arbitrum testnet
+      provider = new ethers.providers.InfuraProvider(chainId)
+      marketOptions = await getNetworkMarketAddresses(provider)
+    })
+
+    it('should correctly select from options', async () => {
+      const marketAddress = selectMarketAddressOption(Market.GITHUB, marketOptions!)
+      expect(marketAddress).to.eq(marketOptions?.github)
+    })
+    it('should fail with invalid market', () => {
+      const marketAddress = selectMarketAddressOption(Market.INVALID, marketOptions!)
+      expect(marketAddress).to.eq(undefined)
+    })
   })
 })
 
