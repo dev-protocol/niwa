@@ -1,6 +1,8 @@
+import { addresses } from '@devprotocol/dev-kit'
+import { ethers } from 'ethers'
 import { it, describe, expect, assert } from 'vitest'
 import { Market } from '../const'
-import { getMarketFromString, isValidNetwork, marketToReadable } from './utils'
+import { getMarketFromString, isValidNetwork, mapProviderToDevContracts, marketToReadable } from './utils'
 
 describe(`utils`, () => {
   it('getMarketFromString', () => {
@@ -21,6 +23,19 @@ describe(`utils`, () => {
 
     const polygon = isValidNetwork(137)
     expect(polygon).to.eq(true)
+  })
+
+  it('should correctly map network addresses by chain id', async () => {
+    const chainId = 421611 // arbitrum testnet
+    const provider = new ethers.providers.InfuraProvider(chainId)
+    const contracts = await mapProviderToDevContracts(provider)
+    expect(contracts?.token).to.eq(addresses.arbitrum.rinkeby.token)
+  })
+
+  it('should reject mapping unsupported network', async () => {
+    const chainId = 1 // L1 is unsupported on niwa
+    const provider = new ethers.providers.InfuraProvider(chainId)
+    await expect(mapProviderToDevContracts(provider)).rejects.toEqual('Invalid network')
   })
 })
 

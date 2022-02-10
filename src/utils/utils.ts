@@ -32,25 +32,6 @@ export const marketToReadable = (market: UndefinedOr<Market>): string => {
   }
 }
 
-// TODO: can this be removed now that Invitation has been removed?
-export const sign = async (
-  provider: UndefinedOr<providers.Web3Provider> | null,
-  inputMessage: string
-): Promise<UndefinedOr<string>> => {
-  if (provider) {
-    const signer = provider.getSigner()
-
-    const address = await signer.getAddress()
-    if (!address) {
-      return undefined
-    }
-
-    const signature = await signer.signMessage(inputMessage)
-    return signature
-  }
-  return undefined
-}
-
 export const isValidNetwork = (chainId: UndefinedOr<number>) => {
   switch (chainId) {
     case 421611: // arbitrum testnet
@@ -76,8 +57,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
     case 80001: // polygon testnet
       return addresses.polygon.mumbai
     default:
-      Promise.reject('Invalid network')
-      break
+      return Promise.reject('Invalid network')
   }
 }
 
