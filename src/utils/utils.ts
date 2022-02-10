@@ -32,25 +32,6 @@ export const marketToReadable = (market: UndefinedOr<Market>): string => {
   }
 }
 
-// TODO: can this be removed now that Invitation has been removed?
-export const sign = async (
-  provider: UndefinedOr<providers.Web3Provider> | null,
-  inputMessage: string
-): Promise<UndefinedOr<string>> => {
-  if (provider) {
-    const signer = provider.getSigner()
-
-    const address = await signer.getAddress()
-    if (!address) {
-      return undefined
-    }
-
-    const signature = await signer.signMessage(inputMessage)
-    return signature
-  }
-  return undefined
-}
-
 export const isValidNetwork = (chainId: UndefinedOr<number>) => {
   switch (chainId) {
     case 421611: // arbitrum testnet
@@ -76,8 +57,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
     case 80001: // polygon testnet
       return addresses.polygon.mumbai
     default:
-      Promise.reject('Invalid network')
-      break
+      return Promise.reject('Invalid network')
   }
 }
 
@@ -87,7 +67,7 @@ type MarketAddressOptions = {
 }
 
 export const getNetworkMarketAddresses = async (
-  provider: ethers.providers.Web3Provider
+  provider: ethers.providers.BaseProvider
 ): Promise<UndefinedOr<MarketAddressOptions>> => {
   const network = await provider.getNetwork()
   switch (network.chainId) {
@@ -100,8 +80,7 @@ export const getNetworkMarketAddresses = async (
     case 80001: // polygon testnet
       return marketAddresses.polygon.mumbai
     default:
-      Promise.reject('Invalid network')
-      return
+      return Promise.reject('Invalid network')
   }
 }
 
@@ -109,6 +88,9 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
   switch (market) {
     case Market.GITHUB:
       return options.github
+
+    case Market.YOUTUBE:
+      return options.youtube
 
     default:
       return
@@ -131,8 +113,6 @@ export const getValidNetworkName = (chainId: number): UndefinedOr<NetworkName> =
 }
 
 export const isError = (err: unknown): err is Error => err instanceof Error
-
-export type UnwrapFunc<T> = T extends (...arg: any) => Promise<infer U> ? U : T
 
 export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
 export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
@@ -192,22 +172,6 @@ export const crunchAddress = (address: string) => {
   return address.length > 6
     ? `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
     : ''
-}
-
-export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {
-  // Previously user had no positions
-  // If new positions exist, return the first
-  if (!oldPositions || oldPositions.length <= 0) {
-    if (newPositions.length === 1) {
-      return newPositions[0]
-    } else {
-      return undefined
-    }
-  }
-
-  // Filter through new positions and remove if they also exist in old positions
-  const filteredNewPositions = newPositions.filter(pos => !oldPositions?.includes(pos))
-  return filteredNewPositions.length === 1 ? filteredNewPositions[0] : undefined
 }
 
 export const getExplorerUrl = () => {
