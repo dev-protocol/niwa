@@ -5,7 +5,6 @@ import { Market } from '../../const'
 import BackButton from '../../components/BackButton'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString } from '../../utils/utils'
-import { useCreateKhaosPubSign, useCreateAndAuthenticate } from '../tokenize-submit/tokenize-submit.hooks'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 interface AuthCallbackPageProps {}
@@ -77,9 +76,7 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     },
     swrOptions
   )
-  const { tokenName, tokenSymbol } = useContext(TokenizeContext)
-  const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
-  const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
+  const { setAssetName, setPersonalAccessToken } = useContext(TokenizeContext)
 
   const displayMessage = (msg: string) => {
     setError(msg)
@@ -99,35 +96,17 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
       return displayMessage('invalid oauth')
     }
 
-    // get pubsign via khaos
-    const personalAccessToken = accessToken
-    const assetName = youtubeData.channelId
-    createKhaosPubSign({
-      personalAccessToken,
-      assetName,
-      signId: 'youtube-market'
-    }).then((pubSig?: string) => {
-      if (!pubSig) {
-        return displayMessage('fail createKhaosPubSign')
-      }
-      // authenticate
-      createAndAuthenticate(tokenName, tokenSymbol, assetName, pubSig, _market).then((propertyAddress?: string) => {
-        if (!propertyAddress) {
-          return displayMessage('fail createAndAuthenticate')
-        }
-        return navigate(`/properties/${propertyAddress}`)
-      })
-    })
+    setAssetName(youtubeData.pop().channelId)
+    setPersonalAccessToken(accessToken)
+    return navigate(`/tokenize/youtube`)
   }, [params, navigate, setMarket, market, youtubeData])
 
   return (
     <div>
       <BackButton title="Tokenize YouTube Market" path="/tokenize/youtube" />
-      {error || khaosError || tokenizeError ? (
+      {error ? (
         <div className="mb-sm mt-sm flex flex-col align-end">
           {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
-          {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
-          {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}
         </div>
       ) : (
         <p>waiting...</p>
