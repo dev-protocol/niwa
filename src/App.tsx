@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/home'
 import UserPropertiesListPage from './pages/user-properties-list'
@@ -23,10 +24,55 @@ import NetworkSelectPage from './pages/network-select'
 import { Background } from './components/Background'
 import { DEPLOYMENTS } from './const'
 import { FaDiscord, FaGithubSquare } from 'react-icons/fa'
+import Web3Modal from 'web3modal'
+import { providerOptions } from './components/ConnectButton'
+import { whenDefined } from '@devprotocol/util-ts'
+import { providers } from 'ethers'
+import detectEthereumProvider from '@metamask/detect-provider'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
   const isRoot = import.meta.env.VITE_IS_ROOT === 'true'
+  const modalProvider = new Web3Modal({
+      providerOptions,
+      cacheProvider: false
+    })
+  const createProviderUpdater = (provider: any) => {
+    return () => {
+      const ethersProvider = new providers.Web3Provider(provider)
+      walletProviderContext.setEthersProvider(ethersProvider)
+      return { ethersProvider }
+    }
+  }
+  useEffect(() => {
+    ;(async () => {
+      // NOTE: If user have already connected once, reconnect to the same address.
+      if (walletProviderContext.ethersProvider) {
+        return
+      }
+      const web3ForInjected: any = await detectEthereumProvider()
+      if (!web3ForInjected) {
+        modalProvider.clearCachedProvider()
+        return
+      }
+      const isAuthorized = await (new providers.Web3Provider(web3ForInjected).getSigner()).getAddress()
+        .catch(() => undefined)
+      if (!isAuthorized) {
+        return
+      }
+
+      if (modalProvider.cachedProvider) {
+        const connectedProvider = await modalProvider.connect()
+        const newProvider = whenDefined(connectedProvider, p => new providers.Web3Provider(p))
+        walletProviderContext.setEthersProvider(newProvider)
+
+        const updater = createProviderUpdater(connectedProvider)
+
+        connectedProvider?.on('chainChanged', updater)
+        connectedProvider?.on('accountsChanged', updater)
+      }
+    })()
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col justify-between container mx-auto px-2 font-body">
