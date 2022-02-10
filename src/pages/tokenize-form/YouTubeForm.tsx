@@ -1,5 +1,4 @@
 import { FunctionComponent, useContext, useState } from 'react'
-import { FaYoutube } from 'react-icons/fa'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
