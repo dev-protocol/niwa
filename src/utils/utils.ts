@@ -174,22 +174,6 @@ export const crunchAddress = (address: string) => {
     : ''
 }
 
-export const filterNewPosition = (newPositions: readonly number[], oldPositions?: readonly number[]) => {
-  // Previously user had no positions
-  // If new positions exist, return the first
-  if (!oldPositions || oldPositions.length <= 0) {
-    if (newPositions.length === 1) {
-      return newPositions[0]
-    } else {
-      return undefined
-    }
-  }
-
-  // Filter through new positions and remove if they also exist in old positions
-  const filteredNewPositions = newPositions.filter(pos => !oldPositions?.includes(pos))
-  return filteredNewPositions.length === 1 ? filteredNewPositions[0] : undefined
-}
-
 export const getExplorerUrl = () => {
   switch (import.meta.env.VITE_L2_NETWORK) {
     case 'arbitrum-one':
