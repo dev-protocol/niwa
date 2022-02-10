@@ -100,6 +100,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
           tokenSymbol={tokenSymbol}
           pat={personalAccessToken}
           isDisabled={submitDisabled()}
+          market={market}
           submit={submit}
         />
       )}
