@@ -56,7 +56,11 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
       return
     }
 
-    const pubSig = await createKhaosPubSign({ assetName, personalAccessToken, signId: 'github-market' })
+    const pubSig = await createKhaosPubSign({
+      assetName,
+      personalAccessToken,
+      signId: market === Market.YOUTUBE ? 'youtube-market' : 'github-market'
+    })
     if (!pubSig) {
       setError('No pubsig found')
       setIsLoading(false)
