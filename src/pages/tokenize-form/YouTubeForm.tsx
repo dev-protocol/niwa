@@ -9,8 +9,19 @@ interface YouTubeFormProps {}
 
 const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
   const navigate = useNavigate()
-  const { network, address, tokenName, setTokenName, tokenSymbol, setTokenSymbol, agreedToTerms, setAgreedToTerms, isValid, personalAccessToken, assetName } =
-    useContext(TokenizeContext)
+  const {
+    network,
+    address,
+    tokenName,
+    setTokenName,
+    tokenSymbol,
+    setTokenSymbol,
+    agreedToTerms,
+    setAgreedToTerms,
+    isValid,
+    personalAccessToken,
+    assetName
+  } = useContext(TokenizeContext)
 
   const onAuthYoutubeAccount = () => {
     const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
@@ -35,7 +46,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
       {assetName && personalAccessToken ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-sm my-8">
-            <p>Channel ID: { assetName }</p>
+            <p>Channel ID: {assetName}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             <FormField
@@ -74,8 +85,8 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
                 }
               }}
             >
-            <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
-          </FormField>
+              <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+            </FormField>
           </div>
           <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
           <div className="float-right flex flex-col items-end">

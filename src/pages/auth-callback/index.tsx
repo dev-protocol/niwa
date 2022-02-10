@@ -99,7 +99,18 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     setAssetName(youtubeData.pop().channelId)
     setPersonalAccessToken(accessToken)
     return navigate(`/tokenize/youtube`)
-  }, [params, navigate, setMarket, market, youtubeData])
+  }, [
+    params,
+    navigate,
+    setMarket,
+    market,
+    youtubeData,
+    isVerify,
+    setPersonalAccessToken,
+    accessToken,
+    verifyData,
+    setAssetName
+  ])
 
   return (
     <div>
