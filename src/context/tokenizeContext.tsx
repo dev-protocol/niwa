@@ -51,8 +51,8 @@ const tokenize: ITokenize = {
 
 export const TokenizeContext = React.createContext({
   ...tokenize,
-  tokenName: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_NAME_KEY),
-  tokenSymbol: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY),
+  tokenName: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_NAME_KEY) || '',
+  tokenSymbol: localStorage.getItem(CONTEXT_TOKENIZE_TOKEN_SYMBOL_KEY) || '',
 })
 
 export const TokenizeProvider: React.FC = ({ children }) => {
