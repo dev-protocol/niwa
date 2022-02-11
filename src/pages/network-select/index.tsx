@@ -8,25 +8,25 @@ const NetworkSelectPage: React.FC<NetworkSelectPageProps> = () => {
     <section className="grid grid-rows-2">
       <HomeNavItem
         title="Arbitrum"
-        path="https://arbitrum.niwa.xyz/"
+        path="https://arbitrum.niwa-beta.devprotocol.xyz/"
         message="Stake on your favorite projects using the Arbitrum Network"
         isExternal={true}
       />
       <HomeNavItem
         title="Polygon"
-        path="https://polygon.niwa.xyz/"
+        path="https://polygon.niwa-beta.devprotocol.xyz/"
         message="Stake on your favorite projects using the Polygon Network"
         isExternal={true}
       />
       <HomeNavItem
         title="Arbitrum Testnet"
-        path="https://arbitrum-rinkeby.niwa.xyz/"
+        path="https://arbitrum-rinkeby.niwa-beta.devprotocol.xyz/"
         message="Explore the Dev Protocol on the Arbitrum Testnet"
         isExternal={true}
       />
       <HomeNavItem
         title="Polygon Testnet"
-        path="https://polygon-mumbai.niwa.xyz/"
+        path="https://polygon-mumbai.niwa-beta.devprotocol.xyz/"
         message="Explore the Dev Protocol on the Polygon Mumbai Testnet"
         isExternal={true}
       />
