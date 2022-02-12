@@ -47,7 +47,10 @@ const HowItWorks: React.FC<HowItWorksProps> = () => {
         <FaqCard question="When can I receive my rewards?">
           Your reward will increase slightly every 15 seconds (1 block) while you are staking.
         </FaqCard>
-        <FaqCard question="Can I cancel my staking?">What is staking?</FaqCard>
+        <FaqCard question="Can I cancel my staking?">
+          Yes, you can easily manage your staking position at any time on stakes.social. Please go to
+          <a href="https://stakes.social/">stakes.social</a> and use `Portfolio` feature.
+        </FaqCard>
       </section>
     </div>
   )
