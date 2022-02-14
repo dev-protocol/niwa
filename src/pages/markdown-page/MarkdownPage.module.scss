@@ -1,0 +1,24 @@
+.markdown {
+  h1 {
+    @apply text-3xl font-bold my-md;
+  }
+  h2 {
+    @apply text-xl font-bold my-sm;
+  }
+  p {
+    @apply mb-sm;
+  }
+  a {
+    @apply text-link;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol,
+  ul {
+    @apply my-sm pl-md;
+  }
+}

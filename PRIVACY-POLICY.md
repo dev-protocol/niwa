@@ -1,3 +1,8 @@
+---
+title: Privacy Policy
+description: Niwa Privacy Policy
+---
+
 # NIWA - Privacy Policy
 
 1. [INTRODUCTION](#introduction)
