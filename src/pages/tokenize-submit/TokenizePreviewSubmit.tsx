@@ -1,6 +1,7 @@
 import React from 'react'
 import FormField from '../../components/Form'
 import HSButton from '../../components/HSButton'
+import { Market } from '../../const'
 
 interface TokenizePreviewSubmitProps {
   networkName: string
@@ -9,6 +10,7 @@ interface TokenizePreviewSubmitProps {
   tokenName: string
   tokenSymbol: string
   pat: string
+  market?: Market
   isDisabled: boolean
   submit: () => {}
 }
@@ -20,6 +22,7 @@ const TokenizePreviewSubmit: React.FC<TokenizePreviewSubmitProps> = ({
   tokenName,
   tokenSymbol,
   pat,
+  market,
   isDisabled,
   submit
 }) => {
@@ -43,7 +46,7 @@ const TokenizePreviewSubmit: React.FC<TokenizePreviewSubmitProps> = ({
           required
         />
         <FormField
-          label="GitHub Repository Name"
+          label={market === Market.YOUTUBE ? 'YouTube Channel ID' : 'GitHub Repository Name'}
           placeholder="owner_name/repository_name"
           id="repoName"
           value={assetName}
