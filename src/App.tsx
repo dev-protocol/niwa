@@ -41,6 +41,11 @@ function App() {
                 <main>
                   <Routes>
                     <Route path="/" element={<NetworkSelectPage />} />
+                    <Route path="/privacy-policy" element={<MarkdownPage>{<PrivacyPolicy />}</MarkdownPage>} />
+                    <Route
+                      path="/terms-and-conditions"
+                      element={<MarkdownPage>{<TermsAndConditions />}</MarkdownPage>}
+                    />
                     <Route path="/*" element={<Navigate to="/" />} />
                   </Routes>
                 </main>
