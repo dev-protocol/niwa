@@ -10,7 +10,7 @@ const StepsCard: React.FC<StepsCardProps> = ({ label, media, mediaAlt }) => {
   return (
     <div>
       {media && <img src={media} alt={mediaAlt} />}
-      <h3 className="font-bold text-center">{label}</h3>
+      <h3 className="text-center font-bold">{label}</h3>
     </div>
   )
 }

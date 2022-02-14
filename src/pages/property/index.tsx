@@ -42,12 +42,12 @@ const PropertyPage: React.FC<TokenProps> = () => {
     <div className="grid">
       {propertyDetails && !isLoading && (
         <>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <DPLTitleBar title={propertyDetails?.propertySymbol ?? ''} />
             {/* <FaShareAlt color="lightgray" /> */}
           </div>
 
-          <div className="font-bold text-gray-400 text-sm">{hash}</div>
+          <div className="text-sm font-bold text-gray-400">{hash}</div>
           <div className="flex justify-between">
             <div className="flex items-center">
               {propertyDetails.market === Market.GITHUB && <FaGithub color="#000" />}
@@ -58,7 +58,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
           </div>
           <div className="flex justify-start">
             <a
-              className="text-sm text-link flex items-center mb-md"
+              className="mb-md flex items-center text-sm text-link"
               target="_blank"
               href={`${getExplorerUrl()}/address/${hash}`}
               rel="noreferrer"
@@ -68,7 +68,7 @@ const PropertyPage: React.FC<TokenProps> = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm mb-24">
+          <div className="mb-24 grid grid-cols-1 gap-sm sm:grid-cols-2">
             {hash &&
               options.map(option => (
                 <StakeOption

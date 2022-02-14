@@ -39,15 +39,15 @@ const StakeOption: React.FC<StakeOptionProps> = ({ optionName, fixedAmount, isCu
         {!isCustom && (
           <div className="flex">
             <div className="flex items-end">
-              <span className="text-4xl font-bold mr-2">{stakeAmount}</span>
-              <span className="font-bold text-xl">DEV</span>
+              <span className="mr-2 text-4xl font-bold">{stakeAmount}</span>
+              <span className="text-xl font-bold">DEV</span>
             </div>
           </div>
         )}
 
         {isCustom && (
           <input
-            className="text-4xl border-none focus:border-transparent focus:ring-0 focus:outline-none"
+            className="border-none text-4xl focus:border-transparent focus:outline-none focus:ring-0"
             value={stakeAmount ?? ''}
             onChange={e => onChange(e.target.value)}
             placeholder="1000"
@@ -55,7 +55,7 @@ const StakeOption: React.FC<StakeOptionProps> = ({ optionName, fixedAmount, isCu
         )}
 
         <Link
-          className={`bg-black from-primary to-secondary rounded text-white py-2 px-sm text-center text-lg my-sm ${
+          className={`my-sm rounded bg-black from-primary to-secondary py-2 px-sm text-center text-lg text-white ${
             !formValid ? 'opacity-75' : ''
           }`}
           to={formValid ? `/properties/${propertyAddress}/stake?amount=${stakeAmount}` : '#'}

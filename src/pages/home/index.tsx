@@ -5,7 +5,7 @@ interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+    <section className="grid grid-cols-1 gap-sm sm:grid-cols-2">
       <HomeNavItem
         title="Tokens"
         path="/tokenize"

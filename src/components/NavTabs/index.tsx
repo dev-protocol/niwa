@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 interface NavTabsProps {}
 
 export const NavTabs: React.FC<NavTabsProps> = ({ children }) => {
-  return <div className="flex mb-md">{children}</div>
+  return <div className="mb-md flex">{children}</div>
 }
 
 interface NavTabItemProps {

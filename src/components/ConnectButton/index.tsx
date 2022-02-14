@@ -68,10 +68,10 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
         <div className="text-right">
           <div className="flex">
             {isValidConnectedNetwork && (
-              <div className="font-sans text-sm flex flex-col sm:flex-row font-bold flex sm:items-center">
+              <div className="flex flex flex-col font-sans text-sm font-bold sm:flex-row sm:items-center">
                 <span className="mr-md">{deployedNetworkToReadable()}</span>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
+                  <div className="mr-2 h-2 w-2 rounded-full bg-green-400"></div>
                   <Link to={`/${address}`} className="flex items-center">
                     <span className="mr-1">{crunchAddress(address)}</span>
                     <FaChevronRight size={12} />
@@ -80,7 +80,7 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
               </div>
             )}
             {!isValidConnectedNetwork && (
-              <div className="flex align-center">
+              <div className="align-center flex">
                 <FaExclamationTriangle className="text-danger-400" />
                 <div className="text-danger-400 ml-xs">
                   Connect Wallet to <span className="uppercase">{deployedNetworkToReadable()}</span>

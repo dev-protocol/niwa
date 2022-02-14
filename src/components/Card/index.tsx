@@ -9,7 +9,7 @@ const Card: React.FC<CardProps> = ({ children, isDisabled = false }) => {
     <div
       className={`${
         !isDisabled ? 'hover:border-gray-300' : ''
-      } shadow bg-white border border-transparent rounded py-4 px-md`}
+      } rounded border border-transparent bg-white py-4 px-md shadow`}
     >
       {children}
     </div>

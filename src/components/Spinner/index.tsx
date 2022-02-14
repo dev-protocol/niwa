@@ -6,7 +6,7 @@ export const Spinner: React.FC<SpinnerProps> = () => {
   return (
     <svg
       role="status"
-      className="mr-2 w-8 h-8 text-gray-200 animate-spin fill-blue-400"
+      className="mr-2 h-8 w-8 animate-spin fill-blue-400 text-gray-200"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ interface SectionLoadingProps {}
 
 export const SectionLoading: React.FC<SectionLoadingProps> = () => {
   return (
-    <div className="flex justify-center my-lg">
+    <div className="my-lg flex justify-center">
       <Spinner />
     </div>
   )
