@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import DPLTitleBar from '../../components/DPLTitleBar'
-import { FaQuestionCircle, FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaQuestionCircle, FaGithub, FaExternalLinkAlt, FaYoutube } from 'react-icons/fa'
 import { Market } from '../../const'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
 import HowItWorks from '../../components/HowItWorks'
-import { deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
+import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
 import { SectionLoading } from '../../components/Spinner'
 import { DPLHr } from '../../components/DPLHr'
 import { TweetLarge } from '../../components/Tweet'
@@ -50,10 +50,25 @@ const PropertyPage: React.FC<TokenProps> = () => {
           <div className="text-sm font-bold text-gray-400">{hash}</div>
           <div className="flex justify-between">
             <div className="flex items-center">
-              {propertyDetails.market === Market.GITHUB && <FaGithub color="#000" />}
-              {propertyDetails.market === Market.YOUTUBE && <FaGithub color="red" />}
+              {propertyDetails.market === Market.GITHUB && (
+                <>
+                  <FaGithub color="#000" />
+                  <a href={`https://github.com/${propertyDetails?.id}`} target="_blank" rel="noreferrer">
+                    <span className="ml-1 font-bold">{`github.com/${propertyDetails?.id}`}</span>
+                  </a>
+                </>
+              )}
+              {propertyDetails.market === Market.YOUTUBE && (
+                <>
+                  <FaYoutube color="red" />
+                  <a href={`https://www.youtube.com/channel/${propertyDetails?.id}`} target="_blank" rel="noreferrer">
+                    <span className="ml-1 font-bold">{`youtube.com/channel/${crunchAddress(
+                      propertyDetails?.id ?? ''
+                    )}`}</span>
+                  </a>
+                </>
+              )}
               {propertyDetails.market === Market.INVALID && <FaQuestionCircle color="#333" />}
-              <span className="ml-1 font-bold">{propertyDetails?.id}</span>
             </div>
           </div>
           <div className="flex justify-start">
