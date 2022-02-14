@@ -18,7 +18,7 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
 
       <section className="mb-lg">
         <h2 className="fs-h3 mb-md"></h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm w-full">
+        <div className="grid w-full grid-cols-1 gap-sm sm:grid-cols-2">
           <TokenizeLink
             title="GitHub"
             icon={<FaGithub size="24px" />}

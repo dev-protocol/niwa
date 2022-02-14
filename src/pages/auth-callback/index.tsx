@@ -124,7 +124,7 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
     <div>
       <BackButton title="Tokenize YouTube Market" path="/tokenize/youtube" />
       {error || khaosError || tokenizeError ? (
-        <div className="mb-sm mt-sm flex flex-col align-end">
+        <div className="align-end mb-sm mt-sm flex flex-col">
           {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
           {khaosError && <span className="text-danger-400">Khaos Error: *{khaosError}</span>}
           {tokenizeError && <span className="text-danger-400">*{tokenizeError}</span>}

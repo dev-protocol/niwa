@@ -119,9 +119,9 @@ const StakePage: React.FC<StakePageProps> = () => {
             {!ethersProvider && (
               <div className="my-lg w-full">
                 <Card isDisabled={true}>
-                  <div className="flex justify-center items-center my-lg py-lg">
+                  <div className="my-lg flex items-center justify-center py-lg">
                     <FaExclamationTriangle color="orange" />
-                    <span className="font-bold text-gray-500 ml-1">Please connect wallet to stake.</span>
+                    <span className="ml-1 font-bold text-gray-500">Please connect wallet to stake.</span>
                   </div>
                 </Card>
               </div>

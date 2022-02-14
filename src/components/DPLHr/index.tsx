@@ -5,7 +5,7 @@ interface DPLHrProps {
 }
 
 const DPLHr: React.FC<DPLHrProps> = () => {
-  return <hr className="h-1 rounded-full bg-black opacity-10 my-lg" />
+  return <hr className="my-lg h-1 rounded-full bg-black opacity-10" />
 }
 
 export { DPLHr }

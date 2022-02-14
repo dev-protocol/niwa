@@ -25,7 +25,7 @@ const TokenizePreviewSubmit: React.FC<TokenizePreviewSubmitProps> = ({
 }) => {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
+      <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
         <FormField
           label="Network"
           id="network"

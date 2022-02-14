@@ -53,11 +53,11 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
             <div className="flex">
               <div className="flex items-center">
                 <div>
-                  {userHoldAmount} <span className="text-sm ml-1"> / {supply}</span>
+                  {userHoldAmount} <span className="ml-1 text-sm"> / {supply}</span>
                 </div>
               </div>
             </div>
-            <div className="w-full flex items-center">
+            <div className="flex w-full items-center">
               {propertyDetails.market === Market.GITHUB && <FaGithub />}
               {propertyDetails.market === Market.YOUTUBE && <FaYoutube />}
               <span className="ml-2">{propertyDetails.id}</span>

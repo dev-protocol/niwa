@@ -8,7 +8,7 @@ interface TermsCheckBoxProps {
 
 const TermsCheckBox: React.FC<TermsCheckBoxProps> = ({ isChecked, setAgreedToTerms }) => {
   return (
-    <div className="flex align-center my-md">
+    <div className="align-center my-md flex">
       <CheckBox
         name="TermsOfService"
         isChecked={isChecked}

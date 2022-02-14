@@ -18,8 +18,8 @@ const TokenizeResult: React.FC<TokenizeResultProps> = ({ isLoading, errorMessage
         <>
           {newPropertyAddress && (
             <div>
-              <h2 className="w-full mb-sm text-2xl">Tokenization Success</h2>
-              <div className="flex flex-col sm:flex-row justify-between">
+              <h2 className="mb-sm w-full text-2xl">Tokenization Success</h2>
+              <div className="flex flex-col justify-between sm:flex-row">
                 <div className="flex flex-col">
                   <h3>Your Token</h3>
                   <span>{newPropertyAddress}</span>
@@ -30,7 +30,7 @@ const TokenizeResult: React.FC<TokenizeResultProps> = ({ isLoading, errorMessage
           )}
           {!newPropertyAddress && (
             <div>
-              <h2 className="w-full mb-sm text-2xl">Tokenization Error</h2>
+              <h2 className="mb-sm w-full text-2xl">Tokenization Error</h2>
               <div className="flex justify-between">
                 <span>{errorMessage ?? `Error tokenizing ${market} property`}</span>
                 <HSButton
