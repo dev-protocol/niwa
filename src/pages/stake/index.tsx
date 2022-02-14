@@ -1,7 +1,7 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { BigNumber, constants, utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
-import { FaExclamationTriangle, FaTwitter } from 'react-icons/fa'
+import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Card from '../../components/Card'
