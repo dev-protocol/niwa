@@ -15,7 +15,7 @@ const DPLFooter: React.FC<DPLFooterProps> = ({ className, children }) => {
 }
 
 const DPLFooterSection: React.FC<DPLFooterProps> = ({ children }) => {
-  return <div className="grid gap-8 justify-items-start">{children}</div>
+  return <div className="grid justify-items-start gap-8">{children}</div>
 }
 
 export { DPLFooter, DPLFooterSection }

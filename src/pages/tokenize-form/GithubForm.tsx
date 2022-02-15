@@ -36,7 +36,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
+      <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
         <FormField
           label="Network"
           id="network"
@@ -99,7 +99,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
               href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
               target="_blank"
               rel="noreferrer"
-              className="text-link text-sm text-link"
+              className="text-sm text-link text-link"
             >
               Create a Personal Access Token without any scopes.
             </a>

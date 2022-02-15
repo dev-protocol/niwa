@@ -17,8 +17,8 @@ const HowItWorks: React.FC<HowItWorksProps> = () => {
   const dex = getMajorDexUrl()
   return (
     <div>
-      <h1 className="text-2xl font-bold text-center mb-md">How it works</h1>
-      <section className="w-full flex flow-row justify-around gap-sm mb-xl">
+      <h1 className="mb-md text-center text-2xl font-bold">How it works</h1>
+      <section className="flow-row mb-xl flex w-full justify-around gap-sm">
         <StepsCard
           label={
             <a className="flex gap-1" href={dex} target="_blank" rel="noreferrer noopener">
@@ -32,7 +32,7 @@ const HowItWorks: React.FC<HowItWorksProps> = () => {
         <StepsCard label="Earn Rewards" media={Seedling} mediaAlt="Image" />
         <StepsCard label="Get Perks" media={Anpao} mediaAlt="Image" />
       </section>
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+      <section className="grid grid-cols-1 gap-lg md:grid-cols-2">
         <FaqCard question="What is DEV?">
           DEV is a token to support your favorite creators and earn rewards. It allows for long-term support through
           staking, rather than temporary donations or trading. As a supporter, you can get exclusive NFTs for supporters

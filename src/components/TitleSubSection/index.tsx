@@ -5,7 +5,7 @@ interface TitleSubSectionProps {
 }
 
 const TitleSubSection: React.FC<TitleSubSectionProps> = ({ classNames, children }) => {
-  return <div className={`text-xl mb-sm ${classNames}`}>{children}</div>
+  return <div className={`mb-sm text-xl ${classNames}`}>{children}</div>
 }
 
 export default TitleSubSection

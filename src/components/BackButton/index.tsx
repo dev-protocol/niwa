@@ -10,7 +10,7 @@ interface BackButtonProps {
 const BackButton: FunctionComponent<BackButtonProps> = ({ title, path }) => {
   return (
     <div className="float-left w-full">
-      <Link to={path} className="float-left flex items-center mb-sm">
+      <Link to={path} className="float-left mb-sm flex items-center">
         <FaChevronLeft size="12" />
         <span className="ml-1">{title}</span>
       </Link>

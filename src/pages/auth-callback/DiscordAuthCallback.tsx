@@ -137,7 +137,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   return (
     <div className="flex flex-col">
       {error && (
-        <div className="mb-sm mt-sm flex flex-col align-end">
+        <div className="align-end mb-sm mt-sm flex flex-col">
           {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
         </div>
       )}

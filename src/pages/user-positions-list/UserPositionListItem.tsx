@@ -13,7 +13,7 @@ const UserPositionListItem: React.FC<UserPositionListItemProps> = ({ position })
   const detail = (label: string, value: string) => (
     <div>
       <span className="text-xs font-bold text-gray-400">{label}</span>
-      <div className="font-normal text-ellipsis overflow-hidden">{value}</div>
+      <div className="overflow-hidden text-ellipsis font-normal">{value}</div>
     </div>
   )
 

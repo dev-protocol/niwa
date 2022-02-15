@@ -14,7 +14,7 @@ const Footer: React.FC<FooterProps> = () => {
         <DPLFooterSection>
           <div className="grid gap-4">
             <ul className="text-sm">
-              <p className="font-bold text-md">Network</p>
+              <p className="text-md font-bold">Network</p>
               <li>
                 <a href={DEPLOYMENTS.arbitrum_one}>Arbitrium</a>
               </li>
@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = () => {
               </li>
             </ul>
             <ul className="text-sm">
-              <p className="font-bold text-md">Testnet</p>
+              <p className="text-md font-bold">Testnet</p>
               <li>
                 <a href={DEPLOYMENTS.arbitrum_rinkeby}>Arbitrum Rinkeby</a>
               </li>
@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-          <ul className="text-sm text-gray-400 grid grid-flow-col gap-4">
+          <ul className="grid grid-flow-col gap-4 text-sm text-gray-400">
             <li>
               {/* <a href="https://github.com/dev-protocol/niwa/blob/main/TERMS-AND-CONDITIONS.md">Terms and Conditions</a> */}
               <Link to="/terms-and-conditions">Terms and Conditions</Link>
@@ -41,14 +41,14 @@ const Footer: React.FC<FooterProps> = () => {
               <Link to="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
-          <ul className="text-sm grid grid-flow-col gap-4">
+          <ul className="grid grid-flow-col gap-4 text-sm">
             <li>
-              <a className="flex align-center gap-1" href="https://github.com/dev-protocol/niwa">
+              <a className="align-center flex gap-1" href="https://github.com/dev-protocol/niwa">
                 <FaGithubSquare size="1.2rem" /> GitHub
               </a>
             </li>
             <li>
-              <a className="flex align-center gap-1" href="https://discord.gg/VwJp4KM">
+              <a className="align-center flex gap-1" href="https://discord.gg/VwJp4KM">
                 <FaDiscord size="1.2rem" /> Discord
               </a>
             </li>

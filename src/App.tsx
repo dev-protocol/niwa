@@ -35,7 +35,7 @@ function App() {
       <div className="relative">
         {isRoot && (
           <BrowserRouter>
-            <div className="min-h-screen flex flex-col justify-between">
+            <div className="flex min-h-screen flex-col justify-between">
               <div>
                 <DPLHeader></DPLHeader>
                 <main>
@@ -58,7 +58,7 @@ function App() {
         {!isRoot && (
           <WalletContext.Provider value={walletProviderContext}>
             <BrowserRouter>
-              <div className="min-h-screen flex flex-col justify-between">
+              <div className="flex min-h-screen flex-col justify-between">
                 <div>
                   <DPLHeader>
                     <ConnectButton />

@@ -15,10 +15,17 @@ export const usePropertyDetails = (propertyAddress?: string) => {
   const [error, setError] = useState<UndefinedOr<string>>('')
 
   const matchMarket = async (propertyAddress: string, enabledMarkets: AddressContractContainer<MarketContract>[]) => {
-    const matchingMarket = enabledMarkets.find(async market => {
-      const authenticatedProperties = await market.contract.getAuthenticatedProperties()
-      return authenticatedProperties.indexOf(propertyAddress) >= 0 ? true : false
-    })
+    const flatten = await Promise.all(
+      enabledMarkets.map(async m => ({
+        market: m,
+        properties: await m.contract.getAuthenticatedProperties()
+      }))
+    )
+
+    const matchingMarket = flatten.find(m => {
+      return m.properties.includes(propertyAddress)
+    })?.market
+
     if (!matchingMarket) {
       return
     }
