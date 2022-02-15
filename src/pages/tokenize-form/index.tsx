@@ -5,10 +5,11 @@ import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import GithubForm from './GithubForm'
 import YouTubeForm from './YouTubeForm'
+import DiscordForm from './DiscordForm'
 import BackButton from '../../components/BackButton'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import TitleSubSection from '../../components/TitleSubSection'
-import { FaGithub, FaYoutube } from 'react-icons/fa'
+import { FaDiscord, FaGithub, FaYoutube } from 'react-icons/fa'
 
 interface TokenizeFormPageProps {}
 
@@ -39,11 +40,13 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
         <div className="flex items-center">
           {market === Market.GITHUB && <FaGithub />}
           {market === Market.YOUTUBE && <FaYoutube color="red" />}
+          {market === Market.DISCORD && <FaDiscord color="purple" />}
           <span className="ml-1">{marketToReadable(market)} Project Information</span>
         </div>
       </TitleSubSection>
       {market === Market.GITHUB && <GithubForm />}
       {market === Market.YOUTUBE && <YouTubeForm />}
+      {market === Market.DISCORD && <DiscordForm />}
     </div>
   )
 }

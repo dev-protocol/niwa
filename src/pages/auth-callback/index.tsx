@@ -1,126 +1,31 @@
-import { FunctionComponent, useEffect, useState, useContext } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
-import useSWR from 'swr'
+import { FunctionComponent } from 'react'
+import { useParams } from 'react-router-dom'
 import { Market } from '../../const'
 import BackButton from '../../components/BackButton'
-import { TokenizeContext } from '../../context/tokenizeContext'
-import { getMarketFromString } from '../../utils/utils'
-import { UndefinedOr } from '@devprotocol/util-ts'
+import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import YouTubeAuthCallbackPage from './YouTubeAuthCallback'
+import DiscordAuthCallbackPage from './DiscordAuthCallback'
 
 interface AuthCallbackPageProps {}
 
-interface QueryString {
-  [key: string]: string
-}
-
 const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const params = useParams()
-  const [error, setError] = useState<UndefinedOr<string>>()
-  const { search, hash } = useLocation()
-  const target = search ? search : hash
-  const queryParams = target
-    .slice(1)
-    .split('&')
-    .map(str => [str.split('=')[0], str.split('=')[1]])
-    .reduce((acc, a) => {
-      acc[a[0]] = a[1]
-      return acc
-    }, {} as QueryString)
-  const navigate = useNavigate()
-  const [isVerify, setIsVerify] = useState(false)
-  const [market, setMarket] = useState<UndefinedOr<Market>>()
-
-  const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
-  const swrOptions = {
-    revalidateOnFocus: false,
-    shouldRetryOnError: false,
-    focusThrottleInterval: 0
-  }
-
-  const accessToken = queryParams.access_token || ''
-  const { data: verifyData } = useSWR(
-    accessToken !== '' ? 'google/verify' : null,
-    async () => {
-      const verifyUrl = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
-      return fetch(verifyUrl).then((res: any) => {
-        return res.json().then((value: any) => {
-          const email = value.email
-          if (value.audience !== clientId) {
-            throw new Error('invalid audience')
-          }
-          setIsVerify(true)
-          return { email }
-        })
-      })
-    },
-    swrOptions
-  )
-  const { data: youtubeData } = useSWR(
-    accessToken !== '' ? 'youtube/dataapi' : null,
-    async () => {
-      const youtubeDataApiUrl = `https://www.googleapis.com/youtube/v3/channels?part=id,snippet,brandingSettings,statistics&mine=true&access_token=${accessToken}`
-      return fetch(youtubeDataApiUrl).then((res: any) => {
-        const data = res.json()
-        return data.then((value: any) => {
-          return value.items.map((item: any) => {
-            const channelId = item.id
-            const videoCount = item.statistics.videoCount
-            const viewCount = item.statistics.viewCount
-            const keywords = item.brandingSettings.channel.keywords
-            const title = item.snippet.title
-            const description = item.snippet.description
-            return { channelId, videoCount, viewCount, keywords, title, description }
-          })
-        })
-      })
-    },
-    swrOptions
-  )
-  const { setAssetName, setPersonalAccessToken } = useContext(TokenizeContext)
-
-  const displayMessage = (msg: string) => {
-    setError(msg)
-    console.log(msg)
-  }
-
-  useEffect(() => {
-    const _market = getMarketFromString(params.market)
-
-    setMarket(_market)
-
-    if (_market !== Market.YOUTUBE) {
-      return displayMessage('invalid market')
-    }
-
-    if (!accessToken || !verifyData || !youtubeData || !isVerify) {
-      return displayMessage('invalid oauth')
-    }
-
-    setAssetName(youtubeData.pop().channelId)
-    setPersonalAccessToken(accessToken)
-    return navigate(`/tokenize/youtube`)
-  }, [
-    params,
-    navigate,
-    setMarket,
-    market,
-    youtubeData,
-    isVerify,
-    setPersonalAccessToken,
-    accessToken,
-    verifyData,
-    setAssetName
-  ])
+  const market = getMarketFromString(params.market)
 
   return (
-    <div>
-      <BackButton title="Tokenize YouTube Market" path="/tokenize/youtube" />
-      {error ? (
-        <div className="mb-sm mt-sm flex flex-col align-end">
-          {error && <span className="text-danger-400">Error tokenizing asset: *{error}</span>}
-        </div>
+    <div className="flex flex-col">
+      <BackButton
+        title={market === Market.YOUTUBE || market === Market.DISCORD ? `Tokenize ${marketToReadable(market)} Market` : 'Tokenize'}
+        path={market === Market.YOUTUBE || market === Market.DISCORD ? `/tokenize/${market.toLowerCase()}` : '/tokenize'}
+      />
+      {market === Market.YOUTUBE ? (
+        <YouTubeAuthCallbackPage />
+      ) : market === Market.DISCORD ? (
+        <DiscordAuthCallbackPage />
       ) : (
-        <p>waiting...</p>
+        <div>
+          <p>invalid market</p>
+        </div>
       )}
     </div>
   )
