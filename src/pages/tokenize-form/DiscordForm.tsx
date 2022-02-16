@@ -43,10 +43,10 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
     <div className="flex flex-col">
       {assetName && personalAccessToken ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-sm my-8">
+          <div className="my-8 grid grid-cols-1 gap-sm md:grid-cols-2">
             <p>Channel ID: {assetName}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
+          <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
             <FormField
               label="Network"
               id="network"
@@ -55,7 +55,7 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
               placeholder="Please Connect Wallet"
               disabled={true}
             >
-              <span className="text-sm font-bold mb-6">Minting only available on Arbitrum and Polyon.</span>
+              <span className="mb-6 text-sm font-bold">Minting only available on Arbitrum and Polyon.</span>
             </FormField>
             <FormField
               label="Your Wallet Address"

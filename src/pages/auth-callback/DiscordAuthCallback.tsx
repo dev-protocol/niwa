@@ -48,15 +48,15 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
         client_id: clientId as string,
         client_secret: clientSecret as string,
         grant_type: 'authorization_code',
-        code: oauthCode as string || '',
-        redirect_uri: redirectUri,
+        code: (oauthCode as string) || '',
+        redirect_uri: redirectUri
       })
       return fetch(verifyUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body,
+        body
       }).then((res: any) => {
         return res.json().then((value: any) => {
           if (value.scope !== 'guilds') {
@@ -75,8 +75,8 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
       const discordGuildApiUrl = `https://discord.com/api/users/@me/guilds`
       return fetch(discordGuildApiUrl, {
         headers: {
-          Authorization: `Bearer ${verifyData.accessToken}`,
-        },
+          Authorization: `Bearer ${verifyData.accessToken}`
+        }
       }).then((res: any) => {
         const data = res.json()
         return data.then((datas: any) => {
@@ -112,17 +112,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     }
 
     setPersonalAccessToken(verifyData?.accessToken)
-  }, [
-    params,
-    navigate,
-    setMarket,
-    market,
-    guildData,
-    isVerify,
-    setPersonalAccessToken,
-    verifyData,
-    setAssetName
-  ])
+  }, [params, navigate, setMarket, market, guildData, isVerify, setPersonalAccessToken, verifyData, setAssetName])
 
   const onChange = (v: ChangeEvent<HTMLInputElement>) => {
     setAssetName(v.target.value)
@@ -151,19 +141,19 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
                   <label className="flex flex-row items-center gap-2" key={idx}>
                     <input type="radio" name="guild" value={d.id} onChange={onChange} />
                     {d.icon === null ? (
-                      <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center">
-                        <div className="text-xl text-black">
-                          {d.name.slice(0, 2)}
-                        </div>
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white">
+                        <div className="text-xl text-black">{d.name.slice(0, 2)}</div>
                       </div>
                     ) : (
                       <img
-                        className="rounded-full w-16 h-16"
+                        className="h-16 w-16 rounded-full"
                         src={`https://cdn.discordapp.com/icons/${d.id}/${d.icon}.png`}
                         alt={`${d.name} guild icon`}
                       />
                     )}
-                    <span className="text-xl" >{d.id} (Guild Name: {d.name})</span>
+                    <span className="text-xl">
+                      {d.id} (Guild Name: {d.name})
+                    </span>
                   </label>
                 )
               })}

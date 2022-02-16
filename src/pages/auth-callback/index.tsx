@@ -15,8 +15,14 @@ const AuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   return (
     <div className="flex flex-col">
       <BackButton
-        title={market === Market.YOUTUBE || market === Market.DISCORD ? `Tokenize ${marketToReadable(market)} Market` : 'Tokenize'}
-        path={market === Market.YOUTUBE || market === Market.DISCORD ? `/tokenize/${market.toLowerCase()}` : '/tokenize'}
+        title={
+          market === Market.YOUTUBE || market === Market.DISCORD
+            ? `Tokenize ${marketToReadable(market)} Market`
+            : 'Tokenize'
+        }
+        path={
+          market === Market.YOUTUBE || market === Market.DISCORD ? `/tokenize/${market.toLowerCase()}` : '/tokenize'
+        }
       />
       {market === Market.YOUTUBE ? (
         <YouTubeAuthCallbackPage />
