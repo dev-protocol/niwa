@@ -21,7 +21,7 @@ The following environment variables need to be set:
 
 ```
 VITE_YOUTUBE_CLIENT_ID=XXX.apps.googleusercontent.com
-VITE_YOUTUBE_AUTH_REDIRECT_URI=https://YOURHOST:PORT/auth/youtube/callback
+VITE_YOUTUBE_AUTH_REDIRECT_URI=https://HOST:PORT/auth/youtube/callback
 ```
 
 See also:
@@ -34,6 +34,7 @@ The following environment variables need to be set:
 ```
 VITE_DISCORD_CLIENT_ID=YOUR_CLIENT_ID
 VITE_DISCORD_CLIENT_SECRET=YOUR_CLIENT_SECRET
+VITE_DISCORD_AUTH_REDIRECT_URI=http://HOST:PORT/auth/discord/callback
 ```
 
 See also:
