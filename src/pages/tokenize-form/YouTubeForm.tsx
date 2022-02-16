@@ -97,9 +97,20 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
         </>
       ) : (
         <div className="float-right flex flex-col items-center">
-          <HSButton context="submit" type="filled" isDisabled={false} onClick={onAuthYoutubeAccount}>
-            Authorize YouTube Account
-          </HSButton>
+          <button
+            className="mt-8 flex items-center rounded bg-white shadow"
+            style={{ height: '40px', padding: '0 8px' }}
+            type="submit"
+            onClick={onAuthYoutubeAccount}
+          >
+            <img src="/src/img/g-logo.png" style={{ width: '18px' }} />
+            <span
+              className="font-bold"
+              style={{ fontFamily: 'Roboto', marginLeft: '16px', fontSize: '14px', color: 'rgba(0, 0, 0, .54)' }}
+            >
+              Sign in with Google
+            </span>
+          </button>
         </div>
       )}
     </div>
