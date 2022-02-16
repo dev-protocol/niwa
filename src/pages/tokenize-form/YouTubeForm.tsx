@@ -108,7 +108,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
               type="submit"
               onClick={onAuthYoutubeAccount}
             >
-              <img src="/src/img/g-logo.png" style={{ width: '18px' }} />
+              <img src={`${window.location.origin}/src/img/g-logo.png`} style={{ width: '18px' }} />
               <span
                 className="font-bold"
                 style={{ fontFamily: 'Roboto', marginLeft: '16px', fontSize: '14px', color: 'rgba(0, 0, 0, .54)' }}
