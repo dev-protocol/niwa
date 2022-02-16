@@ -4,6 +4,7 @@ import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
+import gLogo from '../../img/g-logo.png'
 
 interface YouTubeFormProps {}
 
@@ -108,7 +109,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
               type="submit"
               onClick={onAuthYoutubeAccount}
             >
-              <img src="/src/img/g-logo.png" style={{ width: '18px' }} />
+              <img src={gLogo} style={{ width: '18px' }} />
               <span
                 className="font-bold"
                 style={{ fontFamily: 'Roboto', marginLeft: '16px', fontSize: '14px', color: 'rgba(0, 0, 0, .54)' }}
