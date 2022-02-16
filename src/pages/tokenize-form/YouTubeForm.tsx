@@ -96,10 +96,33 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
           </div>
         </>
       ) : (
-        <div className="float-right flex flex-col items-center">
-          <HSButton context="submit" type="filled" isDisabled={false} onClick={onAuthYoutubeAccount}>
-            Authorize YouTube Account
-          </HSButton>
+        <div className="flex flex-col">
+          <div>
+            <h2 className="text-lg font-bold">Authorize your YouTube Account</h2>
+            <p className="mb-sm">
+              To authorize your YouTube account, we will use your Google account (YouTube Data API).
+            </p>
+            <button
+              className="mb-sm flex items-center rounded bg-white shadow"
+              style={{ height: '40px', padding: '0 8px' }}
+              type="submit"
+              onClick={onAuthYoutubeAccount}
+            >
+              <img src="/src/img/g-logo.png" style={{ width: '18px' }} />
+              <span
+                className="font-bold"
+                style={{ fontFamily: 'Roboto', marginLeft: '16px', fontSize: '14px', color: 'rgba(0, 0, 0, .54)' }}
+              >
+                Sign in with Google
+              </span>
+            </button>
+            <h2 className="text-lg font-bold">Why is Google OAuth necessary?</h2>
+            <ul className="list-disc pl-sm">
+              <li>To verify you are the owner of the YouTube channel.</li>
+              <li>To eliminate spoofing.</li>
+              <li>We use only the readonly API to get the channel id info.</li>
+            </ul>
+          </div>
         </div>
       )}
     </div>
