@@ -24,6 +24,7 @@ import MarkdownPage from './pages/markdown-page'
 import { ReactComponent as PrivacyPolicy } from '../PRIVACY-POLICY.md'
 import { ReactComponent as TermsAndConditions } from '../TERMS-AND-CONDITIONS.md'
 import Footer from './components/Footer'
+import PropertyHoldersPage from './pages/property-holders'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -71,6 +72,7 @@ function App() {
                         <Route path="/:userAddress/positions" element={<UserPositionsListPage />} />
                         <Route path="/properties/:hash/stake" element={<StakePage />} />
                         <Route path="/properties/:hash" element={<PropertyPage />} />
+                        <Route path="/properties/:hash/holders" element={<PropertyHoldersPage />} />
                         <Route path="/growth" element={<GrowthPage />} />
                         <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                         <Route path="/tokenize/:market" element={<TokenizeFormPage />} />

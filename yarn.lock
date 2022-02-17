@@ -346,10 +346,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@devprotocol/dev-kit@^6.0.5":
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-6.0.5.tgz#e7b13487cf408b2aad0c8859ca101c560f7db545"
-  integrity sha512-oZonHxDgnmlUy7nLprAX3bQ2ROLioDm1i/fgySxG33wnNdqsgm0GjB05Kz3BDGnz3wgzDkPvGOVEPiK0m389Og==
+"@devprotocol/dev-kit@^6.0.6":
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-6.0.6.tgz#5b503a5ea222cb809534adffa6286e82a5fba0d6"
+  integrity sha512-53pEFfCCltRC8bgl3w5lJqcS/kXbWW/w9EO1GGWA5yJy8v12kOtJGZnZgLtCea6OQkL/v32bSdwNf2Lb5zSj6w==
   dependencies:
     "@devprotocol/util-ts" "^2.2.1"
     "@types/bent" "^7.3.1"
@@ -7940,7 +7940,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.10.0, resolve@^1.14.2, resolve@^1.20.0, resolve@^1.8.1:
+resolve@^1.10.0, resolve@^1.14.2, resolve@^1.8.1:
   version "1.21.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.21.0.tgz#b51adc97f3472e6a5cf4444d34bc9d6b9037591f"
   integrity sha512-3wCbTpk5WJlyE4mSOtDLhqQmGFi0/TD9VPwmiolnk8U0wRgMEktqCXd3vy5buTO3tljvalNvKrjHEfrd2WpEKA==
