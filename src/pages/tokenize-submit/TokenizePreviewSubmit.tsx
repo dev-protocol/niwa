@@ -46,7 +46,13 @@ const TokenizePreviewSubmit: React.FC<TokenizePreviewSubmitProps> = ({
           required
         />
         <FormField
-          label={market === Market.YOUTUBE ? 'YouTube Channel ID' : market === Market.DISCORD ? 'Discord Guild ID' : 'GitHub Repository Name'}
+          label={
+            market === Market.YOUTUBE
+              ? 'YouTube Channel ID'
+              : market === Market.DISCORD
+              ? 'Discord Guild ID'
+              : 'GitHub Repository Name'
+          }
           placeholder="owner_name/repository_name"
           id="repoName"
           value={assetName}
