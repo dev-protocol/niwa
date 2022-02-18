@@ -23,8 +23,8 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
       <BackButton title="Home" path="/" />
       <DPLTitleBar className="mb-sm" title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
       <NavTabs>
-        <NavTabItem title="Properties" isActive={true} path={`#`} />
-        <NavTabItem title="Positions" isActive={false} path={`/${userAddress}/positions`} />
+        <NavTabItem title="Properties" path={`#`} />
+        <NavTabItem title="Positions" path={`/${userAddress}/positions`} />
       </NavTabs>
 
       <div>
