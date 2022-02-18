@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import Card from '../../components/Card'
-import Detail from '../../components/Detail'
-import PropertySummaryHead from '../../components/ProperySummary'
-import { SectionLoading } from '../../components/Spinner'
-import { usePropertyBalances } from '../../hooks/usePropertyBalances'
-import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { crunchAddress, toDisplayAmount } from '../../utils/utils'
+import Card from '../../../components/Card'
+import Detail from '../../../components/Detail'
+import { SectionLoading } from '../../../components/Spinner'
+import { usePropertyBalances } from '../../../hooks/usePropertyBalances'
+import { crunchAddress, toDisplayAmount } from '../../../utils/utils'
+import { usePropertyOutlet } from '..'
 
 interface PropertyHoldersPageProps {}
 
 const PropertyHoldersPage: React.FC<PropertyHoldersPageProps> = () => {
   const { hash } = useParams()
   const { propertyBalances, error: balancesError } = usePropertyBalances(hash)
-  const { propertyDetails, isLoading, error: detailsError } = usePropertyDetails(hash)
+  const { propertyDetails, isPropertyDetailsLoading, propertyDetailsError } = usePropertyOutlet()
   const [sortedBalances, setSortedBalances] = useState<{ account: string; balance: string }[]>()
 
   useEffect(() => {
@@ -26,9 +25,8 @@ const PropertyHoldersPage: React.FC<PropertyHoldersPageProps> = () => {
 
   return (
     <>
-      {propertyDetails && hash && !isLoading && (
+      {propertyDetails && !isPropertyDetailsLoading && (
         <div>
-          <PropertySummaryHead propertyDetails={propertyDetails} hash={hash} isActive="holders" />
           {sortedBalances && sortedBalances.length > 0 && (
             <div className="grid grid-cols-2 gap-sm">
               {sortedBalances.map(pb => (
@@ -50,9 +48,9 @@ const PropertyHoldersPage: React.FC<PropertyHoldersPageProps> = () => {
           )}
         </div>
       )}
-      {isLoading && <SectionLoading />}
+      {isPropertyDetailsLoading && <SectionLoading />}
       {balancesError && <span>{balancesError}</span>}
-      {detailsError && <span>{detailsError}</span>}
+      {propertyDetailsError && <span>{propertyDetailsError}</span>}
     </>
   )
 }

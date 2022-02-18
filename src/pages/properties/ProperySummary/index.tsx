@@ -1,18 +1,17 @@
 import React from 'react'
 import { FaExternalLinkAlt, FaGithub, FaQuestionCircle, FaYoutube } from 'react-icons/fa'
-import { Market } from '../../const'
-import { PropertyDetails } from '../../hooks/usePropertyDetails'
-import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
-import DPLTitleBar from '../DPLTitleBar'
-import { NavTabItem, NavTabs } from '../NavTabs'
+import { Market } from '../../../const'
+import { PropertyDetails } from '../../../hooks/usePropertyDetails'
+import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../../utils/utils'
+import DPLTitleBar from '../../../components/DPLTitleBar'
+import { NavTabItem, NavTabs } from '../../../components/NavTabs'
 
 interface PropertySummaryHeadProps {
   propertyDetails: PropertyDetails
   hash: string
-  isActive: 'details' | 'holders'
 }
 
-const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetails, hash, isActive }) => {
+const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetails, hash }) => {
   return (
     <>
       <div className="flex items-center justify-between">
@@ -55,8 +54,8 @@ const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetai
         </a>
       </div>
       <NavTabs>
-        <NavTabItem title="Details" isActive={isActive === 'details'} path={`/properties/${hash}`} />
-        <NavTabItem title="Holders" isActive={isActive === 'holders'} path={`/properties/${hash}/holders`} />
+        <NavTabItem title="Details" path={`/properties/${hash}`} />
+        <NavTabItem title="Holders" path={`/properties/${hash}/holders`} />
       </NavTabs>
     </>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Card from '../../components/Card'
-import { isNumberInput } from '../../utils/utils'
+import Card from '../../../components/Card'
+import { isNumberInput } from '../../../utils/utils'
 
 interface StakeOptionProps {
   optionName: string

@@ -1,23 +1,16 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import DPLTitleBar from '../../components/DPLTitleBar'
-import { FaQuestionCircle, FaGithub, FaExternalLinkAlt, FaYoutube } from 'react-icons/fa'
-import { Market } from '../../const'
-import { usePropertyDetails } from '../../hooks/usePropertyDetails'
 import StakeOption from './StakeOption'
-import HowItWorks from '../../components/HowItWorks'
-import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../utils/utils'
-import { SectionLoading } from '../../components/Spinner'
-import { DPLHr } from '../../components/DPLHr'
-import { TweetLarge } from '../../components/Tweet'
-import { NavTabItem, NavTabs } from '../../components/NavTabs'
-import PropertySummary from '../../components/ProperySummary'
+import HowItWorks from '../../../components/HowItWorks'
+import { DPLHr } from '../../../components/DPLHr'
+import { TweetLarge } from '../../../components/Tweet'
+import { usePropertyOutlet } from '..'
 
 interface TokenProps {}
 
-const PropertyPage: React.FC<TokenProps> = () => {
+const PropertyOverviewPage: React.FC<TokenProps> = () => {
   const { hash } = useParams()
-  const { propertyDetails, isLoading, error } = usePropertyDetails(hash)
+  const { propertyDetails, propertyDetailsError } = usePropertyOutlet()
   const options = [
     {
       amount: 10,
@@ -42,10 +35,8 @@ const PropertyPage: React.FC<TokenProps> = () => {
 
   return (
     <div>
-      {propertyDetails && hash && !isLoading && (
+      {propertyDetails && hash && (
         <>
-          <PropertySummary propertyDetails={propertyDetails} hash={hash} isActive="details" />
-
           <div className="mb-24 grid grid-cols-1 gap-sm sm:grid-cols-2">
             {hash &&
               options.map(option => (
@@ -74,11 +65,9 @@ const PropertyPage: React.FC<TokenProps> = () => {
         </>
       )}
 
-      {isLoading && <SectionLoading />}
-
-      {error && <div className="text-red-500">{error}</div>}
+      {propertyDetailsError && <div className="text-red-500">{propertyDetailsError}</div>}
     </div>
   )
 }
 
-export default PropertyPage
+export default PropertyOverviewPage

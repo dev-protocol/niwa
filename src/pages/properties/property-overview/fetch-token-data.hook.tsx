@@ -1,8 +1,8 @@
 import { whenDefinedAll } from '@devprotocol/util-ts'
 import useSWR from 'swr'
-import { SWRCachePath } from '../../const/cache-path'
-import { useProvider } from '../../context/walletContext'
-import { getPropertyData } from '../../utils/utils'
+import { SWRCachePath } from '../../../const/cache-path'
+import { useProvider } from '../../../context/walletContext'
+import { getPropertyData } from '../../../utils/utils'
 
 export const usePropertyData = (propertyAddress?: string) => {
   const { nonConnectedEthersProvider } = useProvider()
