@@ -26,7 +26,7 @@ const PropertyOutlet: React.FC<PropertyOutletProps> = () => {
     <div>
       {hash && propertyDetails && !isLoading && (
         <>
-          <PropertySummaryHead propertyDetails={propertyDetails} hash={hash} isActive="details" />
+          <PropertySummaryHead propertyDetails={propertyDetails} hash={hash} />
           <Outlet context={{ propertyDetails, isPropertyDetailsLoading: isLoading, propertyDetailsError: error }} />
         </>
       )}
