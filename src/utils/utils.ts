@@ -1,6 +1,6 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { ethers, providers } from 'ethers'
+import { BigNumber, ethers, providers, utils } from 'ethers'
 import { DEPLOYMENTS, Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
@@ -198,4 +198,11 @@ export const getMajorDexUrl = () => {
     case 'polygon-mumbai':
       return undefined
   }
+}
+
+export const toDisplayAmount = (amount: number | string) => {
+  const formatted = utils.formatUnits(amount)
+  return BigNumber.from(+formatted)
+    .toNumber()
+    .toLocaleString()
 }

@@ -3,10 +3,9 @@ import { Market } from '../../const'
 import { FaGithub, FaYoutube } from 'react-icons/fa'
 import { PropertyContract } from '@devprotocol/dev-kit/l2'
 import { AddressContractContainer } from '../../types/AddressContractContainer'
-import { utils, BigNumber } from 'ethers'
 import { Link } from 'react-router-dom'
 import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { crunchAddress } from '../../utils/utils'
+import { crunchAddress, toDisplayAmount } from '../../utils/utils'
 import Card from '../../components/Card'
 import { SectionLoading } from '../../components/Spinner'
 
@@ -22,21 +21,10 @@ const UserTokenListItem: FunctionComponent<UserTokenListItemProps> = ({ property
 
   const { propertyDetails, isLoading, error } = usePropertyDetails(property.address)
 
-  const bnFormatString = (amount: string) => {
-    const formatted = utils.formatUnits(amount)
-    return BigNumber.from(+formatted)
-      .toNumber()
-      .toLocaleString()
-  }
-
-  useEffect(() => {
-    console.log('property details are: ', propertyDetails)
-  }, [propertyDetails])
-
   useEffect(() => {
     ;(async () => {
-      setSupply(bnFormatString(await contract.totalSupply()))
-      setUserHoldAmount(bnFormatString(await contract.balanceOf(userAddress)))
+      setSupply(toDisplayAmount(await contract.totalSupply()))
+      setUserHoldAmount(toDisplayAmount(await contract.balanceOf(userAddress)))
     })()
   }, [contract, userAddress])
 
