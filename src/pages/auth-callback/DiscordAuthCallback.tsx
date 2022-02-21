@@ -134,7 +134,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
       {verifyData && guildData ? (
         <div>
           <div>
-            {guildData.length === 0 && <p>Owner Guild is not found</p>}
+            {guildData.length === 0 && <p>You do not have your own discord guild</p>}
             <form className="flex flex-col gap-4">
               {guildData.map((d: any, idx: number) => {
                 return (
