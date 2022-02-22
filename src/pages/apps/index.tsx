@@ -3,7 +3,7 @@ import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import AppGridItem from './AppGridItem'
 import StakesSocial from '../../img/Stakes-social.svg'
-import UZomia from '../../img/uzomia.svg'
+import UZomia from '../../img/uzomia.png'
 
 interface AppsPageProps {}
 
