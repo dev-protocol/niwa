@@ -69,6 +69,7 @@ describe(`utils`, () => {
       marketOptions: UndefinedOr<{
         github: string
         youtube: string // arbitrum testnet
+        discord: string
       }>
 
     beforeEach(async () => {

@@ -2,12 +2,21 @@ import { MarketContract } from '@devprotocol/dev-kit/l2'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { useState } from 'react'
 import useSWR from 'swr'
+import { Market } from '../const'
 import { SWRCachePath } from '../const/cache-path'
 import { useProvider } from '../context/walletContext'
 import { AddressContractContainer } from '../types/AddressContractContainer'
 import { getMarketFromString, getPropertyData, matchMarketToAsset } from '../utils/utils'
 import { getEnabledMarkets } from './useEnabledMarkets'
 import { getAssetsByProperties } from './useMetrics'
+
+export type PropertyDetails = {
+  propertyName: string
+  propertySymbol: string
+  id: UndefinedOr<string>
+  marketAddress: string
+  market: Market
+}
 
 export const usePropertyDetails = (propertyAddress?: string) => {
   const { nonConnectedEthersProvider } = useProvider()

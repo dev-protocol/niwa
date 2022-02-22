@@ -1,6 +1,6 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { ethers, providers } from 'ethers'
+import { BigNumber, ethers, providers, utils } from 'ethers'
 import { DEPLOYMENTS, Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
@@ -70,6 +70,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
 type MarketAddressOptions = {
   github: string
   youtube: string
+  discord: string
 }
 
 export const getNetworkMarketAddresses = async (
@@ -97,6 +98,9 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
 
     case Market.YOUTUBE:
       return options.youtube
+
+    case Market.DISCORD:
+      return options.discord
 
     default:
       return
@@ -205,4 +209,11 @@ export const getMajorDexUrl = () => {
     case 'polygon-mumbai':
       return undefined
   }
+}
+
+export const toDisplayAmount = (amount: number | string) => {
+  const formatted = utils.formatUnits(amount)
+  return BigNumber.from(+formatted)
+    .toNumber()
+    .toLocaleString()
 }
