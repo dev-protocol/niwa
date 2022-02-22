@@ -70,6 +70,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
 type MarketAddressOptions = {
   github: string
   youtube: string
+  discord: string
 }
 
 export const getNetworkMarketAddresses = async (
@@ -97,6 +98,9 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
 
     case Market.YOUTUBE:
       return options.youtube
+
+    case Market.DISCORD:
+      return options.discord
 
     default:
       return
