@@ -2,7 +2,6 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 import React from 'react'
 import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
-import PropertySummaryHead from './ProperySummary'
 import { SectionLoading } from '../../components/Spinner'
 import { PropertyDetails, usePropertyDetails } from '../../hooks/usePropertyDetails'
 
@@ -26,7 +25,6 @@ const PropertyOutlet: React.FC<PropertyOutletProps> = () => {
     <div>
       {hash && propertyDetails && !isLoading && (
         <>
-          <PropertySummaryHead propertyDetails={propertyDetails} hash={hash} />
           <Outlet context={{ propertyDetails, isPropertyDetailsLoading: isLoading, propertyDetailsError: error }} />
         </>
       )}

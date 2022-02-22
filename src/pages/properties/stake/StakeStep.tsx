@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
-import HSButton from '../../components/HSButton'
+import HSButton from '../../../components/HSButton'
 
 interface StakeStepProps {
   isComplete: boolean
