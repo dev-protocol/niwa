@@ -27,6 +27,7 @@ import Footer from './components/Footer'
 import PropertyHoldersPage from './pages/properties/property-holders'
 import PropertyOutlet from './pages/properties'
 import PropertyTabsContainer from './pages/properties/PropertyTabsContainer'
+import AppsPage from './pages/apps'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -70,6 +71,7 @@ function App() {
                     <TokenizeProvider>
                       <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/apps" element={<AppsPage />} />
                         <Route path="/:userAddress" element={<UserPropertiesListPage />} />
                         <Route path="/:userAddress/positions" element={<UserPositionsListPage />} />
 
