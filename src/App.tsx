@@ -3,7 +3,7 @@ import Home from './pages/home'
 import UserPropertiesListPage from './pages/user-properties-list'
 import UserPositionsListPage from './pages/user-positions-list'
 import GrowthPage from './pages/growth'
-import PropertyPage from './pages/property'
+import PropertyOverviewPage from './pages/properties/property-overview'
 import TokenizeMarketSelect from './pages/tokenize-market-select'
 import TokenizeFormPage from './pages/tokenize-form'
 import TokenizeSubmit from './pages/tokenize-submit'
@@ -24,6 +24,8 @@ import MarkdownPage from './pages/markdown-page'
 import { ReactComponent as PrivacyPolicy } from '../PRIVACY-POLICY.md'
 import { ReactComponent as TermsAndConditions } from '../TERMS-AND-CONDITIONS.md'
 import Footer from './components/Footer'
+import PropertyHoldersPage from './pages/properties/property-holders'
+import PropertyOutlet from './pages/properties'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -69,8 +71,12 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/:userAddress" element={<UserPropertiesListPage />} />
                         <Route path="/:userAddress/positions" element={<UserPositionsListPage />} />
+
+                        <Route path="/properties/:hash" element={<PropertyOutlet />}>
+                          <Route index element={<PropertyOverviewPage />} />
+                          <Route path="holders" element={<PropertyHoldersPage />} />
+                        </Route>
                         <Route path="/properties/:hash/stake" element={<StakePage />} />
-                        <Route path="/properties/:hash" element={<PropertyPage />} />
                         <Route path="/growth" element={<GrowthPage />} />
                         <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                         <Route path="/tokenize/:market" element={<TokenizeFormPage />} />

@@ -10,7 +10,7 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@devprotocol/dev-kit": "^6.0.5",
+    "@devprotocol/dev-kit": "^6.0.6",
     "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
     "@metamask/detect-provider": "^1.2.0",
@@ -51,7 +51,7 @@
     "prettier": "2.5.1",
     "prettier-plugin-tailwindcss": "0.1.7",
     "typescript": "4.5.5",
-    "vite": "2.8.3",
+    "vite": "2.8.4",
     "vite-plugin-markdown": "2.0.2",
     "vitest": "0.3.5"
   },
