@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import HomeNavItem from '../../components/HomeNavItem'
 import HSButton from '../../components/HSButton'
 import Eyecatching from '../../img/og.png'
@@ -11,9 +10,9 @@ const NetworkSelectPage: React.FC<NetworkSelectPageProps> = () => {
     <article className="grid gap-6">
       <section className="grid gap-4">
         <img src={Eyecatching} className="rounded-lg shadow"></img>
-        <p>
+        <p className="text-center">
           <HSButton link="/how-it-works" type="filled">
-            Connect Wallet
+            How it works
           </HSButton>
         </p>
       </section>
