@@ -44,7 +44,7 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
       {assetName && personalAccessToken ? (
         <>
           <div className="my-8 grid grid-cols-1 gap-sm md:grid-cols-2">
-            <p>Channel ID: {assetName}</p>
+            <p>Server ID: {assetName}</p>
           </div>
           <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
             <FormField
