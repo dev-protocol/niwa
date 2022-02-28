@@ -1,5 +1,6 @@
 import React from 'react'
 import HomeNavItem from '../../components/HomeNavItem'
+import Eyecatching from '../../img/og.png'
 
 interface NetworkSelectPageProps {}
 
@@ -7,7 +8,7 @@ const NetworkSelectPage: React.FC<NetworkSelectPageProps> = () => {
   return (
     <article className="grid gap-6">
       <section>
-        <img src="/src/img/og.png" className="rounded-lg shadow"></img>
+        <img src={Eyecatching} className="rounded-lg shadow"></img>
       </section>
       <section className="grid gap-4">
         <h2 className="text-6xl font-bold">Choose network</h2>
