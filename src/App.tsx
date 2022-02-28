@@ -28,6 +28,7 @@ import PropertyHoldersPage from './pages/properties/property-holders'
 import PropertyOutlet from './pages/properties'
 import PropertyTabsContainer from './pages/properties/PropertyTabsContainer'
 import AppsPage from './pages/apps'
+import HowItWorksPage from './pages/how-it-works'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -50,6 +51,7 @@ function App() {
                       path="/terms-and-conditions"
                       element={<MarkdownPage>{<TermsAndConditions />}</MarkdownPage>}
                     />
+                    <Route path="/how-it-works" element={<HowItWorksPage />} />
                     <Route path="/*" element={<Navigate to="/" />} />
                   </Routes>
                 </main>
