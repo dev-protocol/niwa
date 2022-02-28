@@ -59,7 +59,8 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
     const pubSig = await createKhaosPubSign({
       assetName,
       personalAccessToken,
-      signId: market === Market.YOUTUBE ? 'youtube-market' : 'github-market'
+      signId:
+        market === Market.YOUTUBE ? 'youtube-market' : market === Market.DISCORD ? 'discord-market' : 'github-market'
     })
     if (!pubSig) {
       setError('No pubsig found')

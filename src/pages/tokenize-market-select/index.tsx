@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeLink from './TokenizeLink'
-import { FaGithub, FaLightbulb, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaDiscord, FaGithub, FaLightbulb, FaTwitter, FaYoutube } from 'react-icons/fa'
 import TitleSubSection from '../../components/TitleSubSection'
 
 interface TokenizeMarketSelectProps {}
@@ -32,6 +32,13 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
             details="Tokenize your YouTube channel to pursue what you love"
             disabled={false}
             path="/tokenize/youtube"
+          />
+
+          <TokenizeLink
+            title="Discord"
+            icon={<FaDiscord color="#7289da" size="24px" />}
+            details="Tokenize your Discord Guild to pursue what you love"
+            path="/tokenize/discord"
           />
 
           <TokenizeLink

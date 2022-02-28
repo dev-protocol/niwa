@@ -14,6 +14,9 @@ export const getMarketFromString = (market: UndefinedOr<string>): Market => {
     case Market.YOUTUBE:
       return Market.YOUTUBE
 
+    case Market.DISCORD:
+      return Market.DISCORD
+
     default:
       return Market.INVALID
   }
@@ -26,6 +29,9 @@ export const marketToReadable = (market: UndefinedOr<Market>): string => {
 
     case Market.YOUTUBE:
       return 'YouTube'
+
+    case Market.DISCORD:
+      return 'Discord'
 
     default:
       return 'Invalid'
@@ -64,6 +70,7 @@ export const mapProviderToDevContracts = async (provider: ethers.providers.BaseP
 type MarketAddressOptions = {
   github: string
   youtube: string
+  discord: string
 }
 
 export const getNetworkMarketAddresses = async (
@@ -92,6 +99,9 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
     case Market.YOUTUBE:
       return options.youtube
 
+    case Market.DISCORD:
+      return options.discord
+
     default:
       return
   }
@@ -117,10 +127,11 @@ export const isError = (err: unknown): err is Error => err instanceof Error
 export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
 export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
 
-export const infuraEndpoint = () => `${infuraBaseEndpoint}/${infuraProjectId}`
+export const infuraEndpoint = () =>
+  infuraBaseEndpoint && infuraProjectId ? `${infuraBaseEndpoint}/${infuraProjectId}` : undefined
 
 export const getPropertyData = async (provider: providers.JsonRpcProvider, address: string) => {
-  return await createPropertyContract(provider)(address)
+  return createPropertyContract(provider)(address)
 }
 
 export const matchMarketToAsset = (targetMarket: string, assetProperties: AssetProperty[]) => {
