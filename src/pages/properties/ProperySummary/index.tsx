@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaExternalLinkAlt, FaGithub, FaQuestionCircle, FaYoutube } from 'react-icons/fa'
+import { FaDiscord, FaExternalLinkAlt, FaGithub, FaQuestionCircle, FaYoutube } from 'react-icons/fa'
 import { Market } from '../../../const'
 import { PropertyDetails } from '../../../hooks/usePropertyDetails'
 import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../../utils/utils'
@@ -39,6 +39,18 @@ const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetai
               </a>
             </>
           )}
+
+          {propertyDetails.market === Market.DISCORD && (
+            <>
+              <FaDiscord color="#5865F2" />
+              <a href={`https://discord.com/channels/${propertyDetails?.id}`} target="_blank" rel="noreferrer">
+                <span className="ml-1 font-bold">{`discord.com/channels/${crunchAddress(
+                  propertyDetails?.id ?? ''
+                )}`}</span>
+              </a>
+            </>
+          )}
+
           {propertyDetails.market === Market.INVALID && <FaQuestionCircle color="#333" />}
         </div>
       </div>
