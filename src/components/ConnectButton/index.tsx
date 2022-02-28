@@ -80,9 +80,9 @@ const ConnectButton: React.FC<ConnectButtonParams> = () => {
               </div>
             )}
             {!isValidConnectedNetwork && (
-              <div className="align-center flex">
-                <FaExclamationTriangle className="text-danger-400" />
-                <div className="text-danger-400 ml-xs">
+              <div className="flex items-center">
+                <FaExclamationTriangle className="text-red-400" />
+                <div className="text-danger-400 ml-1">
                   Connect Wallet to <span className="uppercase">{deployedNetworkToReadable()}</span>
                 </div>
               </div>

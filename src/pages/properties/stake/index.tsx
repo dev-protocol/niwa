@@ -3,18 +3,18 @@ import { BigNumber, constants, utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { FaExclamationTriangle } from 'react-icons/fa'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import BackButton from '../../components/BackButton'
-import Card from '../../components/Card'
-import { DPLHr } from '../../components/DPLHr'
-import DPLTitleBar from '../../components/DPLTitleBar'
-import HowItWorks from '../../components/HowItWorks'
-import { SectionLoading } from '../../components/Spinner'
-import { ERROR_MSG } from '../../const'
-import { useProvider } from '../../context/walletContext'
-import { useDevAllowance } from '../../hooks/useAllowance'
-import { useDevApprove } from '../../hooks/useApprove'
-import { usePropertyDetails } from '../../hooks/usePropertyDetails'
-import { isNumberInput, mapProviderToDevContracts } from '../../utils/utils'
+import BackButton from '../../../components/BackButton'
+import Card from '../../../components/Card'
+import { DPLHr } from '../../../components/DPLHr'
+import DPLTitleBar from '../../../components/DPLTitleBar'
+import HowItWorks from '../../../components/HowItWorks'
+import { SectionLoading } from '../../../components/Spinner'
+import { ERROR_MSG } from '../../../const'
+import { useProvider } from '../../../context/walletContext'
+import { useDevAllowance } from '../../../hooks/useAllowance'
+import { useDevApprove } from '../../../hooks/useApprove'
+import { usePropertyDetails } from '../../../hooks/usePropertyDetails'
+import { isNumberInput, mapProviderToDevContracts } from '../../../utils/utils'
 import StakeStep from './StakeStep'
 import { useLockup } from './useLockup'
 
@@ -22,10 +22,8 @@ interface StakePageProps {}
 
 const StakePage: React.FC<StakePageProps> = () => {
   const [searchParams] = useSearchParams()
-  const { hash } = useParams()
   const [amount, setAmount] = useState(0)
   const [error, setError] = useState<UndefinedOr<string>>()
-  const { propertyDetails, isLoading, error: propertyDetailsError } = usePropertyDetails(hash)
   const { ethersProvider, isValidConnectedNetwork } = useProvider()
   const { lockup, isLoading: lockupLoading } = useLockup()
   const [isStakingComplete, setIsStakingComplete] = useState(false)
@@ -34,6 +32,9 @@ const StakePage: React.FC<StakePageProps> = () => {
   const { approve, isLoading: approveIsLoading, error: approveError } = useDevApprove()
   const [allowance, setAllowance] = useState<UndefinedOr<BigNumber>>()
   const navigate = useNavigate()
+
+  const { hash } = useParams()
+  const { propertyDetails, isLoading, error: propertyDetailsError } = usePropertyDetails(hash)
 
   useEffect(() => {
     if (!ethersProvider) {
@@ -111,12 +112,12 @@ const StakePage: React.FC<StakePageProps> = () => {
 
   return (
     <>
-      {!isLoading && propertyDetails && (
+      {propertyDetails && (
         <div>
           <BackButton title="Back" path={`/properties/${hash}`} />
           <DPLTitleBar title={`Stake ${amount} on ${propertyDetails.propertyName}`} className="mb-md" />
           <div className="mb-md flex w-full">
-            {!ethersProvider && (
+            {(!ethersProvider || !isValidConnectedNetwork) && (
               <div className="my-lg w-full">
                 <Card isDisabled={true}>
                   <div className="my-lg flex items-center justify-center py-lg">
@@ -126,7 +127,7 @@ const StakePage: React.FC<StakePageProps> = () => {
                 </Card>
               </div>
             )}
-            {ethersProvider && (
+            {ethersProvider && isValidConnectedNetwork && (
               <div className="grid gap-24">
                 <StakeStep
                   name="Approve"

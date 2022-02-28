@@ -12,6 +12,7 @@ const Home: React.FC<HomeProps> = () => {
         message="Launch your property tokens with Proof of Ownership"
         isExternal={false}
       />
+      <HomeNavItem title="Apps" path="/apps" message="Find ways to grow your project" isExternal={false} />
       <HomeNavItem
         title="Share"
         isDisabled={true}
@@ -19,7 +20,6 @@ const Home: React.FC<HomeProps> = () => {
         isExternal={false}
       />
       <HomeNavItem title="Perks" isDisabled={true} message="Offer perks and get more support" isExternal={false} />
-      <HomeNavItem title="Apps" isDisabled={true} message="Find ways to grow your project" isExternal={false} />
     </section>
   )
 }

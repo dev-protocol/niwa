@@ -16,7 +16,7 @@ import { useWalletProviderContext, WalletContext } from './context/walletContext
 import { TokenizeProvider } from './context/tokenizeContext'
 
 import PageNotFound from './pages/errors/404'
-import StakePage from './pages/stake'
+import StakePage from './pages/properties/stake'
 import NetworkSelectPage from './pages/network-select'
 import { Background } from './components/Background'
 import WaitMarketPage from './pages/wait-market'
@@ -26,6 +26,8 @@ import { ReactComponent as TermsAndConditions } from '../TERMS-AND-CONDITIONS.md
 import Footer from './components/Footer'
 import PropertyHoldersPage from './pages/properties/property-holders'
 import PropertyOutlet from './pages/properties'
+import PropertyTabsContainer from './pages/properties/PropertyTabsContainer'
+import AppsPage from './pages/apps'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -69,14 +71,17 @@ function App() {
                     <TokenizeProvider>
                       <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/apps" element={<AppsPage />} />
                         <Route path="/:userAddress" element={<UserPropertiesListPage />} />
                         <Route path="/:userAddress/positions" element={<UserPositionsListPage />} />
 
                         <Route path="/properties/:hash" element={<PropertyOutlet />}>
-                          <Route index element={<PropertyOverviewPage />} />
-                          <Route path="holders" element={<PropertyHoldersPage />} />
+                          <Route path="/properties/:hash/stake" element={<StakePage />} />
+                          <Route path="" element={<PropertyTabsContainer />}>
+                            <Route index element={<PropertyOverviewPage />} />
+                            <Route path="holders" element={<PropertyHoldersPage />} />
+                          </Route>
                         </Route>
-                        <Route path="/properties/:hash/stake" element={<StakePage />} />
                         <Route path="/growth" element={<GrowthPage />} />
                         <Route path="/tokenize" element={<TokenizeMarketSelect />} />
                         <Route path="/tokenize/:market" element={<TokenizeFormPage />} />

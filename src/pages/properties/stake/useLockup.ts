@@ -1,8 +1,8 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { BigNumber, providers } from 'ethers'
 import { useCallback, useState } from 'react'
-import { ERROR_MSG } from '../../const'
-import { useProvider } from '../../context/walletContext'
+import { ERROR_MSG } from '../../../const'
+import { useProvider } from '../../../context/walletContext'
 import { positionsCreate } from '@devprotocol/dev-kit/agent'
 
 export const lockup = async ({
