@@ -1,13 +1,20 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext, useEffect } from 'react'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeLink from './TokenizeLink'
 import { FaDiscord, FaGithub, FaLightbulb, FaTwitter, FaYoutube } from 'react-icons/fa'
 import TitleSubSection from '../../components/TitleSubSection'
+import { TokenizeContext } from '../../context/tokenizeContext'
 
 interface TokenizeMarketSelectProps {}
 
 const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () => {
+  const { reset } = useContext(TokenizeContext)
+
+  useEffect(() => {
+    reset()
+  }, [reset])
+
   return (
     <div>
       <BackButton title="Home" path="/" />

@@ -4,6 +4,7 @@ import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
+import { FORM_HINT } from '../../const'
 
 interface DiscordFormProps {}
 
@@ -83,7 +84,7 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
                 }
               }}
             >
-              <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+              <span className="text-sm">{FORM_HINT.symbol_length}</span>
             </FormField>
           </div>
           <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />

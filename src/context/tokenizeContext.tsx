@@ -24,6 +24,7 @@ export type ITokenize = {
   validateForm: () => void
   agreedToTerms: boolean
   setAgreedToTerms: Dispatch<SetStateAction<boolean>>
+  reset: () => void
 }
 
 const tokenize: ITokenize = {
@@ -43,7 +44,8 @@ const tokenize: ITokenize = {
   setAddress: () => {},
   validateForm: () => {},
   agreedToTerms: false,
-  setAgreedToTerms: () => {}
+  setAgreedToTerms: () => {},
+  reset: () => {}
 }
 
 export const TokenizeContext = React.createContext(tokenize)
@@ -117,6 +119,15 @@ export const TokenizeProvider: React.FC = ({ children }) => {
 
   useEffect(() => validateForm(), [assetName, tokenName, tokenSymbol, personalAccessToken, validateForm])
 
+  const reset = () => {
+    setAssetName('')
+    setTokenName('')
+    setTokenSymbol('')
+    setPersonalAccessToken('')
+    setIsValid(false)
+    setAgreedToTerms(false)
+  }
+
   return (
     <TokenizeContext.Provider
       value={{
@@ -136,7 +147,8 @@ export const TokenizeProvider: React.FC = ({ children }) => {
         setAddress,
         validateForm,
         agreedToTerms,
-        setAgreedToTerms
+        setAgreedToTerms,
+        reset
       }}
     >
       {children}

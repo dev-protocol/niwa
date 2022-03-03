@@ -5,6 +5,7 @@ import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import { isValidNetwork } from '../../utils/utils'
 import TermsCheckBox from './TermsCheckBox'
+import { FORM_HINT } from '../../const'
 
 interface GithubFormProps {}
 
@@ -83,7 +84,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
             }
           }}
         >
-          <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+          <span className="text-sm">{FORM_HINT.symbol_length}</span>
         </FormField>
         <div>
           <FormField
