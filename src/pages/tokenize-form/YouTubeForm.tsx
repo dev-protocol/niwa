@@ -5,6 +5,7 @@ import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
 import gLogo from '../../img/g-logo.png'
+import { FORM_HINT } from '../../const'
 
 interface YouTubeFormProps {}
 
@@ -86,7 +87,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
                 }
               }}
             >
-              <span className="text-sm">Symbol should be 3 to 4 characters long (for example DEV)</span>
+              <span className="text-sm">{FORM_HINT.symbol_length}</span>
             </FormField>
           </div>
           <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />

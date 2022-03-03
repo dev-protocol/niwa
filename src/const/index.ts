@@ -15,6 +15,10 @@ export const ERROR_MSG = {
   no_property_address: 'No property address found'
 } as const
 
+export const FORM_HINT = {
+  symbol_length: 'Symbol should be 3 to 4 characters long (for example DEV)'
+} as const
+
 export const DEPLOYMENTS = {
   arbitrum_rinkeby: 'https://arbitrum-rinkeby.niwa.xyz',
   arbitrum_one: 'https://arbitrum.niwa.xyz',
