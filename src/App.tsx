@@ -29,6 +29,7 @@ import PropertyOutlet from './pages/properties'
 import PropertyTabsContainer from './pages/properties/PropertyTabsContainer'
 import AppsPage from './pages/apps'
 import HowItWorksPage from './pages/how-it-works'
+import PropertyStakersPage from './pages/properties/property-stakers'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
@@ -82,6 +83,7 @@ function App() {
                           <Route path="" element={<PropertyTabsContainer />}>
                             <Route index element={<PropertyOverviewPage />} />
                             <Route path="holders" element={<PropertyHoldersPage />} />
+                            <Route path="stakers" element={<PropertyStakersPage />} />
                           </Route>
                         </Route>
                         <Route path="/growth" element={<GrowthPage />} />
@@ -96,6 +98,7 @@ function App() {
                           element={<MarkdownPage>{<TermsAndConditions />}</MarkdownPage>}
                         />
                         <Route path="/404" element={<PageNotFound />} />
+                        <Route path="*" element={<Navigate replace to="/404" />} />
                       </Routes>
                     </TokenizeProvider>
                   </main>

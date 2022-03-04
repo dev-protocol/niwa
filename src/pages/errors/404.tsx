@@ -1,4 +1,6 @@
 import React from 'react'
+import BackButton from '../../components/BackButton'
+import DPLTitleBar from '../../components/DPLTitleBar'
 
 interface PageNotFoundProps {
   // Props
@@ -6,9 +8,10 @@ interface PageNotFoundProps {
 
 const PageNotFound: React.FC<PageNotFoundProps> = () => {
   return (
-    <div className="grid-center">
-      <h1>404</h1>
-      <h4>Page Not Found</h4>
+    <div>
+      <BackButton title="Home" path="/" />
+      <DPLTitleBar title="Page Not found" />
+      <p>Sorry, we could not find the page you were looking for.</p>
     </div>
   )
 }

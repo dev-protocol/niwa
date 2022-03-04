@@ -213,7 +213,6 @@ export const getMajorDexUrl = () => {
 
 export const toDisplayAmount = (amount: number | string) => {
   const formatted = utils.formatUnits(amount)
-  return BigNumber.from(+formatted)
-    .toNumber()
-    .toLocaleString()
+  const rounded = Math.round((+formatted + Number.EPSILON) * 100) / 100
+  return rounded.toLocaleString()
 }
