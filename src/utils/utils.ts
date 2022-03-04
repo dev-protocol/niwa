@@ -1,6 +1,6 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { BigNumber, ethers, providers, utils } from 'ethers'
+import { ethers, providers, utils } from 'ethers'
 import { DEPLOYMENTS, Market } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
