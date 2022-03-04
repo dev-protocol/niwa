@@ -21,15 +21,10 @@ export const getSTokensPositionsOfProperty = async (
   const ownerCalls = positionsOfProperty.map(id => contract.ownerOf(id))
   const positions = await Promise.all([...positionsCalls])
   const owners = await Promise.all([...ownerCalls])
-
-  console.log('positions are: ', positions)
-  console.log('owners are: ', owners)
   const res = positions.map((pos, i) => ({
     owner: owners[i],
     ...pos
   }))
-  console.log('res is: ', res)
-
   return res
 }
 
