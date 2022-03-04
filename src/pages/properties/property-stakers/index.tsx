@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Card from '../../../components/Card'
 import Detail from '../../../components/Detail'
 import { crunchAddress, toDisplayAmount } from '../../../utils/utils'
@@ -23,7 +23,10 @@ const PropertyStakersPage: React.FC<PropertyStakersPageProps> = () => {
           sTokensPositionsOfProperty.map((pos, i) => (
             <Card key={i}>
               <div className="grid grid-cols-2 gap-1">
-                <Detail label="Owner" valueElem={<span>{crunchAddress(pos.owner)}</span>} />
+                <Link to={`/${pos.owner}`}>
+                  <Detail label="Owner" valueElem={<span>{crunchAddress(pos.owner)}</span>} />
+                </Link>
+
                 <Detail label="Amount" valueElem={<span>{toDisplayAmount(pos.amount)}</span>} />
                 <Detail label="Pending Reward" valueElem={<span>{toDisplayAmount(pos.pendingReward)}</span>} />
                 <Detail label="Cumulative Reward" valueElem={<span>{toDisplayAmount(pos.cumulativeReward)}</span>} />
