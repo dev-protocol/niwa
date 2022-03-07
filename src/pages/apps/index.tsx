@@ -1,38 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import AppGridItem from './AppGridItem'
-import StakesSocial from '../../img/Stakes-social.svg'
-import UZomia from '../../img/uzomia.png'
-import Chainwiz from '../../img/chainwiz.png'
+import { UndefinedOr } from '@devprotocol/util-ts'
+import Card from '../../components/Card'
 
 interface AppsPageProps {}
 
+export type AppItem = {
+  name: string
+  url: string
+  description: string
+  logoUrl: string
+}
+
 const AppsPage: React.FC<AppsPageProps> = () => {
+  const [apps, setApps] = useState<AppItem[]>([])
+  const [error, setError] = useState<UndefinedOr<string>>()
+
+  useEffect(() => {
+    fetchAppsList()
+  }, [])
+
+  const fetchAppsList = async () => {
+    try {
+      const res = await fetch('https://raw.githubusercontent.com/dev-protocol/niwa/main/dapps.json')
+      const appsList: AppItem[] = await res.json()
+      setApps(appsList)
+    } catch (error) {
+      setError(String(error))
+      console.error('error fetching apps list: ', error)
+    }
+  }
+
   return (
     <div>
       <BackButton title="Home" path="/" />
       <DPLTitleBar title="Apps using Dev Protocol" className="mb-md" />
       <div className="grid grid-cols-1 gap-sm sm:grid-cols-2">
-        <AppGridItem
-          title="Stakes Social"
-          url="https://stakes.social"
-          description="Explore projects and support your favorite creators"
-          logo={StakesSocial}
-        />
-        <AppGridItem
-          title="μ-zomia"
-          url="https://mzomia.social/"
-          description="μ-zomia is a platform and community for people who love music, people who are involved in music, and people who want to support it to support each other."
-          logo={UZomia}
-        />
-        <AppGridItem
-          title="Chainwiz"
-          url="https://www.chainwhiz.app/"
-          description="Chainwhiz is an open-source bounty marketplace connecting Web3 projects with builders and communities. Work on bounties from fields like Front End, Back End, Design, Article-writing, and others and get paid in cryptocurrency."
-          logo={Chainwiz}
-        />
+        {apps.map(app => (
+          <AppGridItem key={app.url} title={app.name} url={app.url} description={app.description} logo={app.logoUrl} />
+        ))}
       </div>
+      {error && (
+        <Card>
+          <p className="text-red">{error}</p>
+        </Card>
+      )}
     </div>
   )
 }
