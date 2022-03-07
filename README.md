@@ -39,3 +39,7 @@ VITE_DISCORD_AUTH_REDIRECT_URI=http://HOST:PORT/auth/discord/callback
 
 See also:
 https://discord.com/developers/docs/topics/oauth2
+
+### Adding your dApp to the Apps Page
+
+Create a PR with your dapp added in `dapps.json` file in the root directory.

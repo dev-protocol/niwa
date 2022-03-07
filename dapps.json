@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Stakes Social",
+        "url": "https://stakes.social",
+        "description": "Explore projects and support your favorite creators",
+        "logoUrl": "/img/Stakes.social.svg"
+    },
+    {
+        "name": "μ-zomia",
+        "url": "https://mzomia.social/",
+        "description": "μ-zomia is a platform and community for people who love music, people who are involved in music, and people who want to support it to support each other.",
+        "logoUrl": "/img/uzomia.png"
+    },
+    {
+        "name": "Chainwiz",
+        "url": "https://www.chainwhiz.app/",
+        "description": "Chainwhiz is an open-source bounty marketplace connecting Web3 projects with builders and communities. Work on bounties from fields like Front End, Back End, Design, Article-writing, and others and get paid in cryptocurrency.",
+        "logoUrl": "/img/chainwiz.png"
+    }
+]
