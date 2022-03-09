@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Market } from '../../const'
+import { Market, TOKENIZE_STEP_LABELS } from '../../const'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import GithubForm from './GithubForm'
@@ -10,6 +10,7 @@ import BackButton from '../../components/BackButton'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import TitleSubSection from '../../components/TitleSubSection'
 import { FaDiscord, FaGithub, FaYoutube } from 'react-icons/fa'
+import ProgressStepper from '../../components/ProgressStepper'
 
 interface TokenizeFormPageProps {}
 
@@ -36,6 +37,11 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
         title={market === Market.INVALID ? 'Tokenize' : `Tokenize ${marketToReadable(market)} Form`}
         className="mb-md"
       />
+
+      <div className="flex justify-center">
+        <ProgressStepper currentStep={1} completedStep={0} stepLabels={TOKENIZE_STEP_LABELS} />
+      </div>
+
       <TitleSubSection>
         <div className="flex items-center">
           {market === Market.GITHUB && <FaGithub />}

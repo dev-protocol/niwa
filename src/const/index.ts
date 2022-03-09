@@ -25,3 +25,5 @@ export const DEPLOYMENTS = {
   polygon_mumbai: 'https://polygon-mumbai.niwa.xyz',
   polygon_mainnet: 'https://polygon.niwa.xyz'
 }
+
+export const TOKENIZE_STEP_LABELS = ['Select Market', 'Enter Token Details', 'Create Token'] as const
