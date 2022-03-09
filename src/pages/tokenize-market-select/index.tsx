@@ -5,6 +5,8 @@ import TokenizeLink from './TokenizeLink'
 import { FaDiscord, FaGithub, FaLightbulb, FaTwitter, FaYoutube } from 'react-icons/fa'
 import TitleSubSection from '../../components/TitleSubSection'
 import { TokenizeContext } from '../../context/tokenizeContext'
+import ProgressStepper from '../../components/ProgressStepper'
+import { TOKENIZE_STEP_LABELS } from '../../const'
 
 interface TokenizeMarketSelectProps {}
 
@@ -19,6 +21,10 @@ const TokenizeMarketSelect: FunctionComponent<TokenizeMarketSelectProps> = () =>
     <div>
       <BackButton title="Home" path="/" />
       <DPLTitleBar title="Create New Token" className="mb-md" />
+      <div className="flex justify-center">
+        <ProgressStepper currentStep={0} completedStep={-1} stepLabels={TOKENIZE_STEP_LABELS} />
+      </div>
+
       <TitleSubSection>
         <h2>Tokenize Your Project</h2>
       </TitleSubSection>

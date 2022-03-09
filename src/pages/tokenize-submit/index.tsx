@@ -2,13 +2,14 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 import { FunctionComponent, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
-import { Market } from '../../const'
+import { Market, TOKENIZE_STEP_LABELS } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, marketToReadable } from '../../utils/utils'
 import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeResult from './TokenizeResult'
 import TokenizePreviewSubmit from './TokenizePreviewSubmit'
+import ProgressStepper from '../../components/ProgressStepper'
 
 interface TokenizeSubmitProps {}
 
@@ -95,6 +96,10 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
         path={market === Market.INVALID ? '/tokenize' : `/tokenize/${marketToReadable(market).toLowerCase()}`}
       />
       <DPLTitleBar title="Tokenize" className="mb-md" />
+
+      <div className="flex justify-center">
+        <ProgressStepper currentStep={2} completedStep={newPropertyAddress ? 2 : 1} stepLabels={TOKENIZE_STEP_LABELS} />
+      </div>
 
       {!isLoading && !error && !newPropertyAddress && (
         <TokenizePreviewSubmit

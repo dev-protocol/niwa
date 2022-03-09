@@ -1,0 +1,19 @@
+.md-step:first-child .md-step-bar-left,
+.md-step:last-child .md-step-bar-right {
+  display: none;
+}
+
+.md-step .md-step-bar-left,
+.md-step .md-step-bar-right {
+  top: 36px;
+}
+.md-step .md-step-bar-right {
+  right: 0;
+  left: 50%;
+  margin-left: 20px;
+}
+.md-step .md-step-bar-left {
+  left: 0;
+  right: 50%;
+  margin-right: 20px;
+}
