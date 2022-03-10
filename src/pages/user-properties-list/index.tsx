@@ -9,6 +9,7 @@ import { useUserPropertiesList } from './fetchUserProperties.hook'
 import { crunchAddress } from '../../utils/utils'
 import Card from '../../components/Card'
 import { NavTabItem, NavTabs } from '../../components/NavTabs'
+import CopyButton from '../../components/CopyButton'
 
 interface UserPropertiesListPageProps {
   // Props
@@ -21,7 +22,12 @@ const UserPropertiesListPage: React.FC<UserPropertiesListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar className="mb-sm" title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+      <DPLTitleBar title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+      <div className="items-align mb-sm flex">
+        <span className="mr-1 text-sm font-bold text-gray-400">{userAddress}</span>
+        <CopyButton textToCopy={userAddress ?? ''} />
+      </div>
+
       <NavTabs>
         <NavTabItem title="Properties" path={`#`} />
         <NavTabItem title="Positions" path={`/${userAddress}/positions`} />

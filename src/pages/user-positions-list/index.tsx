@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import Card from '../../components/Card'
+import CopyButton from '../../components/CopyButton'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import { NavTabItem, NavTabs } from '../../components/NavTabs'
 import { SectionLoading } from '../../components/Spinner'
@@ -41,7 +42,13 @@ const UserPositionsListPage: React.FC<UserPositionsListPageProps> = () => {
   return (
     <div>
       <BackButton title="Home" path="/" />
-      <DPLTitleBar className="mb-sm" title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+      <DPLTitleBar title={`Address: ${userAddress ? crunchAddress(userAddress) : ''}`} />
+
+      <div className="items-align mb-sm flex">
+        <span className="mr-1 text-sm font-bold text-gray-400">{userAddress}</span>
+        <CopyButton textToCopy={userAddress ?? ''} />
+      </div>
+
       <NavTabs>
         <NavTabItem title="Properties" path={`/${userAddress}`} />
         <NavTabItem title="Positions" path={`#`} />
