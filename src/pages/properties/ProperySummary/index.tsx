@@ -5,6 +5,7 @@ import { PropertyDetails } from '../../../hooks/usePropertyDetails'
 import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../../utils/utils'
 import DPLTitleBar from '../../../components/DPLTitleBar'
 import { NavTabItem, NavTabs } from '../../../components/NavTabs'
+import CopyButton from '../../../components/CopyButton'
 
 interface PropertySummaryHeadProps {
   propertyDetails: PropertyDetails
@@ -18,7 +19,10 @@ const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetai
         <DPLTitleBar title={propertyDetails?.propertySymbol ?? ''} />
         {/* <FaShareAlt color="lightgray" /> */}
       </div>
-      <div className="text-sm font-bold text-gray-400">{hash}</div>
+      <div className="items-align flex">
+        <span className="mr-1 text-sm font-bold text-gray-400">{hash}</span>
+        <CopyButton textToCopy={hash} />
+      </div>
       <div className="flex justify-between">
         <div className="flex items-center">
           {propertyDetails.market === Market.GITHUB && (
