@@ -122,6 +122,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
             errorMessage={error}
             isLoading={isLoading}
             market={market}
+            tokenSymbol={tokenSymbol}
           />
         </div>
       )}
