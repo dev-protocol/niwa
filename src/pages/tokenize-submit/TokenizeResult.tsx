@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import HSButton from '../../components/HSButton'
 import { SectionLoading } from '../../components/Spinner'
 import { Market } from '../../const'
+import { useAddToWalletList } from '../../hooks/useAddToWalletList'
 
 interface TokenizeResultProps {
   isLoading: boolean
@@ -18,39 +19,18 @@ const TokenizeResult: React.FC<TokenizeResultProps> = ({
   market,
   tokenSymbol
 }) => {
-  const addToWalletList = useCallback(async () => {
-    const tokenDecimals = 18
+  const { addToWalletList } = useAddToWalletList()
 
-    try {
-      if (!window.ethereum) {
-        return
-      }
-
-      window.ethereum.request({
-        method: 'wallet_watchAsset',
-        params: {
-          type: 'ERC20', // Initially only supports ERC20, but eventually more!
-          options: {
-            address: newPropertyAddress, // The address that the token is at.
-            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
-            decimals: tokenDecimals // The number of decimals in the token
-          }
-        }
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }, [tokenSymbol, newPropertyAddress])
-
-  useEffect(() => {
+  const addToUserWallet = useCallback(async () => {
     if (!newPropertyAddress || (newPropertyAddress && newPropertyAddress === '')) {
       return
     }
+    addToWalletList(tokenSymbol, newPropertyAddress)
+  }, [tokenSymbol, newPropertyAddress, addToWalletList])
 
-    addToWalletList()
-
-    // add to wallet list
-  }, [addToWalletList, newPropertyAddress])
+  useEffect(() => {
+    addToUserWallet()
+  }, [addToUserWallet, newPropertyAddress])
 
   return (
     <>

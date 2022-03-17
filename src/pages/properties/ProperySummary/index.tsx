@@ -6,6 +6,8 @@ import { crunchAddress, deployedNetworkToReadable, getExplorerUrl } from '../../
 import DPLTitleBar from '../../../components/DPLTitleBar'
 import { NavTabItem, NavTabs } from '../../../components/NavTabs'
 import CopyButton from '../../../components/CopyButton'
+import HSButton from '../../../components/HSButton'
+import { useAddToWalletList } from '../../../hooks/useAddToWalletList'
 
 interface PropertySummaryHeadProps {
   propertyDetails: PropertyDetails
@@ -13,11 +15,19 @@ interface PropertySummaryHeadProps {
 }
 
 const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetails, hash }) => {
+  const { addToWalletList } = useAddToWalletList()
+
+  const addToUserWallet = () => {
+    addToWalletList(propertyDetails.propertySymbol, hash)
+  }
+
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="mb-2 flex items-center justify-between">
         <DPLTitleBar title={propertyDetails?.propertySymbol ?? ''} />
-        {/* <FaShareAlt color="lightgray" /> */}
+        <HSButton type="outlined" onClick={addToUserWallet}>
+          <span className="text-sm">+ Add To Wallet List</span>
+        </HSButton>
       </div>
       <div className="items-align flex">
         <span className="mr-1 text-sm font-bold text-gray-400">{hash}</span>
