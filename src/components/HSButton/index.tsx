@@ -27,10 +27,12 @@ const HSButton: React.FC<HSButtonProps> = ({
     switch (type) {
       case 'filled':
         return 'bg-black'
-      case 'outlined':
       case 'danger':
       case 'success':
         return 'bg-white'
+
+      case 'outlined':
+        return 'transparent'
 
       default:
         return 'bg-blue-500'
@@ -56,7 +58,7 @@ const HSButton: React.FC<HSButtonProps> = ({
   const assertBorder = (type: ButtonStyle) => {
     switch (type) {
       case 'outlined':
-        return 'border-blue-500'
+        return 'border-blue-400 border-2 hover:border-blue-700'
       case 'danger':
         return 'border-red-500'
       case 'success':
@@ -75,7 +77,7 @@ const HSButton: React.FC<HSButtonProps> = ({
 
   const ButtonBase = (
     <button
-      className={`${btnStyles.background} ${btnStyles.text} ${btnStyles.border} rounded border px-4 py-2 ${
+      className={`${btnStyles.background} ${btnStyles.text} ${btnStyles.border} rounded border px-4 py-2 shadow ${
         isDisabled ? 'opacity-50' : ''
       }`}
       role="button"
