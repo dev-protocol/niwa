@@ -85,31 +85,12 @@ export function useWalletProviderContext(): IWallet {
     ;(async () => {
       setIsValidConnectedNetwork(false)
       const chainId = (await ethersProvider.getNetwork()).chainId
-      console.log('chain id is: ', chainId)
       if (connectedNetworkMatchesDeployment(chainId)) {
         setIsValidConnectedNetwork(true)
         return
       }
 
       promptWalletNetworkChange(chainId)
-
-      // // completely invalid network. No deployment.
-      // // block wallet and all activities
-      // if (!isValidNetwork(chainId)) {
-      //   setIsValidConnectedNetwork(false)
-      //   return
-      // }
-
-      // // Invalid network BUT deployment may exist
-      // // Redirect to correct deployment if possible
-      // const redirectTo = getDeploymentUrlByChainId(chainId)
-      // if (!redirectTo) {
-      //   setIsValidConnectedNetwork(false)
-      //   return
-      // }
-
-      // window.location.replace(redirectTo)
-      // return
     })()
   }, [ethersProvider])
 
