@@ -36,7 +36,7 @@
     "@devprotocol/khaos-core": "1.6.0",
     "@rollup/plugin-inject": "4.0.4",
     "@types/jest": "27.4.1",
-    "@types/react": "17.0.39",
+    "@types/react": "17.0.41",
     "@types/react-dom": "17.0.13",
     "@typescript-eslint/eslint-plugin": "5.16.0",
     "@typescript-eslint/parser": "5.16.0",
