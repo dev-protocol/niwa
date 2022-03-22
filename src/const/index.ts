@@ -26,4 +26,11 @@ export const DEPLOYMENTS = {
   polygon_mainnet: 'https://polygon.niwa.xyz'
 }
 
+export const NETWORK_RPC_URLS = {
+  arbitrum_rinkeby: 'https://rinkeby.arbitrum.io/rpc',
+  arbitrum_one: 'https://arb1.arbitrum.io/rpc',
+  polygon_mumbai: 'https://rpc-mumbai.maticvigil.com/',
+  polygon_mainnet: 'https://polygon-rpc.com/'
+}
+
 export const TOKENIZE_STEP_LABELS = ['Select Market', 'Enter Token Details', 'Create Token'] as const
