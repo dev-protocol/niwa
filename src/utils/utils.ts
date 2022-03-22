@@ -1,7 +1,7 @@
 import { addresses, marketAddresses } from '@devprotocol/dev-kit'
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { ethers, providers, utils } from 'ethers'
-import { DEPLOYMENTS, Market } from '../const'
+import { DEPLOYMENTS, Market, NETWORK_RPC_URLS } from '../const'
 import { NetworkName } from '@devprotocol/khaos-core'
 import { createPropertyContract } from '@devprotocol/dev-kit/l2'
 import { AssetProperty } from '../hooks/useMetrics'
@@ -179,6 +179,19 @@ export const deployedNetworkToReadable = () => {
   }
 }
 
+export const deployedNetworkToChainId = () => {
+  switch (import.meta.env.VITE_L2_NETWORK) {
+    case 'arbitrum-one':
+      return 42161
+    case 'arbitrum-rinkeby':
+      return 421611
+    case 'polygon-mainnet':
+      return 137
+    case 'polygon-mumbai':
+      return 80001
+  }
+}
+
 export const crunchAddress = (address: string) => {
   return address.length > 6
     ? `${address.substring(2, 6)}...${address.substring(address.length - 4, address.length)}`
@@ -195,6 +208,19 @@ export const getExplorerUrl = () => {
       return 'https://polygonscan.com'
     case 'polygon-mumbai':
       return 'https://mumbai.polygonscan.com'
+  }
+}
+
+export const getRpcUrlByChainId = (chainId: number) => {
+  switch (chainId) {
+    case 421611: // arbitrum testnet
+      return NETWORK_RPC_URLS.arbitrum_rinkeby
+    case 42161: // arbitrum mainnet
+      return NETWORK_RPC_URLS.arbitrum_one
+    case 137: // polygon mainnet
+      return NETWORK_RPC_URLS.polygon_mainnet
+    case 80001: // polygon testnet
+      return NETWORK_RPC_URLS.polygon_mumbai
   }
 }
 
