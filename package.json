@@ -51,7 +51,7 @@
     "prettier": "2.6.1",
     "prettier-plugin-tailwindcss": "0.1.8",
     "typescript": "4.6.3",
-    "vite": "2.8.6",
+    "vite": "2.9.1",
     "vite-plugin-markdown": "2.0.2",
     "vitest": "0.7.10"
   },
