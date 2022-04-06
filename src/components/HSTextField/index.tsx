@@ -27,7 +27,7 @@ const HSTextField: React.FC<HSTextFieldProps> = ({
   const inputClasses = 'border border-gray-300 rounded py-2 px-sm'
 
   return (
-    <label className={`flex flex-col hs-text-field${isError ? ' danger' : ''}`}>
+    <label className={`flex flex-col ${isError ? ' danger' : ''}`}>
       <span className="mb-2 font-bold">
         {label} {isRequired && <span className="ml-xs text-danger-400">*</span>}
       </span>

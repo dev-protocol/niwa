@@ -83,6 +83,7 @@ const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetai
         <NavTabItem title="Details" path={`/properties/${hash}`} />
         <NavTabItem title="Holders" path={`/properties/${hash}/holders`} />
         <NavTabItem title="Stakers" path={`/properties/${hash}/stakers`} />
+        <NavTabItem title="Dev For Apps" path={`/properties/${hash}/dev-for-apps`} />
       </NavTabs>
     </>
   )

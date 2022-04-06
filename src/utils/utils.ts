@@ -126,6 +126,7 @@ export const isError = (err: unknown): err is Error => err instanceof Error
 
 export const infuraBaseEndpoint = import.meta.env.VITE_INFURA_BASE_ENDPOINT
 export const infuraProjectId = import.meta.env.VITE_INFURA_PROJECT_ID
+export const strapiEndpoint = import.meta.env.VITE_STRAPI_ENDPOINT
 
 export const infuraEndpoint = () =>
   infuraBaseEndpoint && infuraProjectId ? `${infuraBaseEndpoint}/${infuraProjectId}` : undefined
