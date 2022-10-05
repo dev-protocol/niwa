@@ -20,14 +20,12 @@ export const FORM_HINT = {
 } as const
 
 export const DEPLOYMENTS = {
-  arbitrum_rinkeby: 'https://arbitrum-rinkeby.niwa.xyz',
   arbitrum_one: 'https://arbitrum.niwa.xyz',
   polygon_mumbai: 'https://polygon-mumbai.niwa.xyz',
   polygon_mainnet: 'https://polygon.niwa.xyz'
 }
 
 export const NETWORK_RPC_URLS = {
-  arbitrum_rinkeby: 'https://rinkeby.arbitrum.io/rpc',
   arbitrum_one: 'https://arb1.arbitrum.io/rpc',
   polygon_mumbai: 'https://rpc-mumbai.maticvigil.com/',
   polygon_mainnet: 'https://polygon-rpc.com/'

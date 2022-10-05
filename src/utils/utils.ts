@@ -40,7 +40,6 @@ export const marketToReadable = (market: UndefinedOr<Market>): string => {
 
 export const isValidNetwork = (chainId: UndefinedOr<number>) => {
   switch (chainId) {
-    case 421611: // arbitrum testnet
     case 42161: // arbitrum mainnet
     case 137: // polygon mainnet
     case 80001: // polygon testnet
@@ -54,8 +53,6 @@ export const isValidNetwork = (chainId: UndefinedOr<number>) => {
 export const mapProviderToDevContracts = async (provider: ethers.providers.BaseProvider) => {
   const network = await provider.getNetwork()
   switch (network.chainId) {
-    case 421611: // // arbitrum testnet
-      return addresses.arbitrum.rinkeby
     case 42161: // arbitrum mainnet
       return addresses.arbitrum.one
     case 137: // polygon mainnet
@@ -78,8 +75,6 @@ export const getNetworkMarketAddresses = async (
 ): Promise<UndefinedOr<MarketAddressOptions>> => {
   const network = await provider.getNetwork()
   switch (network.chainId) {
-    case 421611: // // arbitrum testnet
-      return marketAddresses.arbitrum.rinkeby
     case 42161: // arbitrum mainnet
       return marketAddresses.arbitrum.one
     case 137: // polygon mainnet
@@ -109,8 +104,6 @@ export const selectMarketAddressOption = (market: Market, options: MarketAddress
 
 export const getValidNetworkName = (chainId: number): UndefinedOr<NetworkName> => {
   switch (chainId) {
-    case 421611: // // arbitrum testnet
-      return 'arbitrum-rinkeby'
     case 42161: // arbitrum mainnet
       return 'arbitrum-one'
     case 137: // polygon mainnet
@@ -150,8 +143,6 @@ export const connectedNetworkMatchesDeployment = (chainId: number) => {
 
 export const getDeploymentUrlByChainId = (chainId: number): UndefinedOr<string> => {
   switch (chainId) {
-    case 421611: // arbitrum testnet
-      return DEPLOYMENTS.arbitrum_rinkeby
     case 42161: // arbitrum mainnet
       return DEPLOYMENTS.arbitrum_one
     case 137: // polygon mainnet
@@ -168,9 +159,6 @@ export const deployedNetworkToReadable = () => {
     case 'arbitrum-one':
       return 'Arbitrum'
 
-    case 'arbitrum-rinkeby':
-      return 'Arbitrum Rinkeby'
-
     case 'polygon-mainnet':
       return 'Polygon'
 
@@ -183,8 +171,6 @@ export const deployedNetworkToChainId = () => {
   switch (import.meta.env.VITE_L2_NETWORK) {
     case 'arbitrum-one':
       return 42161
-    case 'arbitrum-rinkeby':
-      return 421611
     case 'polygon-mainnet':
       return 137
     case 'polygon-mumbai':
@@ -202,8 +188,6 @@ export const getExplorerUrl = () => {
   switch (import.meta.env.VITE_L2_NETWORK) {
     case 'arbitrum-one':
       return 'https://explorer.arbitrum.io'
-    case 'arbitrum-rinkeby':
-      return 'https://rinkeby-explorer.arbitrum.io'
     case 'polygon-mainnet':
       return 'https://polygonscan.com'
     case 'polygon-mumbai':
@@ -213,8 +197,6 @@ export const getExplorerUrl = () => {
 
 export const getRpcUrlByChainId = (chainId: number) => {
   switch (chainId) {
-    case 421611: // arbitrum testnet
-      return NETWORK_RPC_URLS.arbitrum_rinkeby
     case 42161: // arbitrum mainnet
       return NETWORK_RPC_URLS.arbitrum_one
     case 137: // polygon mainnet
@@ -228,8 +210,6 @@ export const getMajorDexUrl = () => {
   switch (import.meta.env.VITE_L2_NETWORK) {
     case 'arbitrum-one':
       return 'https://app.uniswap.org/#/swap?chain=arbitrum'
-    case 'arbitrum-rinkeby':
-      return undefined
     case 'polygon-mainnet':
       return 'https://quickswap.exchange/#/swap?outputCurrency=0xA5577D1cec2583058A6Bd6d5DEAC44797c205701'
     case 'polygon-mumbai':

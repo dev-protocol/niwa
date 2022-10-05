@@ -31,12 +31,6 @@ const NetworkSelectPage: React.FC<NetworkSelectPageProps> = () => {
           isExternal={true}
         />
         <HomeNavItem
-          title="Arbitrum Testnet"
-          path="https://arbitrum-rinkeby.niwa.xyz/"
-          message="Explore tokenizing your project on the Arbitrum Testnet"
-          isExternal={true}
-        />
-        <HomeNavItem
           title="Polygon Testnet"
           path="https://polygon-mumbai.niwa.xyz/"
           message="Explore tokenizing your project on the Polygon Testnet"
