@@ -41,9 +41,6 @@ const Footer: React.FC<FooterProps> = () => {
             </ul>
             <ul className="text-sm">
               <p className="text-md font-bold">Testnet</p>
-              <li>
-                <a href={DEPLOYMENTS.arbitrum_rinkeby}>Arbitrum Rinkeby</a>
-              </li>
               <li className="text-sm">
                 <a href={DEPLOYMENTS.polygon_mumbai}>Polygon Mumbai</a>
               </li>
