@@ -7,9 +7,11 @@ import { isValidNetwork } from '../../utils/utils'
 import TermsCheckBox from './TermsCheckBox'
 import { FORM_HINT } from '../../const'
 
-interface GithubFormProps {}
+interface GithubFormProps {
+  isPopup: boolean
+}
 
-const GithubForm: FunctionComponent<GithubFormProps> = () => {
+const GithubForm: FunctionComponent<GithubFormProps> = ({ isPopup }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -32,7 +34,7 @@ const GithubForm: FunctionComponent<GithubFormProps> = () => {
       return
     }
 
-    navigate('/tokenize/github/preview')
+    navigate(isPopup ? '/tokenize/github/preview?popup=true' : '/tokenize/github/preview')
   }
 
   return (

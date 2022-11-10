@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { Market, TOKENIZE_STEP_LABELS } from '../../const'
-import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import { getMarketFromString, marketToReadable, useQuery } from '../../utils/utils'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import GithubForm from './GithubForm'
 import YouTubeForm from './YouTubeForm'
@@ -18,6 +18,11 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   const params = useParams()
   const navigate = useNavigate()
   const [market, setMarket] = useState<UndefinedOr<Market>>()
+
+  const { search, hash } = useLocation()
+  const target = search ? search : hash
+  const queryParams = useQuery(target)
+  const isPopup = Boolean(queryParams.popup)
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -50,9 +55,9 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
           <span className="ml-1">{marketToReadable(market)} Project Information</span>
         </div>
       </TitleSubSection>
-      {market === Market.GITHUB && <GithubForm />}
-      {market === Market.YOUTUBE && <YouTubeForm />}
-      {market === Market.DISCORD && <DiscordForm />}
+      {market === Market.GITHUB && <GithubForm isPopup={isPopup} />}
+      {market === Market.YOUTUBE && <YouTubeForm isPopup={isPopup} />}
+      {market === Market.DISCORD && <DiscordForm isPopup={isPopup} />}
     </div>
   )
 }

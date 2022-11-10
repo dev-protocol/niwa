@@ -4,28 +4,17 @@ import useSWR from 'swr'
 import { Market } from '../../const'
 import HSButton from '../../components/HSButton'
 import { TokenizeContext } from '../../context/tokenizeContext'
-import { getMarketFromString } from '../../utils/utils'
+import { getMarketFromString, useQuery } from '../../utils/utils'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 interface AuthCallbackPageProps {}
-
-interface QueryString {
-  [key: string]: string
-}
 
 const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const params = useParams()
   const [error, setError] = useState<UndefinedOr<string>>()
   const { search, hash } = useLocation()
   const target = search ? search : hash
-  const queryParams = target
-    .slice(1)
-    .split('&')
-    .map(str => [str.split('=')[0], str.split('=')[1]])
-    .reduce((acc, a) => {
-      acc[a[0]] = a[1]
-      return acc
-    }, {} as QueryString)
+  const queryParams = useQuery(target)
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
   const [market, setMarket] = useState<UndefinedOr<Market>>()

@@ -7,9 +7,11 @@ import TermsCheckBox from './TermsCheckBox'
 import gLogo from '../../img/g-logo.png'
 import { FORM_HINT } from '../../const'
 
-interface YouTubeFormProps {}
+interface YouTubeFormProps {
+  isPopup: boolean
+}
 
-const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
+const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -40,7 +42,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = () => {
     if (!isValid) {
       return
     }
-    navigate('/tokenize/youtube/preview')
+    navigate(isPopup ? '/tokenize/youtube/preview?popup=true' : '/tokenize/youtube/preview')
   }
 
   return (
