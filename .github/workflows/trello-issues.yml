@@ -10,7 +10,7 @@ jobs:
     name: Create Trello Card
     steps:
       - name: Call trello-github-actions
-        uses: Yleisradio/github-action-trello-integration@v1.1.0
+        uses: Yleisradio/github-action-trello-integration@v1.1.1
         with:
           action: issue_opened_create_card
         env:
