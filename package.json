@@ -10,7 +10,7 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@devprotocol/dev-kit": "6.0.9",
+    "@devprotocol/dev-kit": "6.10.0",
     "@devprotocol/khaos-kit": "^1.4.0",
     "@devprotocol/util-ts": "^2.2.1",
     "@metamask/detect-provider": "^1.2.0",

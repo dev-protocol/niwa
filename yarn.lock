@@ -386,16 +386,16 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@devprotocol/dev-kit@6.0.9":
-  version "6.0.9"
-  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-6.0.9.tgz#159f72a1e43e62c7c87c66fd7fc048e5fbc59ddf"
-  integrity sha512-anFbBmO8zRFa88GyAtsUBygF6JnNSTyZ9JV54x6Mci+gKfKkm1RvaPBrEatCZaLwHcw0qMgDG8ucBnjggEVhNg==
+"@devprotocol/dev-kit@6.10.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@devprotocol/dev-kit/-/dev-kit-6.10.0.tgz#4599812a4f588d7892ced821857094f56f023710"
+  integrity sha512-gb4W8t2VohdukHZlsszZ6u3KjEk106MJpO6vXt5E0E0webYoimzqfWuT5cCcI1UcphKJnyN3Lz22O8P4T4bgcA==
   dependencies:
     "@devprotocol/util-ts" "^2.2.1"
     "@types/bent" "^7.3.1"
     async-ray "^3.2.0"
     bent "^7.3.12"
-    bignumber.js "9.0.2"
+    bignumber.js "9.1.0"
     js-base64 "^3.7.2"
     ramda "^0.28.0"
 
@@ -2470,7 +2470,12 @@ bent@7.3.12, bent@^7.3.12:
     caseless "~0.12.0"
     is-stream "^2.0.0"
 
-bignumber.js@9.0.2, bignumber.js@^9.0.0:
+bignumber.js@9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.0.tgz#8d340146107fe3a6cb8d40699643c302e8773b62"
+  integrity sha512-4LwHK4nfDOraBCtst+wOWIHbu1vhvAPJK8g8nROd4iuc3PSEjWif/qwbkh8jwCJz6yDBvtU4KPynETgrfh7y3A==
+
+bignumber.js@^9.0.0:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.2.tgz#71c6c6bed38de64e24a65ebe16cfcf23ae693673"
   integrity sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw==
