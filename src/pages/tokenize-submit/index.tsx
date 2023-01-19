@@ -89,7 +89,7 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
     setIsLoading(false)
 
     if (isPopup) {
-      window.opener.postMessage({ address: propertyAddress })
+      window.opener.postMessage({ address: propertyAddress }, '*')
       window.close()
     }
   }
