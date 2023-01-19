@@ -17,6 +17,7 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
   const [market, setMarket] = useState<UndefinedOr<Market>>()
+  const isPopup = Boolean(queryParams.popup)
 
   const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
   const swrOptions = {
@@ -86,7 +87,7 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
 
     setAssetName(youtubeData.pop().channelId)
     setPersonalAccessToken(accessToken)
-    return navigate(`/tokenize/youtube`)
+    return navigate(isPopup ? `/tokenize/youtube?popup=true` : `/tokenize/youtube`)
   }, [
     params,
     navigate,
@@ -97,7 +98,8 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     setPersonalAccessToken,
     accessToken,
     verifyData,
-    setAssetName
+    setAssetName,
+    isPopup
   ])
 
   return (
