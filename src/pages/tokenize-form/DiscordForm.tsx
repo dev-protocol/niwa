@@ -29,8 +29,11 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
   const onAuthDiscordAccount = () => {
     const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
     const redirectUri = encodeURI((import.meta.env.VITE_DISCORD_AUTH_REDIRECT_URI as string) || '')
+
     const scope = encodeURI('guilds')
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&prompt=consent`
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${
+      isPopup ? `${redirectUri}?popup=true` : redirectUri
+    }&scope=${scope}&response_type=code&prompt=consent`
 
     window.location.assign(url)
   }

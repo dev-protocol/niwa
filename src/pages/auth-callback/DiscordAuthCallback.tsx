@@ -18,6 +18,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
   const [market, setMarket] = useState<UndefinedOr<Market>>()
+  const isPopup = Boolean(queryParams.popup)
 
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
   const clientSecret = import.meta.env.VITE_DISCORD_CLIENT_SECRET
@@ -110,7 +111,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     if (!assetName) {
       return setError('select guild')
     }
-    return navigate(`/tokenize/discord`)
+    return navigate(isPopup ? '/tokenize/discord?popup=true' : '/tokenize/discord')
   }
 
   return (
