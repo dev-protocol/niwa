@@ -1,10 +1,10 @@
 import { UndefinedOr } from '@devprotocol/util-ts'
 import { FunctionComponent, useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import { Market, TOKENIZE_STEP_LABELS } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
-import { getMarketFromString, marketToReadable } from '../../utils/utils'
+import { getMarketFromString, marketToReadable, useQuery } from '../../utils/utils'
 import { useCreateAndAuthenticate, useCreateKhaosPubSign } from './tokenize-submit.hooks'
 import DPLTitleBar from '../../components/DPLTitleBar'
 import TokenizeResult from './TokenizeResult'
@@ -24,6 +24,10 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
     useContext(TokenizeContext)
   const { createKhaosPubSign, error: khaosError } = useCreateKhaosPubSign()
   const { createAndAuthenticate, error: tokenizeError } = useCreateAndAuthenticate()
+  const { search, hash } = useLocation()
+  const target = search ? search : hash
+  const queryParams = useQuery(target)
+  const isPopup = Boolean(queryParams.popup)
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -83,6 +87,11 @@ const TokenizeSubmit: FunctionComponent<TokenizeSubmitProps> = () => {
     }
     setNewPropertyAddress(propertyAddress)
     setIsLoading(false)
+
+    if (isPopup) {
+      window.opener.postMessage({ address: propertyAddress })
+      window.close()
+    }
   }
 
   const submitDisabled = () => {

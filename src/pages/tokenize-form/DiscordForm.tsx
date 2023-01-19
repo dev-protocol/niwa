@@ -6,9 +6,11 @@ import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
 import { FORM_HINT } from '../../const'
 
-interface DiscordFormProps {}
+interface DiscordFormProps {
+  isPopup: boolean
+}
 
-const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
+const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -37,7 +39,7 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = () => {
     if (!isValid) {
       return
     }
-    navigate('/tokenize/discord/preview')
+    navigate(isPopup ? '/tokenize/discord/preview?popup=true' : '/tokenize/discord/preview')
   }
 
   return (
