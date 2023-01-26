@@ -31,9 +31,11 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
     const redirectUri = encodeURI((import.meta.env.VITE_DISCORD_AUTH_REDIRECT_URI as string) || '')
 
     const scope = encodeURI('guilds')
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${
-      isPopup ? `${redirectUri}?popup=true` : redirectUri
-    }&scope=${scope}&response_type=code&prompt=consent`
+    const popupState: { isPopup: boolean } = {
+      isPopup
+    }
+    const stateParam = encodeURIComponent(window.btoa(JSON.stringify(popupState)))
+    const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&prompt=consent&state=${stateParam}`
 
     window.location.assign(url)
   }

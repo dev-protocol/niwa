@@ -18,7 +18,10 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
   const [market, setMarket] = useState<UndefinedOr<Market>>()
-  const isPopup = Boolean(queryParams.popup)
+
+  const encodedStateParam: string = queryParams.state
+  const decodedStateParam: { isPopup: boolean } = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
+  const isPopup: boolean = decodedStateParam.isPopup
 
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
   const clientSecret = import.meta.env.VITE_DISCORD_CLIENT_SECRET
@@ -107,6 +110,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const onChange = (v: ChangeEvent<HTMLInputElement>) => {
     setAssetName(v.target.value)
   }
+
   const onSubmit = () => {
     if (!assetName) {
       return setError('select guild')
