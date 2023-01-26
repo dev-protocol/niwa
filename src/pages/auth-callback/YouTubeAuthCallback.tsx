@@ -17,8 +17,10 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const navigate = useNavigate()
   const [isVerify, setIsVerify] = useState(false)
   const [market, setMarket] = useState<UndefinedOr<Market>>()
-  const isPopup = Boolean(queryParams.popup)
 
+  const encodedStateParam: string = queryParams.state
+  const decodedStateParam: { isPopup: boolean } = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
+  const isPopup: boolean = decodedStateParam.isPopup
   const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
   const swrOptions = {
     revalidateOnFocus: false,
