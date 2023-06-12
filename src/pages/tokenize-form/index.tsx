@@ -23,6 +23,7 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   const target = search ? search : hash
   const queryParams = useQuery(target)
   const isPopup = Boolean(queryParams.popup)
+  const allowAccess = Boolean(queryParams.allowAccess)
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -38,9 +39,11 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   /**
    * Temporarily redirects to Airtable for KYC
    */
-  // useEffect(() => {
-  //   window.location.href = 'https://airtable.com/shrQod8lRRlTlWOVH'
-  // })
+  useEffect(() => {
+    if (!allowAccess) {
+      window.location.href = 'https://airtable.com/shrQod8lRRlTlWOVH'
+    }
+  })
 
   return (
     <div>
