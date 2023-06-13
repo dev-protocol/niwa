@@ -93,7 +93,7 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     setAssetName(youtubeData.pop().channelId)
     setPersonalAccessToken(accessToken)
 
-    const redirectUri = new URL('/tokenize/youtube')
+    const redirectUri = new URL('/tokenize/youtube', location.origin)
     if (isPopup) {
       redirectUri.searchParams.set('popup', 'true')
     }
