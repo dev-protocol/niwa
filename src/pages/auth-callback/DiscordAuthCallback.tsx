@@ -6,6 +6,7 @@ import HSButton from '../../components/HSButton'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, useQuery } from '../../utils/utils'
 import { UndefinedOr } from '@devprotocol/util-ts'
+import { TokenizeWindowState } from '../../types/TokenizeWindowState'
 
 interface AuthCallbackPageProps {}
 
@@ -20,8 +21,8 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const [market, setMarket] = useState<UndefinedOr<Market>>()
 
   const encodedStateParam: string = queryParams.state
-  const decodedStateParam: { isPopup: boolean } = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
-  const isPopup: boolean = decodedStateParam.isPopup
+  const decodedStateParam: TokenizeWindowState = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
+  const { isPopup, allowAccess } = decodedStateParam
 
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
   const clientSecret = import.meta.env.VITE_DISCORD_CLIENT_SECRET
@@ -115,7 +116,17 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     if (!assetName) {
       return setError('select guild')
     }
-    return navigate(isPopup ? '/tokenize/discord?popup=true' : '/tokenize/discord')
+
+    const redirectUri = new URL('/tokenize/discord')
+    if (isPopup) {
+      redirectUri.searchParams.set('popup', 'true')
+    }
+
+    if (allowAccess) {
+      redirectUri.searchParams.set('allowAccess', 'true')
+    }
+
+    return navigate(redirectUri)
   }
 
   return (

@@ -5,6 +5,7 @@ import { Market } from '../../const'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import { getMarketFromString, useQuery } from '../../utils/utils'
 import { UndefinedOr } from '@devprotocol/util-ts'
+import { TokenizeWindowState } from '../../types/TokenizeWindowState'
 
 interface AuthCallbackPageProps {}
 
@@ -19,8 +20,10 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const [market, setMarket] = useState<UndefinedOr<Market>>()
 
   const encodedStateParam: string = queryParams.state
-  const decodedStateParam: { isPopup: boolean } = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
-  const isPopup: boolean = decodedStateParam.isPopup
+  const decodedStateParam: TokenizeWindowState = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
+
+  const { isPopup, allowAccess } = decodedStateParam
+
   const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
   const swrOptions = {
     revalidateOnFocus: false,
@@ -89,7 +92,17 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
 
     setAssetName(youtubeData.pop().channelId)
     setPersonalAccessToken(accessToken)
-    return navigate(isPopup ? `/tokenize/youtube?popup=true` : `/tokenize/youtube`)
+
+    const redirectUri = new URL('/tokenize/youtube')
+    if (isPopup) {
+      redirectUri.searchParams.set('popup', 'true')
+    }
+
+    if (allowAccess) {
+      redirectUri.searchParams.set('allowAccess', 'true')
+    }
+
+    return navigate(redirectUri)
   }, [
     params,
     navigate,
@@ -101,7 +114,8 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     accessToken,
     verifyData,
     setAssetName,
-    isPopup
+    isPopup,
+    allowAccess
   ])
 
   return (
