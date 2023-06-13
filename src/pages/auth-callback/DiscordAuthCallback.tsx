@@ -117,7 +117,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
       return setError('select guild')
     }
 
-    const redirectUri = new URL('/tokenize/discord')
+    const redirectUri = new URL('/tokenize/discord', location.origin)
     if (isPopup) {
       redirectUri.searchParams.set('popup', 'true')
     }
