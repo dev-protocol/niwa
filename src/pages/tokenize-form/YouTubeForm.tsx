@@ -6,12 +6,14 @@ import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
 import gLogo from '../../img/g-logo.png'
 import { FORM_HINT } from '../../const'
+import { TokenizeWindowState } from '../../types/TokenizeWindowState'
 
 interface YouTubeFormProps {
   isPopup: boolean
+  allowAccess: boolean
 }
 
-const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup }) => {
+const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -33,11 +35,11 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup }) => {
     const scope = encodeURI(
       'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.email'
     )
-
-    const popupState: { isPopup: boolean } = {
-      isPopup
+    const tokenizePageState: TokenizeWindowState = {
+      isPopup,
+      allowAccess
     }
-    const stateParam = encodeURIComponent(window.btoa(JSON.stringify(popupState)))
+    const stateParam = encodeURIComponent(window.btoa(JSON.stringify(tokenizePageState)))
     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&state=${stateParam}`
 
     window.location.assign(url)

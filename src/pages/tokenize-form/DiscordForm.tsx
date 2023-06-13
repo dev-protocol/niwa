@@ -5,12 +5,14 @@ import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import TermsCheckBox from './TermsCheckBox'
 import { FORM_HINT } from '../../const'
+import { TokenizeWindowState } from '../../types/TokenizeWindowState'
 
 interface DiscordFormProps {
   isPopup: boolean
+  allowAccess: boolean
 }
 
-const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
+const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup, allowAccess }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -31,10 +33,11 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
     const redirectUri = encodeURI((import.meta.env.VITE_DISCORD_AUTH_REDIRECT_URI as string) || '')
 
     const scope = encodeURI('guilds')
-    const popupState: { isPopup: boolean } = {
-      isPopup
+    const tokenizePageState: TokenizeWindowState = {
+      isPopup,
+      allowAccess
     }
-    const stateParam = encodeURIComponent(window.btoa(JSON.stringify(popupState)))
+    const stateParam = encodeURIComponent(window.btoa(JSON.stringify(tokenizePageState)))
     const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&prompt=consent&state=${stateParam}`
 
     window.location.assign(url)
