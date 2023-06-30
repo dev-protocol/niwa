@@ -10,6 +10,8 @@ import { TokenizeWindowState } from '../../types/TokenizeWindowState'
 
 interface AuthCallbackPageProps {}
 
+const REQUIRED_PERMISSIONS = 8 // Administrator
+
 const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => {
   const params = useParams()
   const [error, setError] = useState<UndefinedOr<string>>()
@@ -74,8 +76,8 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
       }).then((res: any) => {
         const data = res.json()
         return data.then((datas: any) => {
-          const ownerGuilds = datas.filter((d: any) => d.owner)
-          return ownerGuilds
+          const usableGuilds = datas.filter((d: any) => (REQUIRED_PERMISSIONS & d.permissions) === REQUIRED_PERMISSIONS)
+          return usableGuilds
         })
       })
     },
