@@ -39,11 +39,11 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   /**
    * Temporarily redirects to Airtable for KYC
    */
-  // useEffect(() => {
-  //   if (!allowAccess) {
-  //     window.location.href = 'https://airtable.com/shrQod8lRRlTlWOVH'
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (!allowAccess) {
+      window.location.href = 'https://airtable.com/shrQod8lRRlTlWOVH'
+    }
+  }, [])
 
   return (
     <div>
