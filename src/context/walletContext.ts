@@ -1,8 +1,14 @@
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react'
-import { providers } from 'ethers'
+import { providers, utils } from 'ethers'
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { connectedNetworkMatchesDeployment, infuraEndpoint } from '../utils/utils'
-import { useSwitchNetwork } from 'wagmi'
+import {
+  connectedNetworkMatchesDeployment,
+  deployedNetworkToChainId,
+  deployedNetworkToReadable,
+  getExplorerUrl,
+  getRpcUrlByChainId,
+  infuraEndpoint
+} from '../utils/utils'
 
 export interface IWallet {
   ethersProvider?: providers.Web3Provider
@@ -23,13 +29,59 @@ export const wallet: IWallet = {
 }
 
 export function useWalletProviderContext(): IWallet {
-  const { error, switchNetwork } = useSwitchNetwork()
   const [ethersProvider, setEthersProvider] = useState<UndefinedOr<providers.Web3Provider>>(undefined)
   const [isValidConnectedNetwork, setIsValidConnectedNetwork] = useState(true)
 
   useEffect(() => {
     if (!ethersProvider) {
       return
+    }
+
+    // pulled from https://docs.metamask.io/guide/rpc-api.html#usage-with-wallet-switchethereumchain
+    const promptWalletNetworkChange = async (chainId: number) => {
+      console.log('promptWalletNetworkChange: ', chainId)
+
+      // Check if MetaMask is installed
+      // MetaMask injects the global API into window.ethereum
+      if (ethersProvider && ethersProvider.provider && ethersProvider.provider.request) {
+        try {
+          // check if the chain to connect to is installed
+          await ethersProvider.provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: `${utils.hexValue(deployedNetworkToChainId())}` }] // chainId must be in hexadecimal numbers
+          })
+        } catch (error: any) {
+          console.log('error: ', error)
+          // This error code indicates that the chain has not been added to MetaMask
+          // if it is not, then install it into the user MetaMask
+          if (error.code === 4902) {
+            try {
+              await ethersProvider.provider.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: utils.hexValue(deployedNetworkToChainId()),
+                    chainName: deployedNetworkToReadable(),
+                    nativeCurrency: {
+                      name: chainId === 421611 || chainId === 42161 ? 'Ether' : 'Matic',
+                      symbol: chainId === 421611 || chainId === 42161 ? 'ETH' : 'MATIC', // 2-6 characters long
+                      decimals: 18
+                    },
+                    rpcUrls: [getRpcUrlByChainId(chainId)],
+                    blockExplorerUrls: [getExplorerUrl()]
+                  }
+                ]
+              })
+            } catch (addError) {
+              console.error(addError)
+            }
+          }
+          console.error(error)
+        }
+      } else {
+        // if no window.ethereum then MetaMask is not installed
+        console.error('metamask not installed')
+      }
     }
 
     ;(async () => {
@@ -40,19 +92,9 @@ export function useWalletProviderContext(): IWallet {
         return
       }
 
-      const promptWalletNetworkChange = async (chainId: number) => {
-        console.log('promptWalletNetworkChange: ', chainId)
-        // Check if switchNetwork is available
-        if (switchNetwork) {
-          switchNetwork(chainId)
-        } else {
-          console.error('Network switch not available.', error)
-        }
-      }
-
       promptWalletNetworkChange(chainId)
     })()
-  }, [ethersProvider, error, switchNetwork])
+  }, [ethersProvider])
 
   const context = useMemo(
     () => ({
