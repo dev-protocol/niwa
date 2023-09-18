@@ -11409,10 +11409,10 @@ viem@^1.0.0, viem@^1.10.9:
     isomorphic-ws "5.0.0"
     ws "8.13.0"
 
-vite-plugin-markdown@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-markdown/-/vite-plugin-markdown-2.0.2.tgz#7e8dce8349713e9bda1184f13092d4b87d3672c3"
-  integrity sha512-vNEd/BGpWg4A4h7Pa9bnp80yfi4CARtlPpw7Lx5aDliDoaJUsb7dv/uElc1PqL3H1vcSNbYmbS7N9AiuGoI5Eg==
+vite-plugin-markdown@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-markdown/-/vite-plugin-markdown-2.1.0.tgz#3c90b91eb8c05a5701d944e9948739f514c79af1"
+  integrity sha512-eWLlrWzYZXEX3/HaXZo/KLjRpO72IUhbgaoFrbwB07ueXi6QfwqrgdZQfUcXTSofJCkN7GhErMC1K1RTAE0gGQ==
   dependencies:
     front-matter "^4.0.0"
     htmlparser2 "^6.0.0"
