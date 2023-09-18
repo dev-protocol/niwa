@@ -8,6 +8,7 @@ import { NavTabItem, NavTabs } from '../../../components/NavTabs'
 import CopyButton from '../../../components/CopyButton'
 import HSButton from '../../../components/HSButton'
 import { useAddToWalletList } from '../../../hooks/useAddToWalletList'
+import { useProvider } from '../../../context/walletContext'
 
 interface PropertySummaryHeadProps {
   propertyDetails: PropertyDetails
@@ -15,10 +16,11 @@ interface PropertySummaryHeadProps {
 }
 
 const PropertySummaryHead: React.FC<PropertySummaryHeadProps> = ({ propertyDetails, hash }) => {
+  const { ethersProvider } = useProvider()
   const { addToWalletList } = useAddToWalletList()
 
   const addToUserWallet = () => {
-    addToWalletList(propertyDetails.propertySymbol, hash)
+    addToWalletList(propertyDetails.propertySymbol, hash, ethersProvider)
   }
 
   return (

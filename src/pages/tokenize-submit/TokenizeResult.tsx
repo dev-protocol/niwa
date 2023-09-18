@@ -3,6 +3,7 @@ import HSButton from '../../components/HSButton'
 import { SectionLoading } from '../../components/Spinner'
 import { Market } from '../../const'
 import { useAddToWalletList } from '../../hooks/useAddToWalletList'
+import { useProvider } from '../../context/walletContext'
 
 interface TokenizeResultProps {
   isLoading: boolean
@@ -19,14 +20,15 @@ const TokenizeResult: React.FC<TokenizeResultProps> = ({
   market,
   tokenSymbol
 }) => {
+  const { ethersProvider } = useProvider()
   const { addToWalletList } = useAddToWalletList()
 
   const addToUserWallet = useCallback(async () => {
     if (!newPropertyAddress || (newPropertyAddress && newPropertyAddress === '')) {
       return
     }
-    addToWalletList(tokenSymbol, newPropertyAddress)
-  }, [tokenSymbol, newPropertyAddress, addToWalletList])
+    addToWalletList(tokenSymbol, newPropertyAddress, ethersProvider)
+  }, [tokenSymbol, newPropertyAddress, addToWalletList, ethersProvider])
 
   useEffect(() => {
     addToUserWallet()
