@@ -36,15 +36,6 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
     }
   }, [params, navigate, setMarket, market])
 
-  /**
-   * Temporarily redirects to Airtable for KYC
-   */
-  useEffect(() => {
-    if (!allowAccess) {
-      window.location.href = 'https://airtable.com/shrQod8lRRlTlWOVH'
-    }
-  }, [])
-
   return (
     <div>
       <BackButton title="Select Market" path="/tokenize" />
