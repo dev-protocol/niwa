@@ -23,7 +23,6 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
   const target = search ? search : hash
   const queryParams = useQuery(target)
   const isPopup = Boolean(queryParams.popup)
-  const allowAccess = Boolean(queryParams.allowAccess)
 
   useEffect(() => {
     const _market = getMarketFromString(params.market)
@@ -57,8 +56,8 @@ const TokenizeFormPage: FunctionComponent<TokenizeFormPageProps> = () => {
         </div>
       </TitleSubSection>
       {market === Market.GITHUB && <GithubForm isPopup={isPopup} />}
-      {market === Market.YOUTUBE && <YouTubeForm isPopup={isPopup} allowAccess={allowAccess} />}
-      {market === Market.DISCORD && <DiscordForm isPopup={isPopup} allowAccess={allowAccess} />}
+      {market === Market.YOUTUBE && <YouTubeForm isPopup={isPopup} />}
+      {market === Market.DISCORD && <DiscordForm isPopup={isPopup} />}
     </div>
   )
 }

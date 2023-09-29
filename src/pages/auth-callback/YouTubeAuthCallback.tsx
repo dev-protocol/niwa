@@ -22,7 +22,7 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
   const encodedStateParam: string = queryParams.state
   const decodedStateParam: TokenizeWindowState = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
 
-  const { isPopup, allowAccess } = decodedStateParam
+  const { isPopup } = decodedStateParam
 
   const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
   const swrOptions = {
@@ -98,10 +98,6 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
       redirectUri.searchParams.set('popup', 'true')
     }
 
-    if (allowAccess) {
-      redirectUri.searchParams.set('allowAccess', 'true')
-    }
-
     return navigate(redirectUri)
   }, [
     params,
@@ -114,8 +110,7 @@ const YouTubeAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     accessToken,
     verifyData,
     setAssetName,
-    isPopup,
-    allowAccess
+    isPopup
   ])
 
   return (
