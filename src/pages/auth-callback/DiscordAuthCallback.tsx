@@ -24,7 +24,7 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
 
   const encodedStateParam: string = queryParams.state
   const decodedStateParam: TokenizeWindowState = JSON.parse(window.atob(decodeURIComponent(encodedStateParam)))
-  const { isPopup, allowAccess } = decodedStateParam
+  const { isPopup } = decodedStateParam
 
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
   const clientSecret = import.meta.env.VITE_DISCORD_CLIENT_SECRET
@@ -122,10 +122,6 @@ const DiscordAuthCallbackPage: FunctionComponent<AuthCallbackPageProps> = () => 
     const redirectUri = new URL('/tokenize/discord', location.origin)
     if (isPopup) {
       redirectUri.searchParams.set('popup', 'true')
-    }
-
-    if (allowAccess) {
-      redirectUri.searchParams.set('allowAccess', 'true')
     }
 
     return navigate(redirectUri)

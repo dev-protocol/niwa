@@ -9,10 +9,9 @@ import TermsModal from './TermsModal'
 
 interface DiscordFormProps {
   isPopup: boolean
-  allowAccess: boolean
 }
 
-const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup, allowAccess }) => {
+const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -34,8 +33,7 @@ const DiscordForm: FunctionComponent<DiscordFormProps> = ({ isPopup, allowAccess
 
     const scope = encodeURI('guilds')
     const tokenizePageState: TokenizeWindowState = {
-      isPopup,
-      allowAccess
+      isPopup
     }
     const stateParam = encodeURIComponent(window.btoa(JSON.stringify(tokenizePageState)))
     const url = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&prompt=consent&state=${stateParam}`

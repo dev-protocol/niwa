@@ -10,10 +10,9 @@ import TermsModal from './TermsModal'
 
 interface YouTubeFormProps {
   isPopup: boolean
-  allowAccess: boolean
 }
 
-const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess }) => {
+const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup }) => {
   const navigate = useNavigate()
   const {
     network,
@@ -36,8 +35,7 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess
       'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.email'
     )
     const tokenizePageState: TokenizeWindowState = {
-      isPopup,
-      allowAccess
+      isPopup
     }
     const stateParam = encodeURIComponent(window.btoa(JSON.stringify(tokenizePageState)))
     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&state=${stateParam}`
