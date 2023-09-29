@@ -1,12 +1,12 @@
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
-import TermsCheckBox from './TermsCheckBox'
 import gLogo from '../../img/g-logo.png'
 import { FORM_HINT } from '../../const'
 import { TokenizeWindowState } from '../../types/TokenizeWindowState'
+import TermsModal from './TermsModal'
 
 interface YouTubeFormProps {
   isPopup: boolean
@@ -22,12 +22,12 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess
     setTokenName,
     tokenSymbol,
     setTokenSymbol,
-    agreedToTerms,
     setAgreedToTerms,
     isValid,
     personalAccessToken,
     assetName
   } = useContext(TokenizeContext)
+  const [isTermsModalVisible, setIsTermsModalVisible] = useState(false)
 
   const onAuthYoutubeAccount = () => {
     const clientId = import.meta.env.VITE_YOUTUBE_CLIENT_ID
@@ -49,6 +49,9 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess
     if (!isValid) {
       return
     }
+
+    setAgreedToTerms(true)
+
     navigate(isPopup ? '/tokenize/youtube/preview?popup=true' : '/tokenize/youtube/preview')
   }
 
@@ -99,12 +102,13 @@ const YouTubeForm: FunctionComponent<YouTubeFormProps> = ({ isPopup, allowAccess
               <span className="text-sm">{FORM_HINT.symbol_length}</span>
             </FormField>
           </div>
-          <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
+
           <div className="float-right flex flex-col items-end">
-            <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={onPreview}>
+            <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={() => setIsTermsModalVisible(true)}>
               Preview
             </HSButton>
           </div>
+          <TermsModal visible={isTermsModalVisible} onConfirm={async () => onPreview()} />
         </>
       ) : (
         <div className="flex flex-col">
