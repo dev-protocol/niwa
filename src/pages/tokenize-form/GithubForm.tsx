@@ -1,11 +1,11 @@
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FormField from '../../components/Form'
 import { TokenizeContext } from '../../context/tokenizeContext'
 import HSButton from '../../components/HSButton'
 import { isValidNetwork } from '../../utils/utils'
-import TermsCheckBox from './TermsCheckBox'
 import { FORM_HINT } from '../../const'
+import TermsModal from './TermsModal'
 
 interface GithubFormProps {
   isPopup: boolean
@@ -25,14 +25,17 @@ const GithubForm: FunctionComponent<GithubFormProps> = ({ isPopup }) => {
     setTokenSymbol,
     personalAccessToken,
     setPersonalAccessToken,
-    agreedToTerms,
     setAgreedToTerms
   } = useContext(TokenizeContext)
+
+  const [isTermsModalVisible, setIsTermsModalVisible] = useState(false)
 
   const submit = () => {
     if (!isValid) {
       return
     }
+
+    setAgreedToTerms(true)
 
     navigate(isPopup ? '/tokenize/github/preview?popup=true' : '/tokenize/github/preview')
   }
@@ -110,13 +113,12 @@ const GithubForm: FunctionComponent<GithubFormProps> = ({ isPopup }) => {
         </div>
       </div>
 
-      <TermsCheckBox isChecked={agreedToTerms} setAgreedToTerms={async () => setAgreedToTerms(val => !val)} />
-
       <div className="self-end">
-        <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={submit}>
+        <HSButton context="submit" type="filled" isDisabled={!isValid} onClick={() => setIsTermsModalVisible(true)}>
           Preview
         </HSButton>
       </div>
+      <TermsModal visible={isTermsModalVisible} onConfirm={async () => submit()} />
     </div>
   )
 }

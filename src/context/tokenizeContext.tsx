@@ -102,20 +102,8 @@ export const TokenizeProvider: React.FC = ({ children }) => {
       return
     }
 
-    if (!agreedToTerms) {
-      setIsValid(false)
-      return
-    }
-
     setIsValid(true)
-  }, [
-    assetName.length,
-    tokenName.length,
-    tokenSymbol.length,
-    personalAccessToken.length,
-    agreedToTerms,
-    network?.chainId
-  ])
+  }, [assetName.length, tokenName.length, tokenSymbol.length, personalAccessToken.length, network?.chainId])
 
   useEffect(() => validateForm(), [assetName, tokenName, tokenSymbol, personalAccessToken, validateForm])
 
