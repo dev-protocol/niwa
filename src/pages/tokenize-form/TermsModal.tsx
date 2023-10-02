@@ -13,7 +13,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ onConfirm, visible }) => {
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const target = e.target as HTMLDivElement
-    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight
+    const bottom = target.scrollHeight - target.scrollTop - target.clientHeight < 10
     if (bottom) {
       setAcceptEnabled(true)
     }
