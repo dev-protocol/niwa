@@ -15,7 +15,7 @@ type ConnectButtonParams = {}
 
 const web3ModalProjectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || ''
 const chains = [polygonMumbai, polygon, mainnet]
-const wagmiConfig = defaultWagmiConfig({ chains, projectId: web3ModalProjectId, appName: 'Niwa' })
+const wagmiConfig = defaultWagmiConfig({ chains, projectId: web3ModalProjectId })
 createWeb3Modal({ wagmiConfig, projectId: web3ModalProjectId, chains })
 
 const ConnectButton: React.FC<ConnectButtonParams> = () => {
