@@ -22,7 +22,6 @@ import { Background } from './components/Background'
 import WaitMarketPage from './pages/wait-market'
 import MarkdownPage from './pages/markdown-page'
 import { ReactComponent as PrivacyPolicy } from '../PRIVACY-POLICY.md'
-import { ReactComponent as TermsAndConditions } from '../TERMS-AND-CONDITIONS.md'
 import Footer from './components/Footer'
 import PropertyHoldersPage from './pages/properties/property-holders'
 import PropertyOutlet from './pages/properties'
@@ -30,10 +29,14 @@ import PropertyTabsContainer from './pages/properties/PropertyTabsContainer'
 import AppsPage from './pages/apps'
 import HowItWorksPage from './pages/how-it-works'
 import PropertyStakersPage from './pages/properties/property-stakers'
+import { useTerms } from './hooks/useTerms'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 
 function App() {
   const walletProviderContext = useWalletProviderContext()
   const isRoot = import.meta.env.VITE_IS_ROOT === 'true'
+  const { terms } = useTerms()
 
   return (
     <div className="container mx-auto px-2 font-body">
@@ -50,7 +53,11 @@ function App() {
                     <Route path="/privacy-policy" element={<MarkdownPage>{<PrivacyPolicy />}</MarkdownPage>} />
                     <Route
                       path="/terms-and-conditions"
-                      element={<MarkdownPage>{<TermsAndConditions />}</MarkdownPage>}
+                      element={
+                        <MarkdownPage>
+                          {<ReactMarkdown rehypePlugins={[rehypeRaw]}>{terms}</ReactMarkdown>}
+                        </MarkdownPage>
+                      }
                     />
                     <Route path="/how-it-works" element={<HowItWorksPage />} />
                     <Route path="/*" element={<Navigate to="/" />} />
@@ -95,7 +102,11 @@ function App() {
                         <Route path="/privacy-policy" element={<MarkdownPage>{<PrivacyPolicy />}</MarkdownPage>} />
                         <Route
                           path="/terms-and-conditions"
-                          element={<MarkdownPage>{<TermsAndConditions />}</MarkdownPage>}
+                          element={
+                            <MarkdownPage>
+                              {<ReactMarkdown rehypePlugins={[rehypeRaw]}>{terms}</ReactMarkdown>}
+                            </MarkdownPage>
+                          }
                         />
                         <Route path="/404" element={<PageNotFound />} />
                         <Route path="*" element={<Navigate replace to="/404" />} />
