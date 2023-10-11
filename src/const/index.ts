@@ -32,3 +32,5 @@ export const NETWORK_RPC_URLS = {
 }
 
 export const TOKENIZE_STEP_LABELS = ['Select Market', 'Enter Token Details', 'Create Token'] as const
+
+export const TERMS_OF_SERVICE_URL = 'https://raw.githubusercontent.com/dev-protocol/legal/main/TERMS-OF-USE.md'

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { ReactComponent as TermsAndConditions } from '../../../TERMS-AND-CONDITIONS.md'
 import styles from '../markdown-page/MarkdownPage.module.scss' // Import regular stylesheet
 import HSButton from '../../components/HSButton'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import { useTerms } from '../../hooks/useTerms'
 
 interface TermsModalProps {
   visible: boolean
@@ -10,6 +12,7 @@ interface TermsModalProps {
 
 const TermsModal: React.FC<TermsModalProps> = ({ onConfirm, visible }) => {
   const [acceptEnabled, setAcceptEnabled] = useState(false)
+  const { terms } = useTerms()
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const target = e.target as HTMLDivElement
@@ -29,7 +32,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ onConfirm, visible }) => {
         <div className="relative rounded-lg bg-white shadow">
           <div className="content h-72 overflow-y-scroll p-4" onScroll={handleScroll}>
             <div className={styles.markdown}>
-              <TermsAndConditions />
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{terms}</ReactMarkdown>
             </div>
           </div>
 
