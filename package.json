@@ -17,7 +17,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "@walletconnect/web3-provider": "^1.7.1",
-    "@web3modal/wagmi": "3.0.0-alpha.5",
+    "@web3modal/wagmi": "3.5.7",
     "browserify-zlib": "^0.2.0",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
